@@ -1,0 +1,46 @@
+//.btn {
+//    background-color: rgba(0, 0, 0, .04);
+//    color: black;
+//    padding: 8px 10px;
+//    border-radius: 4px;
+//    user-select: none;
+//    cursor: pointer;
+//    transition: background-color .12s, box-shadow .12s;
+//    &:hover {
+//        background-color: rgba(0, 0, 0, .06);
+//        box-shadow: 0 0 0 3px rgba(0, 0, 0, .12);
+//    }
+//    &:focus {
+//        background-color: rgba(0, 0, 0, .1);
+//        box-shadow: 0 0 0 2px rgba(0, 0, 0, .2);
+//    }
+//}
+
+.btn {
+    margin-top: 4px;
+    margin-left: 6px;
+    padding: 8px 16px;
+    background-color: $primary-color;
+    color: whitesmoke;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.12s, box-shadow 0.12s;
+    &:hover {
+        background-color: darken($primary-color, 4);
+    }
+    &:focus {
+        background-color: darken($primary-color, 12);
+        box-shadow: 0 0 0 3px rgba(69, 140, 233, 0.2);
+    }
+    &.btn-text {
+        background-color: transparent;
+        color: #3480e4;
+        &:hover {
+            background-color: rgba($primary-color, .1)
+        }
+        &:focus {
+            background-color: rgba($primary-color, .2);
+            box-shadow: none;
+        }
+    }
+}

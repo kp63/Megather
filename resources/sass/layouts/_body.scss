@@ -1,0 +1,14 @@
+.page-body {
+    display: table;
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1400px;
+    .body-content {
+        display: table-cell;
+        vertical-align: top;
+    }
+    .inner-body {
+        padding: 0 8px;
+    }
+}

@@ -1,0 +1,7 @@
+.sidebar {
+    display: table-cell;
+    vertical-align: top;
+    table-layout: fixed;
+    width: $sidebar-width;
+    padding-right: 10px;
+}
