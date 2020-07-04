@@ -49724,7 +49724,7 @@ var app = new Vue({
 
       contextmenu.open(e.currentTarget, 2);
     },
-    username_button_click: function username_button_click(e) {
+    usernameButtonClick: function usernameButtonClick(e) {
       contextmenu.set([{
         label: window.__.myProfile,
         href: '/u/' + e.currentTarget.dataset.username
@@ -49742,7 +49742,7 @@ var app = new Vue({
       }]);
       contextmenu.open(e.currentTarget, 8);
     },
-    close_contextmenu: function close_contextmenu() {
+    closeContextMenu: function closeContextMenu() {
       contextmenu.close();
     },
     toggleSidemenuExpand: function toggleSidemenuExpand(ev) {

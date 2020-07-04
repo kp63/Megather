@@ -70,10 +70,10 @@ class PostController extends Controller
 
         $result = Post::create([
             'details' => [
-                'game' => $request['game'],
-                'type' => $request['type'],
+                'game' => $request->input('game'),
+                'type' => $request->input('type'),
             ],
-            'content' => $request['content'],
+            'content' => $request->input('content'),
         ]);
 
         if ($result) {

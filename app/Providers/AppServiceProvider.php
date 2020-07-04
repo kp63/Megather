@@ -26,6 +26,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::defaultView('vendor.pagination.default');
-        Cookie::queue(Cookie::forever('name', 'test', 2400));
     }
 }

@@ -11,6 +11,7 @@ class Post extends Model
 {
     protected $table = 'posts';
     protected $guarded = ['id'];
+    protected $casts = ['details' => 'json'];
 
     public static function getAll()
     {
@@ -37,11 +38,19 @@ class Post extends Model
 
     public static function create(array $data)
     {
-        return self::create([
+        return DB::table('posts')
+            ->insert([
                 'user_id' => $data['user_id'] ?? Auth::id(),
                 'details' => json_encode($data['details']),
                 'content' => $data['content'],
             ]);
+
+//        ここのコードが上手く機能しない
+//        return self::create([
+//                'user_id' => $data['user_id'] ?? Auth::id(),
+//                'details' => $data['details'],
+//                'content' => $data['content'],
+//            ]);
     }
 
     public static function convert($items): array

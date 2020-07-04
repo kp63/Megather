@@ -54,7 +54,7 @@ const app = new Vue({
 
             contextmenu.open(e.currentTarget, 2);
         },
-        username_button_click: function(e) {
+        usernameButtonClick: function(e) {
             contextmenu.set([
                 {
                     label: window.__.myProfile,
@@ -78,10 +78,10 @@ const app = new Vue({
 
             contextmenu.open(e.currentTarget, 8);
         },
-        close_contextmenu: function() {
+        closeContextMenu: function() {
             contextmenu.close();
         },
-        toggleSidemenuExpand: (ev) => {
+        toggleSidemenuExpand: function(ev) {
             const target = ev.currentTarget.parentNode;
             if (target.classList.contains('expanded')) {
                 target.classList.remove('expanded');
@@ -91,7 +91,7 @@ const app = new Vue({
                 $(target.getElementsByTagName('ul')[0]).slideDown('fast');
             }
         },
-        updateSearchQuery: (events) => {
+        updateSearchQuery: function(events) {
             console.log(events);
         },
     }

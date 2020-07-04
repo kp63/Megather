@@ -29,4 +29,21 @@ Route::post('/post', 'PostController@store')->middleware('auth');
 
 Route::get('/u/{username}', 'UserController@index');
 
+Route::prefix('auth')
+    ->middleware('guest')
+    ->group(function() {
+        $accepted_providers = [
+            'google',
+            'discord'
+        ];
+        foreach ($accepted_providers as $provider) {
+            Route::get('/{provider}', 'Auth\OAuthController@socialOAuth')
+                ->where('provider',$provider)
+                ->name('socialOAuth');
+            Route::get('/{provider}/callback', 'Auth\OAuthController@handleProviderCallback')
+                ->where('provider',$provider)
+                ->name('oauthCallback');
+        }
+    });
+
 //Route::get('/home', 'HomeController@index')->name('home');
