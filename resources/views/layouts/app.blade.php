@@ -50,8 +50,10 @@
             </div>
         </div>
 
-        <div class="py-4">
-            @yield('content')
+        <div class="page-body">
+            <div class="body-content">
+                @yield('content')
+            </div>
         </div>
 
         <div id="contextmenu-background" @click.right.prevent @mousedown="close_contextmenu"></div>

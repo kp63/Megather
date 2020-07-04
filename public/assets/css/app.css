@@ -770,6 +770,104 @@ select {
   background-color: rgba(255, 255, 255, 0.16);
 }
 
+.profile-page-header {
+  display: block;
+  margin-bottom: 10px;
+  position: relative;
+  min-height: 108px;
+  background-color: #f8f8f8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.profile-page-header .separator {
+  margin: 0 12px;
+  background-color: #b3b3b3;
+}
+
+.profile-page-header .profile-page-username {
+  height: 108px;
+}
+
+@media screen and (max-width: 599px) {
+  .profile-page-header .profile-page-username {
+    height: 78px;
+  }
+}
+
+.profile-page-header .profile-social-links {
+  padding: 10px 14px;
+  font-size: 0;
+}
+
+.profile-page-header .profile-social-links > a {
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  background-color: #eaeaea;
+  font-size: 16px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.profile-page-header .profile-page-header-avatar {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  transition: box-shadow 0.12s;
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2), 0 -2px 1px rgba(255, 255, 255, 0.4);
+}
+
+@media screen and (max-width: 599px) {
+  .profile-page-header .profile-page-header-avatar {
+    top: 14px;
+    left: 14px;
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.profile-page-header .profile-page-header-avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+  pointer-events: none;
+  vertical-align: bottom;
+}
+
+.profile-page-header h1 {
+  position: absolute;
+  margin: 0;
+  top: 34px;
+  left: 108px;
+  right: 14px;
+  font-size: 28px;
+  line-height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 599px) {
+  .profile-page-header h1 {
+    top: 19px;
+    left: 78px;
+    font-size: 26px;
+  }
+}
+
+.profile-text {
+  padding: 10px;
+}
+
 .login-form {
   position: fixed;
   top: calc(50% + 30px);
@@ -851,6 +949,13 @@ select {
   background-color: #f1f1f1;
   max-width: 700px;
   border-radius: 4px;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 600px) {
+  .content-box.big-padding {
+    padding: 24px;
+  }
 }
 
 .body-content > .content-box {

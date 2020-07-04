@@ -5,7 +5,7 @@
         <form method="POST" class="new-post-form" action="{{ route('new_post') }}">
             @csrf
 
-            <h1>{{ __('Register') }}</h1>
+            <h1>{{ __('Create New Post') }}</h1>
 
             <label class="input">
                 <span>{{ __('Game') }}</span>

@@ -24,8 +24,8 @@ Route::get('/logout', function () {
     return view('auth.logout');
 });
 
-Route::get('/post', 'PostController@create')->name('new_post');
-Route::post('/post', 'PostController@store');
+Route::get('/post', 'PostController@create')->middleware('auth')->name('new_post');
+Route::post('/post', 'PostController@store')->middleware('auth');
 
 Route::get('/u/{username}', 'UserController@index');
 

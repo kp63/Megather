@@ -49,7 +49,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "purge-caches": [
+        "clear-caches": [
             "@php artisan cache:clear",
             "@php artisan config:clear",
             "@php artisan route:clear",
