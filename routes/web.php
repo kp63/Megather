@@ -19,31 +19,41 @@ use Illuminate\Support\Facades\Auth;
 //});
 Route::get('/', 'PostController@index');
 
-Auth::routes();
+Auth::routes([
+    'register' => false,
+    'reset' => false,
+    'verify' => false,
+]);
 Route::get('/logout', function () {
     return view('auth.logout');
+});
+
+Route::get('/l1', function () {
+    Auth::loginUsingId(1);
+    return redirect('/');
+});
+Route::get('/l2', function () {
+    Auth::loginUsingId(2);
+    return redirect('/');
 });
 
 Route::get('/post', 'PostController@create')->middleware('auth')->name('new_post');
 Route::post('/post', 'PostController@store')->middleware('auth');
 
-Route::get('/u/{username}', 'UserController@index');
+Route::get('/u/{username}', 'UserController@index')->name('user_profile_page');
+Route::get('/account/settings', 'UserController@settings')->name('account_settings');
+Route::post('/account/settings', 'UserController@store');
+//Route::post('/account/settings/update_publish_settings', '');
+
+Route::get('/components', function () {
+    return view('components');
+});
 
 Route::prefix('auth')
     ->middleware('guest')
     ->group(function() {
-        $accepted_providers = [
-            'google',
-            'discord'
-        ];
-        foreach ($accepted_providers as $provider) {
-            Route::get('/{provider}', 'Auth\OAuthController@socialOAuth')
-                ->where('provider',$provider)
-                ->name('socialOAuth');
-            Route::get('/{provider}/callback', 'Auth\OAuthController@handleProviderCallback')
-                ->where('provider',$provider)
-                ->name('oauthCallback');
-        }
+        Route::get('/{provider}', 'Auth\OAuthController@redirect')->name('oauth');
+        Route::get('/{provider}/callback', 'Auth\OAuthController@callback');
     });
 
 //Route::get('/home', 'HomeController@index')->name('home');

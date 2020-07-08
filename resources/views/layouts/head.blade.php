@@ -19,7 +19,7 @@
 @hasSection('page_title')
     <title class="notranslate">@yield('page_title') - {{ config('app.name', 'Laravel') }}</title>
 @else
-    <title class="notranslate">@yield('page_title') {{ config('app.name', 'Laravel') }}</title>
+    <title class="notranslate">{{ config('app.name', 'Laravel') }}</title>
 @endif
     <link rel="dns-prefetch" href="//cdn.materialdesignicons.com">
     <link rel="stylesheet"   href="https://cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css">

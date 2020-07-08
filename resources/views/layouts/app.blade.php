@@ -12,10 +12,16 @@
             <div class="header-actions">
                 @guest
                     <a href="{{ route('login') }}">{{ __('Login') }}</a>
-                    <a href="{{ route('register') }}">{{ __('Register') }}</a>
+                    <a class="sp-hide" href="{{ route('oauth', ['provider' => 'google']) }}" title="{{ __('Sign in with Google') }}"><i class="mdi mdi-google"></i></a>
+                    <a class="sp-hide" href="{{ route('oauth', ['provider' => 'discord']) }}" title="{{ __('Sign in with Discord') }}"><i class="mdi mdi-discord"></i></a>
+{{--                    <a href="{{ route('register') }}">{{ __('Register') }}</a>--}}
                 @else
                     <a href="{{ route('new_post') }}">{{ __('New Post') }}</a>
-                    <button class="notranslate" @click="usernameButtonClick" data-username="{{ Auth::user()->username }}">{{ Auth::user()->username }}</button>
+{{--                    <button class="notranslate" @click="usernameButtonClick" data-username="{{ Auth::user()->username }}">{{ Auth::user()->username }}</button>--}}
+                    <div class="avatar">
+                        <img src="{{ DB::table('profiles')->find(Auth::id())->{'avatar_url'} ?? asset('img/userdata/avatar/default.png') }}" alt="{{ __('Avatar') }}">
+                        <button class="notranslate" @click="usernameButtonClick" data-username="{{ Auth::user()->username }}" title="{{ Auth::user()->username }}"></button>
+                    </div>
                     @if (Auth::user()->role === 'admin' || Auth::user()->role === 'developer')
                         <a href="/control" title="{{ __('Control Panel') }}"><i class="mdi mdi-cog"></i></a>
                     @endif

@@ -48,6 +48,8 @@
     "Whoops, something went wrong on our servers.": "おっと、サーバーで何か問題が発生しました。",
 
     "or Login": "またはログイン",
+    "Sign in with Google": "Googleでログイン",
+    "Sign in with Discord": "Discordでログイン",
 
     "Control Panel": "管理パネル",
 
@@ -80,6 +82,8 @@
     "Games": "ゲーム",
     "Type": "タイプ",
     "Types": "タイプ",
+
+    "Avatar": "アイコン",
 
     "Operation Menu": "操作メニュー",
     "Report This Post": "この投稿を報告",

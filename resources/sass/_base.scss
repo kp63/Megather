@@ -1,3 +1,9 @@
+@mixin onSp() {
+    @media screen and (min-width: $sp-size) {
+        @content;
+    }
+}
+
 // Reset
 * {
     margin: 0;
@@ -8,7 +14,7 @@
     border: none;
     outline: none;
     -webkit-tap-highlight-color: transparent;
-     //box-sizing: border-box;
+     box-sizing: border-box;
 }
 
 table {
@@ -25,8 +31,8 @@ ol {
 html {
     overflow: hidden scroll;
     scroll-behavior: smooth;
-    @media screen and (max-width: 360px) {
-        width: 360px;
+    @media screen and (max-width: 299px) {
+        width: 299px;
         overflow-x: auto;
     }
 }
@@ -35,6 +41,9 @@ body {
     background-color: $body-bg;
     font-family: $body-font-family;
     font-size: 16px;
+    @media screen and (max-width: $sp-size) {
+        font-size: 14px;
+    }
     line-height: 1.4;
     color: $body-color;
 }
@@ -43,19 +52,24 @@ input, textarea {
     line-height: 1;
 }
 
+h1, h2, h3, h4 {
+    margin: 6px 8px;
+}
+
 h1 {
-    margin: 6px 18px;
     font-size: 28px;
 }
 
 h2 {
-    margin: 6px 10px;
     font-size: 24px;
 }
 
 h3 {
-    margin: 6px 8px;
-    font-size: 22px;
+    font-size: 20px;
+}
+
+h4 {
+    font-size: 16px;
 }
 
 a {

@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="article-list">
+    <div class="article-list nosidebar">
         @foreach($items_converted as $i => $item)
-            <div class="article">
+            <div class="article" data-id="{{ $item['id'] }}">
                 <div class="article-header">
                     <a href="{{ url('/u/' . $item['username']) }}" class="header-userimage" title="{{ sprintf(__('%s\'s Profile'), $item['username']) }}">
-                        <img src="{{ asset('img/userdata/avatar/default.png') }}" alt="{{ __('Profile Image') }}">
+                        <img src="{{ $item['avatar_uri'] }}" alt="{{ __('Profile Image') }}">
                     </a>
                     <div class="header-username">
                         <span class="notranslate">{{ $item['username'] }}</span>

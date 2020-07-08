@@ -153,6 +153,10 @@ return [
         'content' => '内容',
         'game' => 'ゲーム',
         'type' => 'タイプ',
+        'links-homepage' => 'ホームページ',
+        'links-twitter' => 'Twitter',
+        'links-youtube' => 'YouTube',
+        'links-twitch' => 'Twitch',
     ],
 
 ];

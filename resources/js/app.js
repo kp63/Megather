@@ -29,7 +29,24 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    data: {
+        // bioLength: 0,
+        // bioLengthStyle: {display: 'none'},
+    },
+    mounted: function () {
+        // if (_.isObject(document.forms[0]) && _.isObject(document.forms[0].bio)) {
+        //     this.calcBioLength();
+        // }
+    },
     methods: {
+        // calcBioLength: function () {
+        //     if (document.forms[0].bio.value.length <= 2000) {
+        //         this.bioLengthStyle = {};
+        //     } else {
+        //         this.bioLengthStyle = {color: '#d75d5d'};
+        //     }
+        //     this.bioLength = document.forms[0].bio.value.length;
+        // },
         operation_button_click: function(e) {
             if (e.currentTarget.dataset.displayStyle === 'postowner') {
                 contextmenu.set([
@@ -91,8 +108,17 @@ const app = new Vue({
                 $(target.getElementsByTagName('ul')[0]).slideDown('fast');
             }
         },
-        updateSearchQuery: function(events) {
-            console.log(events);
+        // updateSearchQuery: function(events) {
+        //     console.log(events);
+        // },
+        twitterLinkChallenge: function (ev) {
+            ev.currentTarget.value = ev.currentTarget.value.replace(/^(https?:\/\/)?(mobile\.)?twitter.com\/([a-zA-Z0-9_]{5,15})(\/.*)?(\?.*)?(#.*)?$/, '$3');
+            if (ev.currentTarget.value.match(/^[a-zA-Z0-9_]{5,15}$/)) {
+                ev.currentTarget.value = '@' + ev.currentTarget.value;
+            }
+            if (ev.currentTarget.value !== '' && !ev.currentTarget.value.match(/^@[a-zA-Z0-9_]{5,15}$/)) {
+                ev.currentTarget.value = ev.currentTarget.defaultValue;
+            }
         },
     }
 });

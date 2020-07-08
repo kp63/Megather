@@ -33,7 +33,7 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $data = $request->validate([
             'content' => [
                 'required',
                 'min:5',
@@ -68,15 +68,7 @@ class PostController extends Controller
             ]
         ]);
 
-        $result = Post::create([
-            'details' => [
-                'game' => $request->input('game'),
-                'type' => $request->input('type'),
-            ],
-            'content' => $request->input('content'),
-        ]);
-
-        if ($result) {
+        if (Post::store($data)) {
             return redirect('/');
         }
 
@@ -85,7 +77,7 @@ class PostController extends Controller
 
 //    public function show($id)
 //    {
-//        // 'p' . substr(bin2hex(random_bytes(8)), 1)
+//        //
 //    }
 
 //    public function destroy($id)

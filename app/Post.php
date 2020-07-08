@@ -7,6 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * App\Post
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property array $details
+ * @property string $content
+ * @property \Illuminate\Support\Carbon $created_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post whereDetails($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Post whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Post extends Model
 {
     protected $table = 'posts';
@@ -15,58 +33,51 @@ class Post extends Model
 
     public static function getAll()
     {
-        return DB::table('posts')
-            ->orderBy('created_at', 'desc')
-            ;
+        return Post::latest();
     }
 
-    public static function getPostsFromId(string $id)
+    public static function getPostFromId(string $id)
     {
-        return DB::table('posts')
-            ->where('id', $id)
-            ->orderBy('created_at', 'desc')
-            ;
+        return Post::find($id);
     }
 
     public static function getPostsFromUserId(int $user_id)
     {
-        return DB::table('posts')
-            ->where('user_id', $user_id)
-            ->orderBy('created_at', 'desc')
-            ;
+        return Post::where('user_id', $user_id)->latest();
     }
 
-    public static function create(array $data)
+    public static function store(array $data)
     {
-        return DB::table('posts')
-            ->insert([
-                'user_id' => $data['user_id'] ?? Auth::id(),
-                'details' => json_encode($data['details']),
-                'content' => $data['content'],
-            ]);
-
-//        ここのコードが上手く機能しない
-//        return self::create([
-//                'user_id' => $data['user_id'] ?? Auth::id(),
-//                'details' => $data['details'],
-//                'content' => $data['content'],
-//            ]);
+        return Post::create([
+                                'user_id' => Auth::id(),
+                                'details' => [
+                                    'game' => $data['game'],
+                                    'type' => $data['type'],
+//                                    'included_tags' => [
+//                                        'test', 'tag', 'hey'
+//                                    ]
+                                ],
+                                'content' => $data['content'],
+                            ]);
     }
 
     public static function convert($items): array
     {
         $results = [];
         foreach ($items as $item) {
+            $profile = Profile::find($item->user_id);
             $display_style = null;
-            if (Auth::id() === $item->{'user_id'}) {
+            if (Auth::id() === $item->user_id) {
                 $display_style = 'postowner';
             }
             $results[] = [
-                'username' => DB::table('users')->find($item->{'user_id'})->{'username'},
-                'content' => $item->{'content'},
+                'id' => $item->id,
+                'username' => User::getUsernameFromId($item->user_id),
+                'avatar_uri' => User::getAvatarFromId($item->user_id),
+                'content' => $item->content,
                 'display_style' => $display_style,
-                'details' => json_decode($item->{'details'}, true),
-                'postdate' => self::convert_to_fuzzy_time($item->{'created_at'}),
+                'details' => $item->details,
+                'postdate' => self::convert_to_fuzzy_time($item->created_at),
             ];
         }
         return $results;

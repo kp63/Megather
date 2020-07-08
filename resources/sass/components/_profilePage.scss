@@ -1,12 +1,16 @@
 $profile-page-avatar-size: 80px;
 $profile-page-avatar-size-min: 50px;
 $profile-page-header-padding: 14px;
+$profile-page-header-padding-min: 14px;
 
 .profile-page-header {
     display: block;
     margin-bottom: 10px;
     position: relative;
     min-height: $profile-page-avatar-size + $profile-page-header-padding * 2;
+    @media screen and (max-width: 599px) {
+        min-height: $profile-page-avatar-size-min + $profile-page-header-padding-min * 2;
+    }
     background-color: #f8f8f8;
     box-shadow: 0 2px 4px rgba(black, .1);
     //background-color: #eaeaea;
@@ -19,21 +23,61 @@ $profile-page-header-padding: 14px;
     .profile-page-username {
         height: $profile-page-avatar-size + $profile-page-header-padding * 2;
         @media screen and (max-width: 599px) {
-            height: $profile-page-avatar-size-min + $profile-page-header-padding * 2;
+            height: $profile-page-avatar-size-min + $profile-page-header-padding-min * 2;
         }
-    }
-    .profile-social-links {
-        padding: 10px 14px;
-        font-size: 0;
-        > a {
-            display: inline-block;
-            margin-right: 8px;
-            margin-bottom: 8px;
-            padding: 8px 12px;
-            background-color: #eaeaea;
-            font-size: 16px;
-            border-radius: 6px;
-            text-decoration: none;
+        h1 {
+            position: absolute;
+            margin: 0;
+            top: ($profile-page-avatar-size - 40px) / 2 + $profile-page-header-padding;
+            left: $profile-page-avatar-size + $profile-page-header-padding * 2;
+            right: $profile-page-header-padding;
+            font-size: 28px;
+            line-height: 40px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            @media screen and (max-width: 599px) {
+                top: ($profile-page-avatar-size-min - 40px) / 2 + $profile-page-header-padding-min;
+                left: $profile-page-avatar-size-min + $profile-page-header-padding-min * 2;
+                font-size: 26px;
+            }
+        }
+        .nickname {
+            display: none;
+        }
+        &.with-nickname {
+            h1 {
+                display: block;
+                position: absolute;
+                top: 28px;
+                left: $profile-page-avatar-size + $profile-page-header-padding * 2;
+                right: $profile-page-header-padding;
+                margin: 0;
+                line-height: 1;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                @media screen and (max-width: 599px) {
+                    top: 14px;
+                    left: $profile-page-avatar-size-min + $profile-page-header-padding-min * 2;
+                    font-size: 26px;
+                }
+            }
+            .nickname {
+                display: block;
+                position: absolute;
+                left: $profile-page-avatar-size + $profile-page-header-padding * 2;
+                top: 60px;
+                right: $profile-page-header-padding;
+                font-size: 16px;
+                color: #555;
+                line-height: 1;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                @media screen and (max-width: 599px) {
+                    top: 42px;
+                    left: $profile-page-avatar-size-min + $profile-page-header-padding-min * 2;
+                    font-size: 14px;
+                }
+            }
         }
     }
     .profile-page-header-avatar {
@@ -42,13 +86,13 @@ $profile-page-header-padding: 14px;
         left: $profile-page-header-padding;
         width: $profile-page-avatar-size;
         height: $profile-page-avatar-size;
-        border-radius: $profile-page-avatar-size / 2;
+        border-radius: 6px;
         user-select: none;
         transition: box-shadow .12s;
-        box-shadow: 0 2px 1px rgba(black, .2), 0 -2px 1px rgba(white, .4);
+        box-shadow: 0 2px 6px rgba(black, .2);
         @media screen and (max-width: 599px) {
-            top: $profile-page-header-padding;
-            left: $profile-page-header-padding;
+            top: $profile-page-header-padding-min;
+            left: $profile-page-header-padding-min;
             width: $profile-page-avatar-size-min;
             height: $profile-page-avatar-size-min;
         }
@@ -59,25 +103,54 @@ $profile-page-header-padding: 14px;
             display: block;
             width: 100%;
             height: 100%;
-            border-radius: $profile-page-avatar-size / 2;
+            border-radius: 6px;
             pointer-events: none;
             vertical-align: bottom;
         }
     }
-    h1 {
-        position: absolute;
-        margin: 0;
-        top: ($profile-page-avatar-size - 40px) / 2 + $profile-page-header-padding;
-        left: $profile-page-avatar-size + $profile-page-header-padding * 2;
-        right: $profile-page-header-padding;
-        font-size: 28px;
-        line-height: 40px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        @media screen and (max-width: 599px) {
-            top: ($profile-page-avatar-size-min - 40px) / 2 + $profile-page-header-padding;
-            left: $profile-page-avatar-size-min + $profile-page-header-padding * 2;
-            font-size: 26px;
+    .profile-social-links {
+        padding: 10px 14px;
+        font-size: 0;
+        > a, > span {
+            display: block;
+            //display: inline-block;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            padding: 14px 12px;
+            background-color: #eaeaea;
+            color: black;
+            font-size: 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            box-shadow: 0 1px 6px rgba(black, .06);
+            > i {
+                margin-right: .5em;
+                &.mdi.mdi-check-circle {
+                    margin-left: .5em;
+                    color: #23af23;
+                }
+            }
+            &.twitter {
+                color: $twitter-color;
+            }
+            &.twitch {
+                color: $twitch-color;
+            }
+            &.discord {
+                color: $discord-color;
+            }
+            &.twitter {
+                color: $twitter-color;
+            }
+            &.youtube {
+                color: $youtube-color;
+            }
+        }
+        > a {
+            &:hover {
+                background-color: #e5e5e5;
+                text-decoration: underline;
+            }
         }
     }
 }
