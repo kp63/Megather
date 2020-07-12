@@ -121,9 +121,15 @@ module.exports = (() => {
                     }
                 });
             }
+
             element.innerText = contents[i].label;
             if (typeof contents[i].className !== 'undefined') {
                 element.className = contents[i].className;
+            }
+            if (typeof contents[i].data === 'object') {
+                for (const data in contents[i].data) {
+                    element.dataset[data] = contents[i].data[data];
+                }
             }
             if (typeof contents[i].click !== 'undefined') {
                 element.onclick = contents[i].click;

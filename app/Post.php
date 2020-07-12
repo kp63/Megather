@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Libraries\DateTool;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Support\Facades\DB;
@@ -77,32 +78,9 @@ class Post extends Model
                 'content' => $item->content,
                 'display_style' => $display_style,
                 'details' => $item->details,
-                'postdate' => self::convert_to_fuzzy_time($item->created_at),
+                'postdate' => DateTool::abs2rel($item->created_at),
             ];
         }
         return $results;
-    }
-
-    protected static function convert_to_fuzzy_time($unix): string
-    {
-        $unix = strtotime($unix);
-        $now        = time();
-        $diff_sec   = $now - $unix;
-        if ($diff_sec < 60) {
-            $output = sprintf(__('%d second(s) ago'), $diff_sec);
-        } elseif ($diff_sec < 3600) {
-            $output = sprintf(__('%d minute(s) ago'), $diff_sec / 60);
-        } elseif ($diff_sec < 86400) {
-            $output = sprintf(__('%d hour(s) ago'), $diff_sec / 3600);
-        } elseif ($diff_sec < 2764800) {
-            $output = sprintf(__('%d day(s) ago'), $diff_sec / 86400);
-        } else {
-            if (date('Y') !== date('Y', $unix)) {
-                $output = date(__('F jS, Y'), $unix);
-            } else {
-                $output = date(__('F jS'), $unix);
-            }
-        }
-        return $output;
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateClansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('clans', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('username')->unique();
-            $table->timestamp('username_updated_at')->nullable();
-            $table->string('status')->default('active');
-            $table->string('role')->default('default');
-            $table->rememberToken();
+            $table->string('name');
+            $table->string('pretty_name');
+            $table->string('bio');
+//            $table->string('');
+            $table->integer('owner_user_id');
+            $table->integer('leader_user_id');
+            $table->integer('sub_leader_user_id');
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('clans');
     }
 }

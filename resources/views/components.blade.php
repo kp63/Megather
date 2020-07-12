@@ -9,6 +9,17 @@
 
             <h1>コンポーネント一覧</h1>
 
+            <h2>通知</h2>
+            <div class="alert alert-primary">
+                正常に動作しました。
+            </div>
+            <div class="alert alert-success">
+                正常に動作しました。
+            </div>
+            <div class="alert alert-warn">
+                正常に動作しました。
+            </div>
+
             <h2>一般タグ</h2>
             <div class="left-line">
                 <h1>h1 タグ</h1>

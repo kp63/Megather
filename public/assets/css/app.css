@@ -500,53 +500,6 @@ select {
   background-color: #f5dada;
 }
 
-.pagination {
-  display: block;
-  margin-top: 10px;
-  margin-bottom: 80px;
-  width: 100%;
-  text-align: center;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-}
-
-.pagination span.disabled,
-.pagination a.selected,
-.pagination a {
-  display: inline-block;
-  color: whitesmoke;
-  text-decoration: none;
-  padding: 0 4px;
-  min-width: 40px;
-  line-height: 40px;
-  border-radius: 6px;
-  outline: none;
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-  overflow: hidden;
-  box-sizing: border-box;
-  transition: background-color 0.12s, box-shadow 0.12s;
-}
-
-.pagination a:focus {
-  background-color: rgba(255, 255, 255, 0.06);
-}
-
-.pagination a:hover {
-  background-color: rgba(18, 94, 232, 0.3);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
-}
-
-.pagination a.selected {
-  background-color: #125ee8;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
-}
-
-.pagination span.disabled {
-  color: #717171;
-}
-
 .search-input-box {
   display: block;
   position: relative;
@@ -1080,6 +1033,12 @@ table.profile-links tr > td > label > input {
   box-sizing: border-box;
 }
 
+table.profile-links tr > td > label > input[type=text],
+table.profile-links tr > td > label > input[type=password],
+table.profile-links tr > td > label > input[type=url] {
+  width: 100%;
+}
+
 table.profile-links tr > td > label > input:disabled {
   background-color: #e2e2e2;
   color: #6d6d6d;
@@ -1184,6 +1143,40 @@ table.profile-links tr.twitch > th > label {
   color: #4e3380;
 }
 
+.alert {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  padding: 14px 12px;
+  background-color: whitesmoke;
+  border: solid 1px gainsboro;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.alert.alert-primary {
+  background-color: #d6e5fa;
+  color: #15509d;
+  border-color: #a0c4f2;
+}
+
+.alert.alert-success {
+  background-color: #d6edd0;
+  color: #3a742c;
+  border-color: #afdda4;
+}
+
+.alert.alert-warn {
+  background-color: #f5efbf;
+  color: #817615;
+  border-color: #ece28a;
+}
+
+.alert.alert-danger {
+  background-color: #fbf0f0;
+  color: #a52929;
+  border-color: #efbfbf;
+}
+
 #contextmenu-background {
   display: none;
   position: fixed;
@@ -1264,6 +1257,53 @@ table.profile-links tr.twitch > th > label {
   background-color: rgba(255, 255, 255, 0.16);
 }
 
+.pagination {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 80px;
+  width: 100%;
+  text-align: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.pagination span.disabled,
+.pagination a.selected,
+.pagination a {
+  display: inline-block;
+  color: whitesmoke;
+  text-decoration: none;
+  padding: 0 12px;
+  min-width: 40px;
+  line-height: 40px;
+  border-radius: 6px;
+  outline: none;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: background-color 0.12s, box-shadow 0.12s;
+}
+
+.pagination a:focus {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.pagination a:hover {
+  background-color: rgba(18, 94, 232, 0.3);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+.pagination a.selected {
+  background-color: #125ee8;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+.pagination span.disabled {
+  color: #717171;
+}
+
 .profile-page-header {
   display: block;
   margin-bottom: 10px;
@@ -1302,11 +1342,11 @@ table.profile-links tr.twitch > th > label {
 .profile-page-header .profile-page-username.with-nickname h1 {
   display: block;
   position: absolute;
-  top: 28px;
+  top: 22px;
   left: 108px;
   right: 14px;
   margin: 0;
-  line-height: 1;
+  line-height: 1.4;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -1319,7 +1359,7 @@ table.profile-links tr.twitch > th > label {
   right: 14px;
   font-size: 16px;
   color: #555;
-  line-height: 1;
+  line-height: 1.4;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -1530,11 +1570,6 @@ table.profile-links tr.twitch > th > label {
   label.input select {
     width: 100% !important;
   }
-  table.profile-links tr > td > label > input[type=text],
-  table.profile-links tr > td > label > input[type=password],
-  table.profile-links tr > td > label > input[type=url] {
-    width: 100%;
-  }
   table.profile-links {
     display: block;
     width: 100%;
@@ -1647,7 +1682,7 @@ table.profile-links tr.twitch > th > label {
     font-size: 26px;
   }
   .profile-page-header .profile-page-username.with-nickname h1 {
-    top: 14px;
+    top: 12px;
     left: 78px;
     font-size: 26px;
   }

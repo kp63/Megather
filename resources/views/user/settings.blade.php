@@ -9,17 +9,60 @@
 
             <h1>{{ __('Account Settings') }}</h1>
 
+            @if (Session::get('primary-message') !== null)
+                <div class="alert alert-primary" style="margin: 14px 8px;">
+                    {!! Session::get('primary-message') !!}
+                </div>
+            @endif
+            @if (Session::get('success-message') !== null)
+                <div class="alert alert-success" style="margin: 14px 8px;">
+                    {!! Session::get('success-message') !!}
+                </div>
+            @endif
+            @if (Session::get('error-message') !== null)
+                <div class="alert alert-error" style="margin: 14px 8px;">
+                    {!! Session::get('error-message') !!}
+                </div>
+            @endif
+
             <h2>公開設定</h2>
             <div class="left-line">
+                <h3 id="links">ユーザー名</h3>
+                <label class="input">
+                    <input type="text" name="username" value="{{ old('username') ?? $data['username'] ?? '' }}"
+                           @if ($data['username.disabled'] !== true)
+                               title="ユーザー名には半角英数字と一部の記号(-_.)のみ使用できます。"
+                           @else
+                               disabled
+                           @endif
+                    >
+                </label>
+                @error('username')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+                <p style="padding: 10px; font-size: 12px; color: gray;">ユーザー名は一度変更すると30日間変更できません。</p>
+
                 <h3 id="links">ニックネーム（呼び名）</h3>
                 <label class="input">
                     <input type="text" name="nickname" value="{{ old('nickname') ?? $data['nickname'] ?? '' }}">
                 </label>
+                @error('nickname')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
 
                 <h3 id="links">プロフィール文</h3>
                 <label class="input">
                     <textarea name="bio">{{ old('bio') ?? $data['bio'] ?? '' }}</textarea>
                 </label>
+                @error('bio')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
 
                 <h3 id="links">リンク</h3>
                 <table class="profile-links">

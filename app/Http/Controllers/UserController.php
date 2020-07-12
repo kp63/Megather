@@ -2,11 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Libraries\DateTool;
+use App\Libraries\YouTubeDataApi;
+use App\Post;
+use App\Profile;
+use App\Rules\UsernameCooldown;
+use App\Rules\UsernameUnique;
+use App\Rules\UsernameValidation;
+use App\Socialite;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -18,29 +28,7 @@ class UserController extends Controller
             return 'User not found.';
         }
 
-        $profile = DB::table('profiles')->find($user->id);
-
-        $links = (array) (isset($profile->links) ? json_decode($profile->links, true) : []);
-
-        if (isset($links['youtube']) && $links['youtube'] !== null) {
-            $youtube_name = Cache::get('youtube_name_' . $links['youtube']);
-            if ($youtube_name === null) {
-                if (0 === strncmp($links['youtube'], 'user', 4)) {
-                    $youtube_name = file_get_contents('https://www.googleapis.com/youtube/v3/channels?forUsername=' . substr($links['youtube'], 5) . '&key=AIzaSyBkuIUEx9im7B20vAgb7lYDSxVChYCsgjA&part=snippet');
-                } else if (0 === strncmp($links['youtube'], 'channel', 7)) {
-                    $youtube_name = file_get_contents('https://www.googleapis.com/youtube/v3/channels?id=' . substr($links['youtube'], 8) . '&key=AIzaSyBkuIUEx9im7B20vAgb7lYDSxVChYCsgjA&part=snippet');
-                } else {
-                    $youtube_name = null;
-                }
-                $youtube_name = ($youtube_name !== null && $youtube_name !== false) ? json_decode($youtube_name, true) : null;
-                if (is_array($youtube_name) && isset($youtube_name['items'])) {
-                    $youtube_name = $youtube_name['items'][0]['snippet']['title'];
-                    Cache::put('youtube_name_' . $links['youtube'], $youtube_name, 86400);
-                } else {
-                    $youtube_name = $links['youtube'];
-                }
-            }
-        }
+        $profile = Profile::find($user->id);
 
         if ($profile !== null) {
             return view('user.profile-page', [
@@ -48,16 +36,18 @@ class UserController extends Controller
                 'nickname' => $profile->nickname,
                 'avatar_uri' => $profile->avatar_url !== null ? $profile->avatar_url : asset('img/userdata/avatar/default.png'),
                 'bio' => $profile->bio,
-                'links' => (array) ($profile->links !== null ? $links : []),
-                'links_youtube_name' => $youtube_name ?? null,
-                'publish_discord_id' => (bool) $profile->publish_discord_id,
+                'links' => (array) ($profile->links !== null ? $profile->links : []),
+                'links_youtube_name' => YouTubeDataApi::getYouTubeChannelName($profile->links['youtube'] ?? null),
+                'publish_discord_id' => (bool) $profile->publish_discord_id ?? false,
+                'discord_id' => (((bool) $profile->publish_discord_id === true) ? $profile->discord_id : null),
+                'discord_id_updated_at' => (((bool) $profile->publish_discord_id === true) ? DateTool::abs2rel($profile->discord_id_updated_at) : null),
             ]);
         } else {
             return view('user.profile-page', [
                 'username' => $username,
                 'nickname' => null,
                 'avatar_uri' => asset('img/userdata/avatar/default.png'),
-                'bio' => 'このユーザーはプロフィールを作成していません。',
+                'bio' => '',
                 'links' => [],
                 'publish_discord_id' => false,
             ]);
@@ -66,21 +56,23 @@ class UserController extends Controller
 
     public function settings()
     {
+        $this->middleware('auth');
         $user      = Auth::user();
         $id        = Auth::id();
-        $socialite = DB::table('socialite')->find($id);
-        $profile   = DB::table('profiles') ->find($id);
-        $profile_links = (array) (isset($profile->links) ? json_decode($profile->links, true) : []);
+        $socialite = Socialite::find($id);
+        $profile   = Profile::find($id);
 
         return view('user.settings', [
             'data' => [
+                'username' => $user->username,
+                'username.disabled' => !($user->username_updated_at === null || (time() - strtotime($user->username_updated_at) > 2592000)),
                 'nickname' => $profile->nickname ?? '',
                 'bio' => $profile->bio ?? '',
-                'links.homepage' => $profile_links['homepage'] ?? null,
+                'links.homepage' => $profile->links['homepage'] ?? null,
                 'links.discord_publish' => (bool) ($profile->publish_discord_id ?? false),
-                'links.twitter' => $profile_links['twitter'] ?? null,
-                'links.youtube' => $profile_links['youtube'] ?? null,
-                'links.twitch' => $profile_links['twitch'] ?? null,
+                'links.twitter' => $profile->links['twitter'] ?? null,
+                'links.youtube' => $profile->links['youtube'] ?? null,
+                'links.twitch' => $profile->links['twitch'] ?? null,
                 'connected.google'  => (bool) (isset($socialite->google)  ? ($socialite->google  !== null) : null),
                 'connected.discord' => (bool) (isset($socialite->discord) ? ($socialite->discord !== null) : null),
             ],
@@ -90,35 +82,35 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
+                                       'username' => [
+                                           'between:3,20',
+                                           new UsernameValidation,
+                                           new UsernameUnique,
+                                           new UsernameCooldown,
+                                       ],
                                        'nickname' => 'max:32',
                                        'bio' => 'max:2000',
                                        'links-homepage' => 'max:255',
                                        'links-discord-publish' => [],
                                        'links-twitter' => ['max:255', 'regex:/^@?[a-zA-Z0-9_]{5,15}$/', 'nullable'],
-//                                       'links-youtube' => ['max:255', 'regex:/^(https?:\/\/|\/\/)?(www\.|m\.)?youtube\.com\/channel\/([a-zA-Z0-9\-_.]+)/', 'nullable'],
                                        'links-youtube' => ['max:255', 'regex:/^(https?:\/\/|\/\/)?(www\.|m\.)?(youtube\.com\/)?(channel|user)\/([a-zA-Z0-9\-]+).*$/', 'nullable'],
                                        'links-twitch' => 'max:255',
                                    ]);
 
-        $result = DB::table('profiles')
-            ->where('id', Auth::id())
-            ->update([
-               'nickname' => $data['nickname'] ?? null,
-               'bio' => $data['bio'] ?? null,
-               'links' => json_encode([
-                   'homepage' => $data['links-homepage'] ?? null,
-                   'twitter'  => (isset($data['links-twitter']) && $data['links-twitter'] !== null && trim($data['links-twitter']) !== '') ? ltrim($data['links-twitter'], '@') : null,
-                   'youtube'  => (isset($data['links-youtube']) && $data['links-youtube'] !== null && trim($data['links-youtube']) !== '') ? preg_replace('/^(https?:\/\/|\/\/)?(www\.|m\.)?(youtube\.com\/)?(channel|user)\/([a-zA-Z0-9\-]+).*$/', '$4/$5', $data['links-youtube']) : null,
-                   'twitch'   => $data['links-twitch'] ?? null,
-               ]),
-                'publish_discord_id' => (bool) ($data['links-discord-publish'] ?? false),
-                'updated_at' => date('Y-m-d H:i:s', time()),
-           ]);
+        $user = Auth::user();
 
-        if ($result) {
-            return redirect()->route('user_profile_page', ['username' => Auth::user()->{'username'}]);
+        if (!isset($data['username']) || $data['username'] === null || trim($data['username']) === '') {
+            $data['username'] = $user->username;
+        }
+
+        if ($user->username !== $data['username']) {
+            $data['username_updated_at'] = Carbon::now()->toDateTimeString();
+        }
+
+        if (Profile::store($data)) {
+            return Redirect::back()->with('success-message', 'アカウント設定は正常に更新されました。');
         } else {
-            echo 'error';
+            return Redirect::back()->with('error-message', 'アカウント設定の更新に失敗しました。');
         }
     }
 }

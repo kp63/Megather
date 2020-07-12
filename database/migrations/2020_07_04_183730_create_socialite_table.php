@@ -17,6 +17,7 @@ class CreateSocialiteTable extends Migration
             $table->integer('id')->primary();
             $table->string('google')->nullable()->unique();
             $table->string('discord')->nullable()->unique();
+            $table->timestamps();
         });
     }
 

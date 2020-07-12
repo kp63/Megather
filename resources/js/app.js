@@ -29,32 +29,25 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
-    data: {
-        // bioLength: 0,
-        // bioLengthStyle: {display: 'none'},
-    },
-    mounted: function () {
-        // if (_.isObject(document.forms[0]) && _.isObject(document.forms[0].bio)) {
-        //     this.calcBioLength();
-        // }
-    },
     methods: {
-        // calcBioLength: function () {
-        //     if (document.forms[0].bio.value.length <= 2000) {
-        //         this.bioLengthStyle = {};
-        //     } else {
-        //         this.bioLengthStyle = {color: '#d75d5d'};
-        //     }
-        //     this.bioLength = document.forms[0].bio.value.length;
-        // },
         operation_button_click: function(e) {
             if (e.currentTarget.dataset.displayStyle === 'postowner') {
                 contextmenu.set([
                     {
                         label: window.__.deleteThisPost,
                         className: 'danger-color',
-                        click: function() {
-                            console.log('clicked');
+                        click: async function () {
+                            let params = new URLSearchParams();
+                            params.append('target', this.dataset.id);
+                            const res = await axios.post('/post/destroy', params);
+                            if (res.data === 'success') {
+                                console.log('success');
+                            } else {
+                                console.log('failed');
+                            }
+                        },
+                        data: {
+                            id: e.currentTarget.parentNode.parentNode.dataset.id
                         }
                     }
                 ]);

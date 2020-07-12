@@ -20,6 +20,8 @@ class CreateProfilesTable extends Migration
             $table->string('avatar_url')->nullable();
             $table->string('bio', 2000)->nullable();
             $table->json('links')->nullable();
+            $table->string('discord_id')->nullable();
+            $table->timestamp('discord_id_updated_at')->nullable();
             $table->boolean('publish_discord_id')->default(false);
             $table->timestamps();
         });

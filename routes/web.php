@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,12 +14,6 @@
 |
 */
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-
-//Route::get('/', function () {
-//    return view('welcome');
-//});
 Route::get('/', 'PostController@index');
 
 Auth::routes([
@@ -39,21 +36,31 @@ Route::get('/l2', function () {
 
 Route::get('/post', 'PostController@create')->middleware('auth')->name('new_post');
 Route::post('/post', 'PostController@store')->middleware('auth');
+Route::post('/post/destroy', 'PostController@destroy')->middleware('auth');
 
-Route::get('/u/{username}', 'UserController@index')->name('user_profile_page');
-Route::get('/account/settings', 'UserController@settings')->name('account_settings');
+Route::get('/account/profile', function () {
+    return redirect()->route('profile_page', [
+        'username' => Auth::user()->{'username'}
+    ]);
+})  ->middleware('auth')
+    ->name('my_profile_page');
+
+Route::get('/user/profile', function () { return redirect()->route('my_profile_page'); });
+Route::get('/user/settings', function () { return redirect()->route('account_settings'); });
+
+Route::get('/u/{username}', 'UserController@index')->name('profile_page');
+Route::get('/account/settings', 'UserController@settings')->middleware('auth')->name('account_settings');
 Route::post('/account/settings', 'UserController@store');
 //Route::post('/account/settings/update_publish_settings', '');
+
+Route::get('/search', 'SearchController@index');
 
 Route::get('/components', function () {
     return view('components');
 });
 
-Route::prefix('auth')
-    ->middleware('guest')
+Route::prefix('oauth')
     ->group(function() {
         Route::get('/{provider}', 'Auth\OAuthController@redirect')->name('oauth');
-        Route::get('/{provider}/callback', 'Auth\OAuthController@callback');
+        Route::get('/{provider}/callback', 'Auth\OAuthController@callback')->name('oauth_callback');
     });
-
-//Route::get('/home', 'HomeController@index')->name('home');

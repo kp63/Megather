@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\PostTrash;
 use Illuminate\Http\Request;
 
 use App\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Config;
@@ -80,8 +82,21 @@ class PostController extends Controller
 //        //
 //    }
 
-//    public function destroy($id)
-//    {
-//        //
-//    }
+    public function destroy(Request $request)
+    {
+        if ($request->post('target') !== null) {
+            if ($target = intval($request->post('target'))) {
+                $post = Post::find($target);
+                if ($post !== null) {
+                    $user_id = Auth::id();
+                    if ($post->user_id === $user_id) {
+                        if ($post->delete()) {
+                            return response('success')->header('Content-Type', 'text/plain');
+                        }
+                    }
+                }
+            }
+        }
+        return response('failed')->header('Content-Type', 'text/plain');
+    }
 }
