@@ -11,9 +11,13 @@
 
 @section('sidebar')
     <form class="search-container">
+        <label class="input">
+            <input type="text" name="tags" value="{{ $_GET['tags'] ?? '' }}" placeholder="タグ検索（スペース区切り）">
+        </label>
+
         <ul class="sidemenu-list">
             <li class="expanded">
-                <span class="sidemenu-button sidemenu-expandable-button">
+                <span class="sidemenu-button sidemenu-expandable-button" @click="toggleSidemenuExpand">
                     ゲーム
                     <i class="mdi mdi-chevron-down"></i>
                 </span>
@@ -29,7 +33,7 @@
                 </ul>
             </li>
             <li class="expanded">
-                <span class="sidemenu-button sidemenu-expandable-button">
+                <span class="sidemenu-button sidemenu-expandable-button" @click="toggleSidemenuExpand">
                     タイプ
                     <i class="mdi mdi-chevron-down"></i>
                 </span>

@@ -5,7 +5,7 @@ namespace App;
 use App\Helpers\DateTool;
 use Illuminate\Database\Eloquent\Model;
 
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
  * @property int $user_id
  * @property array $details
  * @property string $content
- * @property \Illuminate\Support\Carbon $created_at
+ * @property Carbon $created_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Post newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Post newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Post query()
@@ -49,14 +49,13 @@ class Post extends Model
 
     public static function store(array $data)
     {
+        preg_match_all('/#([^\x00-\x2F\x3A-\x40\x5B-\x5E\x60\x7B-\x7F]+)/', $data['content'], $included_tags);
         return Post::create([
                                 'user_id' => Auth::id(),
                                 'details' => [
                                     'game' => $data['game'],
                                     'type' => $data['type'],
-//                                    'included_tags' => [
-//                                        'test', 'tag', 'hey'
-//                                    ]
+                                    'included_tags' => $included_tags[1],
                                 ],
                                 'content' => $data['content'],
                             ]);
@@ -73,7 +72,7 @@ class Post extends Model
             }
 
             $content = str_replace("\n", "<br>", e($item->content));
-            $content = preg_replace('/#([a-zA-Z0-9亜-熙ぁ-んァ-ヶ_]+)/', '<a href="/search?tags=$1">#$1</a>', $content);
+            $content = preg_replace('/#([^\x00-\x2F\x3A-\x40\x5B-\x5E\x60\x7B-\x7F]+)/', '<a href="/search?tags=$1">#$1</a>', $content);
 
             $results[] = [
                 'id' => $item->id,

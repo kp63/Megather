@@ -21,9 +21,12 @@
 @else
     <title class="notranslate">{{ config('app.name', 'Laravel') }}</title>
 @endif
-    <link rel="dns-prefetch" href="//cdn.materialdesignicons.com">
-    <link rel="prefetch" href="//cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css">
-    <link rel="stylesheet"   href="https://cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css">
+{{--    <link rel="dns-prefetch" href="//cdn.materialdesignicons.com">--}}
+{{--    <link rel="prefetch" href="//cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css">--}}
+{{--    <link rel="stylesheet"   href="https://cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css">--}}
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="prefetch"     href="//cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css">
+    <link rel="stylesheet"   href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css">
     <link rel="stylesheet"   href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/app.js') }}" charset="utf-8" defer></script>
 @hasSection('head_append')

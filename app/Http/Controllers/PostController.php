@@ -39,6 +39,38 @@ class PostController extends Controller
         $params = [];
         $items = Post::getAll();
 
+        if (
+            $request->query('tags') !== null &&
+            is_string($request->query('tags')) &&
+            trim($request->query('tags')) !== ''
+        ) {
+            $tags = (function ($tags) {
+                $output = [];
+                $tags = explode(' ', $tags);
+                foreach ($tags as $tag) {
+                    $tag = trim($tag);
+                    if (preg_match('/#?([^\x00-\x2F\x3A-\x40\x5B-\x5E\x60\x7B-\x7F]+)/', $tag)) {
+                        $output[] = ltrim($tag, '#');
+                    }
+                }
+                return $output;
+            })($request->query('tags'));
+
+            if ($tags !== []) {
+                foreach ($tags as $i => $tag) {
+                    $tag_encoded = json_encode($tag);
+                    $tag_encoded = str_replace('\\', '\\\\', $tag_encoded);
+                    if ($i === 0) {
+                        $items = $items->  whereRaw('json_contains(details, \'[' . $tag_encoded . ']\', \'$.included_tags\')');
+                    } else {
+                        $items = $items->orWhereRaw('json_contains(details, \'[' . $tag_encoded . ']\', \'$.included_tags\')');
+                    }
+                }
+//                var_dump(->get(['details->included_tags'])->toArray());exit;
+//                $items->whereIn(, $tags);
+            }
+        }
+
         if ($request->query('games') !== null && trim($request->query('games')) !== '') {
             $games = [];
 
