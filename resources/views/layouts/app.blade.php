@@ -10,6 +10,7 @@
                 <img class="notranslate" src="{{ asset('img/logo.png') }}" srcset="{{ asset('img/logo.svg') }}" alt="Megather">
             </a>
             <div class="header-actions">
+                <a href="/search" title="{{ __('Search') }}"><i class="mdi mdi-magnify"></i></a>
                 @guest
                     <a href="{{ route('login') }}">{{ __('Login') }}</a>
                     <a class="sp-hide" href="{{ route('oauth', ['provider' => 'google']) }}" title="{{ __('Sign in with Google') }}"><i class="mdi mdi-google"></i></a>
@@ -36,6 +37,11 @@
             <div class="body-content">
                 @yield('content')
             </div>
+            @hasSection('sidebar')
+            <div class="sidebar">
+                @yield('sidebar')
+            </div>
+            @endif
         </div>
 
         <div id="contextmenu-background" @click.right.prevent @mousedown="closeContextMenu"></div>
@@ -47,6 +53,7 @@
             reportThisPost: '{{ __('Report This Post') }}',
             myProfile: '{{ __('My Profile') }}',
             accountSettings: '{{ __('Account Settings') }}',
+            displaySettings: '{{ __('Display Settings') }}',
             logout: '{{ __('Logout') }}',
         }
     </script>

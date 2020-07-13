@@ -37,6 +37,8 @@ Route::get('/l2', function () {
 Route::get('/post', 'PostController@create')->middleware('auth')->name('new_post');
 Route::post('/post', 'PostController@store')->middleware('auth');
 Route::post('/post/destroy', 'PostController@destroy')->middleware('auth');
+Route::post('/post/report', 'PostController@report');
+Route::get('/search', 'PostController@search')->name('search');
 
 Route::get('/account/profile', function () {
     return redirect()->route('profile_page', [
@@ -53,7 +55,7 @@ Route::get('/account/settings', 'UserController@settings')->middleware('auth')->
 Route::post('/account/settings', 'UserController@store');
 //Route::post('/account/settings/update_publish_settings', '');
 
-Route::get('/search', 'SearchController@index');
+//Route::get('/search', 'SearchController@index');
 
 Route::get('/components', function () {
     return view('components');

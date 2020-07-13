@@ -100,6 +100,14 @@ select {
   text-align: right;
 }
 
+.text-white {
+  color: white;
+}
+
+.text-whitesmoke {
+  color: whitesmoke;
+}
+
 .page-header {
   display: block;
   position: relative;

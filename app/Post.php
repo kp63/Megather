@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Libraries\DateTool;
+use App\Helpers\DateTool;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Support\Facades\DB;
@@ -71,11 +71,15 @@ class Post extends Model
             if (Auth::id() === $item->user_id) {
                 $display_style = 'postowner';
             }
+
+            $content = str_replace("\n", "<br>", e($item->content));
+            $content = preg_replace('/#([a-zA-Z0-9亜-熙ぁ-んァ-ヶ_]+)/', '<a href="/search?tags=$1">#$1</a>', $content);
+
             $results[] = [
                 'id' => $item->id,
                 'username' => User::getUsernameFromId($item->user_id),
                 'avatar_uri' => User::getAvatarFromId($item->user_id),
-                'content' => $item->content,
+                'content' => $content,
                 'display_style' => $display_style,
                 'details' => $item->details,
                 'postdate' => DateTool::abs2rel($item->created_at),

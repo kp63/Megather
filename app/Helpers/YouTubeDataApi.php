@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Libraries;
+namespace App\Helpers;
 
 
 use Illuminate\Support\Facades\Cache;

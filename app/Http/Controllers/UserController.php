@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Libraries\DateTool;
-use App\Libraries\YouTubeDataApi;
+use App\Helpers\DateTool;
+use App\Helpers\YouTubeDataApi;
 use App\Post;
 use App\Profile;
 use App\Rules\UsernameCooldown;

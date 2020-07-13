@@ -36,6 +36,9 @@ const app = new Vue({
                     {
                         label: window.__.deleteThisPost,
                         className: 'danger-color',
+                        data: {
+                            id: e.currentTarget.parentNode.parentNode.dataset.id
+                        },
                         click: async function () {
                             let params = new URLSearchParams();
                             params.append('target', this.dataset.id);
@@ -45,9 +48,6 @@ const app = new Vue({
                             } else {
                                 console.log('failed');
                             }
-                        },
-                        data: {
-                            id: e.currentTarget.parentNode.parentNode.dataset.id
                         }
                     }
                 ]);
@@ -55,8 +55,18 @@ const app = new Vue({
                 contextmenu.set([
                     {
                         label: window.__.reportThisPost,
-                        click: function () {
-                            console.log('報告処理');
+                        data: {
+                            id: e.currentTarget.parentNode.parentNode.dataset.id
+                        },
+                        click: async function () {
+                            let params = new URLSearchParams();
+                            params.append('target', this.dataset.id);
+                            const res = await axios.post('/post/report', params);
+                            if (res.data === 'success') {0
+                                console.log('success');
+                            } else {
+                                console.log('failed');
+                            }
                         },
                     }
                 ]);
@@ -73,6 +83,10 @@ const app = new Vue({
                 {
                     label: window.__.accountSettings,
                     href: '/account/settings',
+                },
+                {
+                    label: window.__.displaySettings,
+                    href: '/settings',
                 },
                 {
                     type: 'separator',

@@ -10,11 +10,11 @@ return [
         'deceit'   => 'Deceit',
     ],
     'types' => [
-        'temp-member-wanted' => '一時メン@募集',
-        'fixed-member-wanted' => '固定メン@募集',
-        'clan-member-wanted' => 'クラメン@募集',
-        'temp-member-join' => '一時メン@参加希望',
-        'fixed-member-join' => '固定メン@参加希望',
-        'clan-member-join' => 'クラメン@参加希望',
+        'imb' => '一時メン@募集',
+        'kmb' => '固定メン@募集',
+        'cmb' => 'クラメン@募集',
+        'ims' => '一時メン@参加希望',
+        'kms' => '固定メン@参加希望',
+        'cms' => 'クラメン@参加希望',
     ]
 ];

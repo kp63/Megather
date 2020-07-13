@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CodicPluginSettings">
+    <option name="accessToken" value="0KgI9R3nCPAhhdsZjLnqeuxR74R5Ra1dUx" />
+    <option name="letterCaseConvention" value="PHP:lower underscore,Blade:pascal," />
+    <option name="projectId" value="13849" />
+    <option name="quickLookHeight" value="158" />
+    <option name="quickLookWidth" value="308" />
+  </component>
+</project>

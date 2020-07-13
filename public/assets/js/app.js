@@ -50471,6 +50471,9 @@ var app = new Vue({
         contextmenu.set([{
           label: window.__.deleteThisPost,
           className: 'danger-color',
+          data: {
+            id: e.currentTarget.parentNode.parentNode.dataset.id
+          },
           click: function () {
             var _click = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
               var params, res;
@@ -50505,17 +50508,50 @@ var app = new Vue({
             }
 
             return click;
-          }(),
-          data: {
-            id: e.currentTarget.parentNode.parentNode.dataset.id
-          }
+          }()
         }]);
       } else {
         contextmenu.set([{
           label: window.__.reportThisPost,
-          click: function click() {
-            console.log('報告処理');
-          }
+          data: {
+            id: e.currentTarget.parentNode.parentNode.dataset.id
+          },
+          click: function () {
+            var _click2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+              var params, res;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      params = new URLSearchParams();
+                      params.append('target', this.dataset.id);
+                      _context2.next = 4;
+                      return axios.post('/post/report', params);
+
+                    case 4:
+                      res = _context2.sent;
+
+                      if (res.data === 'success') {
+                        0;
+                        console.log('success');
+                      } else {
+                        console.log('failed');
+                      }
+
+                    case 6:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
+
+            function click() {
+              return _click2.apply(this, arguments);
+            }
+
+            return click;
+          }()
         }]);
       }
 
@@ -50528,6 +50564,9 @@ var app = new Vue({
       }, {
         label: window.__.accountSettings,
         href: '/account/settings'
+      }, {
+        label: window.__.displaySettings,
+        href: '/settings'
       }, {
         type: 'separator'
       }, {
