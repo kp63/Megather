@@ -46,9 +46,9 @@ Route::post('/account/settings', 'UserController@store');
 Route::redirect('/user/settings', '/account/settings');
 
 // Development
-Route::get('/components', function () {
-    return view('components');
-});
+//Route::get('/components', function () {
+//    return view('components');
+//});
 
 // OAuth
 Route::prefix('oauth')
