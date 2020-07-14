@@ -3,6 +3,9 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
+public/assets/css
+public/assets/js
+
 storage/*.key
 .env
 Homestead.yaml
