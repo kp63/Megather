@@ -35,7 +35,7 @@ Route::post('/post/report', 'PostController@report');
 Route::get('/search', 'PostController@search')->name('search');
 
 // Account
-Route::get('/account/profile', 'viewOwnProfile')
+Route::get('/account/profile', 'UserController@viewOwnProfile')
     ->middleware('auth')
     ->name('my_profile_page');
 Route::redirect('/user/profile', '/account/profile');
