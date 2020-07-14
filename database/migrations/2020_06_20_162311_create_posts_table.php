@@ -21,14 +21,6 @@ class CreatePostsTable extends Migration
             $table->string('content', 1000);
             $table->timestamps();
         });
-        Schema::create('posts_trash', function (Blueprint $table) {
-            $table->string('reason');
-            $table->integer('id')->primary();
-            $table->integer('user_id')->index();
-            $table->json('details');
-            $table->string('content', 1000);
-            $table->timestamps();
-        });
     }
 
     /**
@@ -39,6 +31,5 @@ class CreatePostsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('posts');
-        Schema::dropIfExists('posts_trash');
     }
 }
