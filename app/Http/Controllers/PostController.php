@@ -13,7 +13,7 @@ use \Closure;
 
 class PostController extends Controller
 {
-    public static $pagination_articles = 3;
+    public static $pagination_articles = 15;
 
     public function index(Request $request)
     {
