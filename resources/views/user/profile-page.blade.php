@@ -39,7 +39,7 @@
             @endif
         </div>
         @isset($bio)
-            <p class="profile-text">{{ nl2br($bio) }}</p>
+            <p class="profile-text">{!! nl2br($bio) !!}</p>
         @endif
     </div>
 @endsection

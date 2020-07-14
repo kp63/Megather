@@ -14,53 +14,43 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+// List of Posts
 Route::get('/', 'PostController@index');
 
+// Auth
 Auth::routes([
     'register' => false,
     'reset' => false,
     'verify' => false,
 ]);
-Route::get('/logout', function () {
-    return view('auth.logout');
-});
+Route::get('/logout', 'UserController@logout');
 
-Route::get('/l1', function () {
-    Auth::loginUsingId(1);
-    return redirect('/');
-});
-Route::get('/l2', function () {
-    Auth::loginUsingId(2);
-    return redirect('/');
-});
-
+// Post
 Route::get('/post', 'PostController@create')->middleware('auth')->name('new_post');
 Route::post('/post', 'PostController@store')->middleware('auth');
 Route::post('/post/destroy', 'PostController@destroy')->middleware('auth');
 Route::post('/post/report', 'PostController@report');
+
+// Search
 Route::get('/search', 'PostController@search')->name('search');
 
-Route::get('/account/profile', function () {
-    return redirect()->route('profile_page', [
-        'username' => Auth::user()->{'username'}
-    ]);
-})  ->middleware('auth')
+// Account
+Route::get('/account/profile', 'viewOwnProfile')
+    ->middleware('auth')
     ->name('my_profile_page');
-
-Route::get('/user/profile', function () { return redirect()->route('my_profile_page'); });
-Route::get('/user/settings', function () { return redirect()->route('account_settings'); });
+Route::redirect('/user/profile', '/account/profile');
 
 Route::get('/u/{username}', 'UserController@index')->name('profile_page');
 Route::get('/account/settings', 'UserController@settings')->middleware('auth')->name('account_settings');
 Route::post('/account/settings', 'UserController@store');
-//Route::post('/account/settings/update_publish_settings', '');
+Route::redirect('/user/settings', '/account/settings');
 
-//Route::get('/search', 'SearchController@index');
-
+// Development
 Route::get('/components', function () {
     return view('components');
 });
 
+// OAuth
 Route::prefix('oauth')
     ->group(function() {
         Route::get('/{provider}', 'Auth\OAuthController@redirect')->name('oauth');

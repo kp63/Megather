@@ -5,37 +5,13 @@ namespace App;
 use App\Helpers\DateTool;
 use Illuminate\Database\Eloquent\Model;
 
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-/**
- * App\Post
- *
- * @property int $id
- * @property int $user_id
- * @property array $details
- * @property string $content
- * @property Carbon $created_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Post newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Post newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Post query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Post whereContent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Post whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Post whereDetails($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Post whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Post whereUserId($value)
- * @mixin \Eloquent
- */
 class Post extends Model
 {
     protected $table = 'posts';
     protected $guarded = ['id'];
     protected $casts = ['details' => 'json'];
-
-    public static function getAll()
-    {
-        return Post::latest();
-    }
 
     public static function getPostFromId(string $id)
     {
@@ -49,13 +25,17 @@ class Post extends Model
 
     public static function store(array $data)
     {
-        preg_match_all('/#([^\x00-\x2F\x3A-\x40\x5B-\x5E\x60\x7B-\x7F]+)/', $data['content'], $included_tags);
+        if (preg_match_all('/#([^\x00-\x2F\x3A-\x40\x5B-\x5E\x60\x7B-\x7F]+)/', $data['content'], $included_tags)) {
+            $included_tags = $included_tags[1];
+        } else {
+            $included_tags = [];
+        }
         return Post::create([
                                 'user_id' => Auth::id(),
                                 'details' => [
                                     'game' => $data['game'],
                                     'type' => $data['type'],
-                                    'included_tags' => $included_tags[1],
+                                    'included_tags' => $included_tags,
                                 ],
                                 'content' => $data['content'],
                             ]);

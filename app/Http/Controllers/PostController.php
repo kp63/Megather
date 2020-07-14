@@ -7,13 +7,8 @@ use Illuminate\Http\Request;
 
 use App\Post;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Cookie;
 use \Closure;
 
 class PostController extends Controller
@@ -37,7 +32,7 @@ class PostController extends Controller
         if ($a !== false) { return redirect($a); } unset($a);
 
         $params = [];
-        $items = Post::getAll();
+        $items = Post::latest();
 
         if (
             $request->query('tags') !== null &&
@@ -66,8 +61,6 @@ class PostController extends Controller
                         $items = $items->orWhereRaw('json_contains(details, \'[' . $tag_encoded . ']\', \'$.included_tags\')');
                     }
                 }
-//                var_dump(->get(['details->included_tags'])->toArray());exit;
-//                $items->whereIn(, $tags);
             }
         }
 

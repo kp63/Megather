@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Helpers\DateTool;
 use App\Helpers\YouTubeDataApi;
-use App\Post;
 use App\Profile;
 use App\Rules\UsernameCooldown;
 use App\Rules\UsernameUnique;
@@ -14,15 +13,13 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
     public function index($username)
     {
-        $user = DB::table('users')->where('username', '=', $username)->first();
+        $user = User::where('username', $username)->first();
 
         if ($user === null) {
             return 'User not found.';
@@ -112,5 +109,15 @@ class UserController extends Controller
         } else {
             return Redirect::back()->with('error-message', 'アカウント設定の更新に失敗しました。');
         }
+    }
+
+    public function logout() {
+        return view('auth.logout');
+    }
+
+    public function viewOwnProfile() {
+        return redirect()->route('profile_page', [
+            'username' => Auth::user()->{'username'}
+        ]);
     }
 }
