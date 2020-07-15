@@ -2,12 +2,14 @@
 
 return [
     'games' => [
-        'siege'    => 'Rainbow Six Siege',
-        'apex'     => 'Apex Legends',
-        'valorant' => 'Valorant',
-        'fortnite' => 'Fortnite',
-        'pubg'     => 'PUBG',
-        'deceit'   => 'Deceit',
+        'siege'     => 'Rainbow Six Siege',
+        'apex'      => 'Apex Legends',
+        'valorant'  => 'Valorant',
+        'fortnite'  => 'Fortnite',
+        'pubg'      => 'PUBG',
+        'deceit'    => 'Deceit',
+        'bfv'       => 'Battlefield V',
+        'hyperscape' => 'Hyper Scape',
     ],
     'types' => [
         'imb' => '一時メン@募集',
