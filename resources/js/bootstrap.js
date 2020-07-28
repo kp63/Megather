@@ -1,6 +1,6 @@
 window._ = require('lodash');
 
-window.contextmenu = require('./contextmenu.js');
+window.contextmenu = require('./lib/contextmenu');
 contextmenu.init();
 
 /**

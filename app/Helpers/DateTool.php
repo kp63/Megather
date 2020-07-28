@@ -20,6 +20,9 @@ class DateTool
         }
         $now        = time();
         $diff_sec   = $now - $unix;
+        if ($diff_sec <= 1) {
+            return trans('Now');
+        }
         if ($diff_sec < 60) {
             $output = sprintf(trans('%d second(s) ago'), $diff_sec);
         } elseif ($diff_sec < 3600) {

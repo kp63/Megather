@@ -16,10 +16,10 @@
         color: darken($success-color, 20);
         border-color: lighten($success-color, 24);
     }
-    &.alert-warn {
-        background-color: lighten($warn-color, 36);
-        color: darken($warn-color, 20);
-        border-color: lighten($warn-color, 24);
+    &.alert-warning {
+        background-color: lighten($warning-color, 36);
+        color: darken($warning-color, 20);
+        border-color: lighten($warning-color, 24);
     }
     &.alert-danger {
         background-color: lighten($danger-color, 36);

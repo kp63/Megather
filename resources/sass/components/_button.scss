@@ -7,7 +7,7 @@
     margin-top: 6px;
     margin-left: 6px;
     padding: 8px 16px;
-    background-color: #d5d5d5;
+    background-color: rgba(0, 0, 0, 0.06);
     color: #333;
     font-size: 16px;
     text-decoration: none;
@@ -15,10 +15,10 @@
     cursor: pointer;
     transition: background-color .12s, box-shadow .12s;
     &:hover {
-        background-color: darken(#d5d5d5, 4);
+        background-color: rgba(0, 0, 0, 0.12);
     }
     &:focus {
-        background-color: darken(#d5d5d5, 12);
+        background-color: rgba(0, 0, 0, 0.2);
         box-shadow: 0 0 0 3px rgba(#d5d5d5, .2);
         outline: none;
     }
@@ -48,15 +48,15 @@
             box-shadow: 0 0 0 3px rgba($danger-color, .2);
         }
     }
-    &.btn-warn {
-        background-color: $warn-color;
+    &.btn-warning {
+        background-color: $warning-color;
         color: #333;
         &:hover {
-            background-color: darken($warn-color, 4);
+            background-color: darken($warning-color, 4);
         }
         &:focus {
-            background-color: darken($warn-color, 12);
-            box-shadow: 0 0 0 3px rgba($warn-color, .2);
+            background-color: darken($warning-color, 12);
+            box-shadow: 0 0 0 3px rgba($warning-color, .2);
         }
     }
     &.btn-black,

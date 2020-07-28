@@ -90,7 +90,7 @@ class UserController extends Controller
                                        'links-homepage' => 'max:255',
                                        'links-discord-publish' => [],
                                        'links-twitter' => ['max:255', 'regex:/^@?[a-zA-Z0-9_]{5,15}$/', 'nullable'],
-                                       'links-youtube' => ['max:255', 'regex:/^(https?:\/\/|\/\/)?(www\.|m\.)?(youtube\.com\/)?(channel|user)\/([a-zA-Z0-9\-]+).*$/', 'nullable'],
+                                       'links-youtube' => ['max:255', 'regex:/^(channel|user)\/([a-zA-Z0-9\-]+)$/', 'nullable'],
                                        'links-twitch' => 'max:255',
                                    ]);
 

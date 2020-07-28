@@ -104,8 +104,8 @@ class PostController extends Controller
             'items_converted' => $items_converted,
             'params' => $params,
             'display_list' => $params !== [],
-            'games' => $games ?? array_keys(Config::get('tags.games')),
-            'types' => $types ?? array_keys(Config::get('tags.types')),
+            'games' => $games ?? [],
+            'types' => $types ?? [],
         ]);
     }
 

@@ -56,3 +56,10 @@ Route::prefix('oauth')
         Route::get('/{provider}', 'Auth\OAuthController@redirect')->name('oauth');
         Route::get('/{provider}/callback', 'Auth\OAuthController@callback')->name('oauth_callback');
     });
+
+// OAuth
+Route::prefix('oauth_connect')
+    ->group(function() {
+        Route::get('/{provider}', 'Auth\OAuthController@redirect')->name('oauth_connect');
+        Route::get('/{provider}/callback', 'Auth\OAuthController@callback')->name('oauth_connect_callback');
+    });

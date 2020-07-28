@@ -20,10 +20,16 @@
                 </div>
             @endif
             @if (Session::get('error-message') !== null)
-                <div class="alert alert-error" style="margin: 14px 8px;">
+                <div class="alert alert-danger" style="margin: 14px 8px;">
                     {!! Session::get('error-message') !!}
                 </div>
             @endif
+
+            <div class="alert alert-warning">
+                <h3>意図しないアカウント作成してしまった場合</h3>
+                <a class="btn btn-danger" href="#">アカウント作成の取り消し</a>
+                <a class="btn btn-text " href="#">別アカウントとの連携</a>
+            </div>
 
             <h2>公開設定</h2>
             <div class="left-line">
@@ -126,7 +132,7 @@
                                         }
                                     }
                                     ?>
-                                    <input id="links-twitter" name="links-twitter" type="text" class="@error('links-twitter') is-invalid @enderror" placeholder="ユーザー名またはURL" @change="twitterLinkChallenge" value="{{ $twitter_value }}">
+                                    <input id="links-twitter" name="links-twitter" type="text" class="@error('links-twitter') is-invalid @enderror" placeholder="ユーザー名またはURL" value="{{ $twitter_value }}">
                                 </label>
                             </td>
                         </tr>

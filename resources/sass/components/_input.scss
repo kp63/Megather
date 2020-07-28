@@ -333,3 +333,57 @@ table.profile-links {
         }
     }
 }
+
+div.input {
+    display: block;
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 10px 0;
+    box-sizing: border-box;
+
+    > span {
+        display: block;
+        margin-left: 8px;
+        margin-right: 8px;
+        padding-bottom: 2px;
+        font-size: 14px;
+    }
+
+    > .form-control {
+        display: block;
+        width: 100%;
+        font-size: 14px;
+        background-color: #efefef;
+        border: solid 1px #bbb;
+        border-radius: 4px;
+        padding: 8px 12px;
+        line-height: 1.4;
+        min-height: 100px;
+        height: auto;
+        max-height: 500px;
+        overflow: auto;
+        resize: vertical;
+        box-sizing: border-box;
+        transition: background-color .12s, border-color .12s, box-shadow .12s;
+
+        &:focus {
+            background-color: #ececec;
+            box-shadow: 0 0 0 3px rgba(black, .1);
+        }
+
+        &:disabled {
+            background-color: #ececec;
+            color: #6d6d6d;
+            cursor: not-allowed;
+        }
+
+        &::-ms-input-placeholder {
+            color: #8d8d8d;
+        }
+
+        @media screen and (max-width: $sp-size) {
+            width: 100% !important;
+        }
+    }
+}

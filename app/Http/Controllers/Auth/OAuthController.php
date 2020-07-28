@@ -30,12 +30,16 @@ class OAuthController extends Controller
             abort('404');
         }
         if ($provider === 'discord') {
-            return SocialiteFacade::driver('discord')->setScopes(['identify'])->redirect();
+            return SocialiteFacade::driver('discord')
+                ->setScopes(['identify'])
+                ->redirect();
         } elseif ($provider === 'google') {
-            return SocialiteFacade::driver('google')->setScopes(['openid', 'https://www.googleapis.com/auth/userinfo.profile'])->redirect();
+            return SocialiteFacade::driver('google')
+                ->setScopes(['openid', 'https://www.googleapis.com/auth/userinfo.profile'])
+                ->redirect();
         } else {
             abort('404');
-            return '';
+            return false;
         }
     }
 
@@ -57,12 +61,13 @@ class OAuthController extends Controller
             return redirect()->route('login');
         }
 
-        $user = Socialite::where($provider, $socialUser->getId())->first();
+        $user = Socialite::getUserFromOpenId($provider, $socialUser->getId());
 
         if ($user !== null) {
             $prof = Profile::find($user->id);
             if ($provider === $prof->avatar_provider) {
                 $prof->avatar_url = $socialUser->getAvatar();
+                var_dump($socialUser->getAvatar());
             }
 
             if ($provider === 'discord') {
@@ -80,6 +85,9 @@ class OAuthController extends Controller
             $newUser = User::create([
                                         'username' => bin2hex(random_bytes(8)),
                                     ]);
+            if (!$newUser) {
+                exit;
+            }
 
             Socialite::create([
                                   'id' => $newUser->id,
@@ -99,10 +107,11 @@ class OAuthController extends Controller
                 $prof->save();
             }
 
-            Auth::loginUsingId($newUser->id, true);
-            return redirect('/account/settings')->with('primary-message', 'ようこそ、Megatherへ！まずはプロフィールを設定しましょう。');
+            if (Auth::loginUsingId($newUser->id, true)) {
+                return redirect('/account/settings')
+                    ->with('primary-message', 'ようこそ、Megatherへ！まずはプロフィールを設定しましょう。');
+            }
+            exit;
         }
-
-//        return redirect()->route('home');
     }
 }

@@ -18,10 +18,10 @@
 {{--                    <a href="{{ route('register') }}">{{ __('Register') }}</a>--}}
                 @else
                     <a href="{{ route('new_post') }}">{{ __('New Post') }}</a>
-{{--                    <button class="notranslate" @click="usernameButtonClick" data-username="{{ Auth::user()->username }}">{{ Auth::user()->username }}</button>--}}
+{{--                    <button class="notranslate" data-username="{{ Auth::user()->username }}">{{ Auth::user()->username }}</button>--}}
                     <div class="avatar">
-                        <img src="{{ DB::table('profiles')->find(Auth::id())->{'avatar_url'} ?? asset('img/userdata/avatar/default.png') }}" alt="{{ __('Avatar') }}">
-                        <button class="notranslate" @click="usernameButtonClick" data-username="{{ Auth::user()->username }}" title="{{ Auth::user()->username }}"></button>
+                        <img src="{{ App\Profile::getAvatar() }}" alt="{{ __('Avatar') }}">
+                        <button class="notranslate" id="self-avatar" data-username="{{ App\Profile::getUsername() }}" title="{{ App\Profile::getUsername() }}"></button>
                     </div>
                     @if (Auth::user()->role === 'admin' || Auth::user()->role === 'developer')
                         <a href="/control" title="{{ __('Control Panel') }}"><i class="mdi mdi-cog"></i></a>
@@ -46,8 +46,8 @@
             @endif
         </div>
 
-        <div id="contextmenu-background" @click.right.prevent @mousedown="closeContextMenu"></div>
-        <div id="contextmenu" @click.right.prevent></div>
+        <div id="contextmenu-background"></div>
+        <div id="contextmenu"></div>
     </div>
     <script>
         var __ = {

@@ -21,7 +21,7 @@ ol {
 }
 
 html {
-  overflow: hidden scroll;
+  overflow: auto scroll;
   scroll-behavior: smooth;
 }
 
@@ -63,6 +63,7 @@ h4 {
 
 a:focus {
   outline: dotted 1px gray;
+  outline-offset: 0.5px;
 }
 
 a,
@@ -268,6 +269,7 @@ select {
   table-layout: fixed;
   width: 280px;
   padding-right: 10px;
+  padding-bottom: 10px;
 }
 
 .article-list {
@@ -276,19 +278,58 @@ select {
   width: calc(100% - 10px);
   display: flex;
   flex-wrap: wrap;
+  align-items: stretch;
 }
 
 .article {
   position: relative;
   display: block;
-  float: left;
   margin-top: 10px;
   margin-left: 10px;
   min-width: 240px;
+  font-size: 16px;
   width: 100%;
   overflow: hidden;
   border-radius: 4px;
   transition: width 0.14s, opacity 0.14s;
+}
+
+.article .article-container {
+  position: relative;
+}
+
+.article.deleted {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.article.deleted .header-operation-button {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.article.deleted .article-deleted-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f3f3f3;
+}
+
+.article.deleted .article-deleted-box p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  -webkit-user-select: text;
+     -moz-user-select: text;
+      -ms-user-select: text;
+          user-select: text;
 }
 
 .article .article-header {
@@ -430,12 +471,13 @@ select {
   padding: 10px;
 }
 
-.article .article-body .body-content .content {
-  max-width: 100vw !important;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.article .article-body .body-content p {
+  width: 100% !important;
+  max-width: 100% !important;
   white-space: normal;
   word-break: break-all;
+  overflow-wrap: break-word;
+  text-overflow: ellipsis;
 }
 
 .article .article-footer {
@@ -658,7 +700,7 @@ select {
   margin-top: 6px;
   margin-left: 6px;
   padding: 8px 16px;
-  background-color: #d5d5d5;
+  background-color: rgba(0, 0, 0, 0.06);
   color: #333;
   font-size: 16px;
   text-decoration: none;
@@ -668,11 +710,11 @@ select {
 }
 
 .btn:hover {
-  background-color: #cbcbcb;
+  background-color: rgba(0, 0, 0, 0.12);
 }
 
 .btn:focus {
-  background-color: #b6b6b6;
+  background-color: rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 0 3px rgba(213, 213, 213, 0.2);
   outline: none;
 }
@@ -710,18 +752,18 @@ select {
   box-shadow: 0 0 0 3px rgba(215, 93, 93, 0.2);
 }
 
-.btn.btn-warn {
-  background-color: #d9c723;
+.btn.btn-warning {
+  background-color: #decc34;
   color: #333;
 }
 
-.btn.btn-warn:hover {
-  background-color: #c7b720;
+.btn.btn-warning:hover {
+  background-color: #dac723;
 }
 
-.btn.btn-warn:focus {
-  background-color: #a4971b;
-  box-shadow: 0 0 0 3px rgba(217, 199, 35, 0.2);
+.btn.btn-warning:focus {
+  background-color: #b7a71e;
+  box-shadow: 0 0 0 3px rgba(222, 204, 52, 0.2);
 }
 
 .btn.btn-black,
@@ -1151,6 +1193,56 @@ table.profile-links tr.twitch > th > label {
   color: #4e3380;
 }
 
+div.input {
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 10px 0;
+  box-sizing: border-box;
+}
+
+div.input > span {
+  display: block;
+  margin-left: 8px;
+  margin-right: 8px;
+  padding-bottom: 2px;
+  font-size: 14px;
+}
+
+div.input > .form-control {
+  display: block;
+  width: 100%;
+  font-size: 14px;
+  background-color: #efefef;
+  border: solid 1px #bbb;
+  border-radius: 4px;
+  padding: 8px 12px;
+  line-height: 1.4;
+  min-height: 100px;
+  height: auto;
+  max-height: 500px;
+  overflow: auto;
+  resize: vertical;
+  box-sizing: border-box;
+  transition: background-color 0.12s, border-color 0.12s, box-shadow 0.12s;
+}
+
+div.input > .form-control:focus {
+  background-color: #ececec;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+div.input > .form-control:disabled {
+  background-color: #ececec;
+  color: #6d6d6d;
+  cursor: not-allowed;
+}
+
+div.input > .form-control::-ms-input-placeholder {
+  color: #8d8d8d;
+}
+
 .alert {
   margin-top: 12px;
   margin-bottom: 12px;
@@ -1173,10 +1265,10 @@ table.profile-links tr.twitch > th > label {
   border-color: #afdda4;
 }
 
-.alert.alert-warn {
-  background-color: #f5efbf;
-  color: #817615;
-  border-color: #ece28a;
+.alert.alert-warning {
+  background-color: #f8f4d2;
+  color: #948718;
+  border-color: #efe69d;
 }
 
 .alert.alert-danger {
@@ -1610,6 +1702,9 @@ table.profile-links tr.twitch > th > label {
     display: block;
     width: 100%;
   }
+  div.input > .form-control {
+    width: 100% !important;
+  }
   .content-box {
     margin: 0;
     width: 100%;
@@ -1625,43 +1720,47 @@ table.profile-links tr.twitch > th > label {
 
 @media screen and (max-width: 699px) {
   .article-list.nosidebar .article {
-    width: calc(100% - 10px);
-    *width: 100%;
+    width: calc(100% - 10px) !important;
+    max-width: calc(100% - 10px) !important;
   }
 }
 
 @media screen and (min-width: 700px) and (max-width: 999px) {
   .article-list.nosidebar .article {
-    width: calc(50% - 10px);
-    *width: 50% !important;
+    width: calc(50% - 10px) !important;
+    max-width: calc(50% - 10px) !important;
   }
 }
 
 @media screen and (min-width: 1000px) and (max-width: 1199px) {
   .article-list.nosidebar .article {
-    width: calc(33.333% - 10px);
-    *width: 33% !important;
+    width: calc(33.333% - 10px) !important;
+    max-width: calc(33.333% - 10px) !important;
   }
   .article {
     width: calc(50% - 10px);
+    max-width: calc(50% - 10px);
   }
 }
 
 @media screen and (min-width: 1300px) {
   .article-list.nosidebar .article {
-    width: calc(25% - 10px);
+    width: calc(25% - 10px) !important;
+    max-width: calc(25% - 10px) !important;
   }
 }
 
 @media screen and (max-width: 999px) {
   .article {
     width: calc(100% - 10px);
+    max-width: calc(100% - 10px);
   }
 }
 
 @media screen and (min-width: 1200px) {
   .article {
     width: calc(33.3333333333333% - 10px);
+    max-width: calc(33.3333333333333% - 10px);
   }
 }
 

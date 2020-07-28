@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return [
     'games' => [
         'siege'      => 'Rainbow Six Siege',
         'hyperscape' => 'Hyper Scape',
@@ -10,6 +8,7 @@ return [
         'bfv'        => 'Battlefield V',
         'pubg'       => 'PUBG',
         'deceit'     => 'Deceit',
+        'other'      => 'その他',
     ],
     'types' => [
         'imb' => '一時メン@募集',
