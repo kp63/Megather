@@ -25,8 +25,8 @@ class Post extends Model
 
     public static function store(array $data)
     {
-        if (preg_match_all('/#([^\x00-\x2F\x3A-\x40\x5B-\x5E\x60\x7B-\x7F]+)/', $data['content'], $included_tags)) {
-            $included_tags = $included_tags[1];
+        if (preg_match_all('/(#(([0-9A-Za-zＡ-Ｚａ-ｚ０-９ー～_]|\p{Hiragana}|\p{Katakana}|\p{Han}|\p{Hangul})+))/u', $data['content'], $included_tags)) {
+            $included_tags = $included_tags[2];
         } else {
             $included_tags = [];
         }
@@ -52,7 +52,7 @@ class Post extends Model
             }
 
             $content = str_replace("\n", "<br>", e($item->content));
-            $content = preg_replace('/#([^\x00-\x2F\x3A-\x40\x5B-\x5E\x60\x7B-\x7F]+)/', '<a href="/search?tags=$1">#$1</a>', $content);
+            $content = preg_replace('/(#(([0-9A-Za-zＡ-Ｚａ-ｚ０-９ー～_]|\p{Hiragana}|\p{Katakana}|\p{Han}|\p{Hangul})+))/u', '<a href="/search?tags=$2">#$2</a>', $content);
 
             $results[] = [
                 'id' => $item->id,

@@ -44,7 +44,7 @@ class PostController extends Controller
                 $tags = explode(' ', $tags);
                 foreach ($tags as $tag) {
                     $tag = trim($tag);
-                    if (preg_match('/#?([^\x00-\x2F\x3A-\x40\x5B-\x5E\x60\x7B-\x7F]+)/', $tag)) {
+                    if (preg_match('/(#?(([0-9A-Za-zＡ-Ｚａ-ｚ０-９ー～_]|\p{Hiragana}|\p{Katakana}|\p{Han}|\p{Hangul})+))/u', $tag)) {
                         $output[] = ltrim($tag, '#');
                     }
                 }
