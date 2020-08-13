@@ -53,6 +53,17 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
+        "update": [
+            "@git pull origin master"
+        ],
+        "prod": [
+            "@php artisan cache:clear",
+            "@php artisan config:cache",
+            "@php artisan route:cache",
+            "@php artisan view:cache",
+            "@php artisan clear-compiled",
+            "@composer dump-autoload --optimize"
+        ],
         "database-reset": [
             "@php artisan migrate:fresh",
             "@php artisan db:seed"
