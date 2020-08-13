@@ -18,7 +18,8 @@
     z-index: 1000;
     min-width: 180px;
     padding: 4px 0;
-    background-color: rgb(73, 76, 80);
+    //background-color: rgb(73, 76, 80);
+    background-color: rgb(236, 236, 236);
     font-family: 'Yu Gothic UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 14px;
     color: whitesmoke;
@@ -29,7 +30,8 @@
     span,
     a {
         padding-left: 10px;
-        color: whitesmoke;
+        //color: whitesmoke;
+        color: black;
         display: block;
         white-space: nowrap;
         font-size: 14px;
@@ -39,10 +41,38 @@
         outline: none;
         &.link {
             &:hover {
-                background-color: rgba(255, 255, 255, 0.08);
+                //background-color: rgba(255, 255, 255, 0.08);
+                background-color: rgba(black, 0.06);
             }
             &:focus {
-                background-color: rgba(255, 255, 255, 0.16);
+                //background-color: rgba(255, 255, 255, 0.16);
+                background-color: rgba(black, 0.12);
+            }
+            &.google {
+                &:before {
+                    @include mdi('\F02AD');
+                    margin-right: .5em;
+                }
+                color: $google-color;
+                &:hover {
+                    background-color: rgba($google-color, 0.08);
+                }
+                &:focus {
+                    background-color: rgba($google-color, 0.16);
+                }
+            }
+            &.discord {
+                &:before {
+                    @include mdi('\F066F');
+                    margin-right: .5em;
+                }
+                color: $discord-color;
+                &:hover {
+                    background-color: rgba($discord-color, 0.08);
+                }
+                &:focus {
+                    background-color: rgba($discord-color, 0.16);
+                }
             }
         }
         &.danger-color {

@@ -12,9 +12,9 @@
             <div class="header-actions">
                 <a href="/search" title="{{ __('Search') }}"><i class="mdi mdi-magnify"></i></a>
                 @guest
-                    <a href="{{ route('login') }}">{{ __('Login') }}</a>
-                    <a class="sp-hide" href="{{ route('oauth', ['provider' => 'google']) }}" title="{{ __('Sign in with Google') }}"><i class="mdi mdi-google"></i></a>
-                    <a class="sp-hide" href="{{ route('oauth', ['provider' => 'discord']) }}" title="{{ __('Sign in with Discord') }}"><i class="mdi mdi-discord"></i></a>
+                    <a href="{{ route('login') }}" id="header-login-button">{{ __('Login') }}</a>
+{{--                    <a class="sp-hide" href="{{ route('oauth', ['provider' => 'google']) }}" title="{{ __('Sign in with Google') }}"><i class="mdi mdi-google"></i></a>--}}
+{{--                    <a class="sp-hide" href="{{ route('oauth', ['provider' => 'discord']) }}" title="{{ __('Sign in with Discord') }}"><i class="mdi mdi-discord"></i></a>--}}
 {{--                    <a href="{{ route('register') }}">{{ __('Register') }}</a>--}}
                 @else
                     <a href="{{ route('new_post') }}">{{ __('New Post') }}</a>

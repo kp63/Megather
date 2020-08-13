@@ -38200,6 +38200,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./resources/js/actions/create_login_contextmenu.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/actions/create_login_contextmenu.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function () {
+  var avatar = document.getElementById('header-login-button');
+
+  if (_.isElement(avatar)) {
+    avatar.onclick = function (ev) {
+      ev.preventDefault();
+      contextmenu.set([{
+        label: 'Google ログイン',
+        href: '/oauth/google',
+        className: 'link google',
+        icon: 'mdi mdi-google'
+      }, {
+        label: 'Discord ログイン',
+        href: '/oauth/discord',
+        className: 'link discord',
+        icon: 'mdi mdi-discord'
+      }]);
+      contextmenu.open(this, 8);
+    };
+  }
+})();
+
+/***/ }),
+
 /***/ "./resources/js/actions/post_form_content_preview.js":
 /*!***********************************************************!*\
   !*** ./resources/js/actions/post_form_content_preview.js ***!
@@ -38394,6 +38425,8 @@ window.addEventListener('DOMContentLoaded', function () {
   __webpack_require__(/*! ./actions/create_article_contextmenu */ "./resources/js/actions/create_article_contextmenu.js");
 
   __webpack_require__(/*! ./actions/create_avatar_contextmenu */ "./resources/js/actions/create_avatar_contextmenu.js");
+
+  __webpack_require__(/*! ./actions/create_login_contextmenu */ "./resources/js/actions/create_login_contextmenu.js");
 
   __webpack_require__(/*! ./actions/toggle_sidemenu_expandation */ "./resources/js/actions/toggle_sidemenu_expandation.js");
 

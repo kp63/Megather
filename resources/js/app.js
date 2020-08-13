@@ -5,6 +5,7 @@ require('./actions/check_ua');
 window.addEventListener('DOMContentLoaded', () => {
     require('./actions/create_article_contextmenu');
     require('./actions/create_avatar_contextmenu');
+    require('./actions/create_login_contextmenu');
     require('./actions/toggle_sidemenu_expandation');
     require('./actions/avatar_onerror');
     require('./actions/count_text_length');

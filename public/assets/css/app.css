@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 * {
   margin: 0;
   padding: 0;
@@ -111,7 +113,7 @@ ol {
 }
 
 ul {
-  list-style: square;
+  list-style: disc;
 }
 
 .text-left {
@@ -643,6 +645,8 @@ body.ua-ie .page-body.without-sidebar .body-content {
 .sidemenu-list {
   display: block;
   margin-top: 10px;
+  padding-left: 0;
+  list-style: none;
 }
 
 .sidemenu-list li.expanded > span {
@@ -692,6 +696,7 @@ body.ua-ie .page-body.without-sidebar .body-content {
   position: relative;
   display: block;
   padding-left: 25px;
+  list-style: none;
 }
 
 .sidemenu-list li ul:before {
@@ -1354,7 +1359,7 @@ div.input > .form-control::-ms-input-placeholder {
   z-index: 1000;
   min-width: 180px;
   padding: 4px 0;
-  background-color: #494c50;
+  background-color: #ececec;
   font-family: "Yu Gothic UI", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 14px;
   color: whitesmoke;
@@ -1370,7 +1375,7 @@ div.input > .form-control::-ms-input-placeholder {
 #contextmenu span,
 #contextmenu a {
   padding-left: 10px;
-  color: whitesmoke;
+  color: black;
   display: block;
   white-space: nowrap;
   font-size: 14px;
@@ -1382,12 +1387,68 @@ div.input > .form-control::-ms-input-placeholder {
 
 #contextmenu span.link:hover,
 #contextmenu a.link:hover {
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: rgba(0, 0, 0, 0.06);
 }
 
 #contextmenu span.link:focus,
 #contextmenu a.link:focus {
-  background-color: rgba(255, 255, 255, 0.16);
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+#contextmenu span.link.google,
+#contextmenu a.link.google {
+  color: #4285f4;
+}
+
+#contextmenu span.link.google:before,
+#contextmenu a.link.google:before {
+  content: "\F02AD";
+  display: inline-block;
+  font: normal normal normal 24px/1 "Material Design Icons";
+  font-size: inherit;
+  text-rendering: auto;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-right: 0.5em;
+}
+
+#contextmenu span.link.google:hover,
+#contextmenu a.link.google:hover {
+  background-color: rgba(66, 133, 244, 0.08);
+}
+
+#contextmenu span.link.google:focus,
+#contextmenu a.link.google:focus {
+  background-color: rgba(66, 133, 244, 0.16);
+}
+
+#contextmenu span.link.discord,
+#contextmenu a.link.discord {
+  color: #7289da;
+}
+
+#contextmenu span.link.discord:before,
+#contextmenu a.link.discord:before {
+  content: "\F066F";
+  display: inline-block;
+  font: normal normal normal 24px/1 "Material Design Icons";
+  font-size: inherit;
+  text-rendering: auto;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-right: 0.5em;
+}
+
+#contextmenu span.link.discord:hover,
+#contextmenu a.link.discord:hover {
+  background-color: rgba(114, 137, 218, 0.08);
+}
+
+#contextmenu span.link.discord:focus,
+#contextmenu a.link.discord:focus {
+  background-color: rgba(114, 137, 218, 0.16);
 }
 
 #contextmenu span.danger-color,

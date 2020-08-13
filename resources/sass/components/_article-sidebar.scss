@@ -35,6 +35,8 @@ $bottom-spacing: 10px;
 .sidemenu-list {
     display: block;
     margin-top: 10px;
+    padding-left: 0;
+    list-style: none;
     li.expanded {
         > span {
             background-color: #3273dc !important;
@@ -79,6 +81,7 @@ $bottom-spacing: 10px;
             position: relative;
             display: block;
             padding-left: 25px;
+            list-style: none;
             &:before {
                 content: "";
                 display: block;
