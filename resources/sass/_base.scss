@@ -13,13 +13,17 @@
     color: inherit;
     border: none;
     outline: none;
+    box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
-     box-sizing: border-box;
 }
 
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+
+::placeholder {
+    color: gray;
 }
 
 ul,
@@ -100,4 +104,12 @@ select {
     padding: 4px 12px;
     border: solid 1px #888;
     border-radius: 4px;
+}
+
+ul, ol {
+    padding-left: 30px;
+}
+
+ul {
+    list-style: square;
 }

@@ -12,3 +12,14 @@
         padding: 0 8px;
     }
 }
+
+body.ua-ie {
+    .page-body {
+        &.without-sidebar {
+            display: block;
+            .body-content {
+                display: block;
+            }
+        }
+    }
+}

@@ -1,7 +1,7 @@
 {
     "private": true,
     "scripts": {
-        "serve": "php artisan serve",
+        "serve": "php artisan serve --host=localhost",
         "dev": "npm run development",
         "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "watch": "npm run development -- --watch",
@@ -29,5 +29,7 @@
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
     },
-    "dependencies": {}
+    "dependencies": {
+        "autoprefixer": "^9.8.6"
+    }
 }

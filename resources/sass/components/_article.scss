@@ -2,6 +2,7 @@ $border-radius: 4px;
 $default-base: rgb(206, 206, 206);
 $green-base: rgb(192, 233, 192);
 $danger-base: rgb(236, 186, 186);
+$article-header-avatar-size: 40px;
 
 // Article List
 .article-list {
@@ -17,24 +18,33 @@ $danger-base: rgb(236, 186, 186);
     &.nosidebar {
         .article {
             @media screen and (max-width: 699px) {
-                width: calc(100% - 10px) !important;
-                max-width: calc(100% - 10px) !important;
+                width: calc(100% - 10px);
+                max-width: calc(100% - 10px);
             }
             @media screen and (min-width: 700px) and (max-width: 999px) {
-                width: calc(50% - 10px) !important;
-                max-width: calc(50% - 10px) !important;
+                width: calc(50% - 10px);
+                max-width: calc(50% - 10px);
             }
             @media screen and (min-width: 1000px) and (max-width: 1199px) {
-                width: calc(33.333% - 10px) !important;
-                max-width: calc(33.333% - 10px) !important;
+                width: calc(33.333% - 10px);
+                max-width: calc(33.333% - 10px);
             }
             @media screen and (min-width: 1300px) {
-                width: calc(25% - 10px) !important;
-                max-width: calc(25% - 10px) !important;
+                width: calc(25% - 10px);
+                max-width: calc(25% - 10px);
             }
         }
     }
 }
+
+//body.ua-ie {
+//    .article-list {
+//        .article {
+//            width: 160px !important;
+//            max-width: 160px !important;
+//        }
+//    }
+//}
 
 // Article Box
 .article {
@@ -70,9 +80,9 @@ $danger-base: rgb(236, 186, 186);
     &.deleted {
         user-select: none;
         .header-operation-button {
-            display: none !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
+            display: none;
+            visibility: hidden;
+            pointer-events: none;
         }
         .article-deleted-box {
             position: absolute;
@@ -105,10 +115,11 @@ $danger-base: rgb(236, 186, 186);
         // User Avatar
         .header-userimage {
             margin-right: 10px;
-            width: 40px;
-            height: 40px;
+            width: $article-header-avatar-size;
+            height: $article-header-avatar-size;
             float: left;
             background-color: rgb(39, 39, 39);
+            color: transparent;
             border-radius: 6px;
             box-shadow: 0 2px 6px rgba(black, .2);
             line-height: $header-height;
@@ -217,8 +228,8 @@ $danger-base: rgb(236, 186, 186);
             min-height: 100px;
             padding: 10px;
             p {
-                width: 100% !important;
-                max-width: 100% !important;
+                width: 100%;
+                max-width: 100%;
                 white-space: normal;
                 word-break: break-all;
                 overflow-wrap: break-word;

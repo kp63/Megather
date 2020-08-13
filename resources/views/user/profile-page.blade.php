@@ -7,7 +7,7 @@
         <div class="profile-page-header">
             <div class="profile-page-username @if($nickname !== null) with-nickname @endif">
                 <div class="profile-page-header-avatar">
-                    <img src="{{ $avatar_uri }}" alt="">
+                    <img data-avatar src="{{ $avatar_uri }}" alt="{{ __('Profile Image') }}">
                 </div>
                 <h1>{{ $username }}</h1>
                 @if($nickname !== null)

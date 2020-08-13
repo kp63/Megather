@@ -25,11 +25,11 @@
                 </div>
             @endif
 
-            <div class="alert alert-warning">
-                <h3>意図しないアカウント作成してしまった場合</h3>
-                <a class="btn btn-danger" href="#">アカウント作成の取り消し</a>
-                <a class="btn btn-text " href="#">別アカウントとの連携</a>
-            </div>
+{{--            <div class="alert alert-warning">--}}
+{{--                <h3>意図しないアカウント作成してしまった場合</h3>--}}
+{{--                <a class="btn btn-danger" href="#">アカウント作成の取り消し</a>--}}
+{{--                <a class="btn btn-text " href="#">別アカウントとの連携</a>--}}
+{{--            </div>--}}
 
             <h2>公開設定</h2>
             <div class="left-line">

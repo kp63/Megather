@@ -37970,37 +37970,61 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./resources/js/actions/colorize_content.js":
-/*!**************************************************!*\
-  !*** ./resources/js/actions/colorize_content.js ***!
-  \**************************************************/
+/***/ "./resources/js/actions/avatar_onerror.js":
+/*!************************************************!*\
+  !*** ./resources/js/actions/avatar_onerror.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// (() => {
-//     const input = document.getElementById('form-content');
-//     if (_.isElement(input)) {
-//         console.log(input);
-//         let escape_html = function (string) {
-//             if(typeof string !== 'string') {
-//                 return string;
-//             }
-//             return string.replace(/[&'`"<>]/g, function(match) {
-//                 return {
-//                     '&': '&amp;',
-//                     "'": '&#x27;',
-//                     '`': '&#x60;',
-//                     '"': '&quot;',
-//                     '<': '&lt;',
-//                     '>': '&gt;',
-//                 }[match]
-//             });
-//         }
-//         input.onblur = function () {
-//             this.innerHTML = escape_html(this.innerText).replace(/(#([^\x00-\x2F\x3A-\x40\x5B-\x5E\x60\x7B-\x7F]+))/g, '<a style="color: #07f;" href="/search?tags=$2" target="_blank">$1</a>');
-//         }
-//     }
-// })()
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+(function () {
+  var avatars = document.querySelectorAll('img[data-avatar]');
+
+  var _iterator = _createForOfIteratorHelper(avatars),
+      _step;
+
+  try {
+    var _loop = function _loop() {
+      var avatar = _step.value;
+
+      avatar.onerror = function (event) {
+        // avatar.src = '/assets/img/avatar/default_x64.webp';
+        avatar.src = 'data:image/webp;base64,UklGRnoCAABXRUJQVlA4IG4CAABwDACdASpAAEAAPm0sk0akIiGhKhZtEIANiWUA0wjgCAbY/noNMW3kp9TmKdgQYEqCGdeRJyARFWW5s5J1XUizsN4JAQi0woSJI/VS/fNsRTZdTx85ftRWhIUDaPn2jDbB3+8fzKyI3A6Zn6AA/vzuO7fMOCm35//iVR/uavSF4F3S4bwuPZdy3ui1tr6g7hAKuF5albF7DQbkHlVJptZ9C7RqX+vOyiNYeFNfY87JeSxxx3POxiNU1F1wW9FbZo+Hd6/K01q882mgF3jVa5anKmAMB8Oo8yvPyuhsWH4wAsc8JJYZqciP6LKVnrd1+WCt07g76w3AsdRLHAPAA3P8Zd9oFBhOYEwn042VgkjEJ8m0BdoV0N+Vy6w/s2v7iEhQpvhaTaqElNfTIlIGSirT/AHrliyjw338GLswHZa9B/9L0IRzSsUbmM13XX4oxL8flgqSCQELjhSOlovQr2Uvj2V/bHhU5yvCex5MnLqo6gZHXX1J7rEDFS9Y5FVI19Zfd7UcuUXpA2OZLzSloPvPHhajX/6H3AEzdsC/T2WWBBOB4DeOGgLbCC+SCZD/AKjDq6YyXdxXdQsK3rSv8YwcCX9uFhmjbrGc4+ekMyqhSppD5NsDM0TG4wPUkh7RfdEYmL+GQn7pOT3pSuX+ZFhqk+3ZvQ9GyK2DKiksrt/d25e9P1cHe58ATKmP4xK/Y9QL74w6PX2zUdviyl1VOAMS3sMNz710ukBq7XHKZPluC19pNnya4Ld5mZSlKLpC1pSNbHb5stMB6UJuIi8cWRePBEWNrO0orwgff0A5YwNtV/axXc/QM6vPB6uvmIAA';
+      };
+    };
+
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      _loop();
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+})();
+
+/***/ }),
+
+/***/ "./resources/js/actions/check_ua.js":
+/*!******************************************!*\
+  !*** ./resources/js/actions/check_ua.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function () {
+  var userAgent = window.navigator.userAgent.toLowerCase();
+
+  if (userAgent.indexOf('msie') !== -1 || userAgent.indexOf('trident') !== -1) {
+    document.body.classList.add('ua-ie');
+  }
+})();
 
 /***/ }),
 
@@ -38156,10 +38180,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, {
         label: window.__.accountSettings,
         href: '/account/settings'
-      }, {
-        label: window.__.displaySettings,
-        href: '/settings'
-      }, {
+      }, // {
+      //     label: window.__.displaySettings,
+      //     href: '/settings',
+      // },
+      {
         type: 'separator'
       }, {
         label: window.__.logout,
@@ -38363,6 +38388,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./actions/check_ua */ "./resources/js/actions/check_ua.js");
+
 window.addEventListener('DOMContentLoaded', function () {
   __webpack_require__(/*! ./actions/create_article_contextmenu */ "./resources/js/actions/create_article_contextmenu.js");
 
@@ -38370,9 +38397,10 @@ window.addEventListener('DOMContentLoaded', function () {
 
   __webpack_require__(/*! ./actions/toggle_sidemenu_expandation */ "./resources/js/actions/toggle_sidemenu_expandation.js");
 
-  __webpack_require__(/*! ./actions/count_text_length */ "./resources/js/actions/count_text_length.js");
+  __webpack_require__(/*! ./actions/avatar_onerror */ "./resources/js/actions/avatar_onerror.js");
 
-  __webpack_require__(/*! ./actions/colorize_content */ "./resources/js/actions/colorize_content.js");
+  __webpack_require__(/*! ./actions/count_text_length */ "./resources/js/actions/count_text_length.js"); // require('./actions/colorize_content');
+
 
   __webpack_require__(/*! ./actions/post_form_content_preview */ "./resources/js/actions/post_form_content_preview.js");
 

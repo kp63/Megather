@@ -8,6 +8,7 @@
 @import 'layouts/header';
 @import 'layouts/body';
 @import 'layouts/sidebar';
+@import 'layouts/footer';
 
 @import 'components/article';
 @import 'components/article-sidebar';
@@ -57,14 +58,18 @@
     }
 
     .sidebar {
-        display: none;
-        // display: block;
-        // position: fixed;
-        // top: calc(100% - 66px);
-        // left: 0;
-        // right: 0;
-        // width: 100%;
-        // padding: 0;
+        //display: none;
+        display: block;
+        position: fixed;
+        top: calc(100% - 60px);
+        left: 0;
+        right: 0;
+        width: 100%;
+        padding: 0;
+    }
+    .search-container {
+        margin: 0;
+        padding-top: 60px;
     }
 }
 

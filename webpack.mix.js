@@ -18,6 +18,10 @@ mix
     .sass('resources/sass/app.scss', 'public/assets/css')
     .options({
         postCss: [
+            require('autoprefixer')({
+                browsers: ['last 2 versions'],
+                grid: true // ←tureでIE11対応のベンダープレフィックスが出力される
+            }),
             require("css-mqpacker")
         ]
     })

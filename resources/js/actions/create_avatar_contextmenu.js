@@ -11,10 +11,10 @@
                     label: window.__.accountSettings,
                     href: '/account/settings',
                 },
-                {
-                    label: window.__.displaySettings,
-                    href: '/settings',
-                },
+                // {
+                //     label: window.__.displaySettings,
+                //     href: '/settings',
+                // },
                 {
                     type: 'separator',
                 },

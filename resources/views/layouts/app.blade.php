@@ -21,10 +21,10 @@
 {{--                    <button class="notranslate" data-username="{{ Auth::user()->username }}">{{ Auth::user()->username }}</button>--}}
                     <div class="avatar">
                         <img src="{{ App\Profile::getAvatar() }}" alt="{{ __('Avatar') }}">
-                        <button class="notranslate" id="self-avatar" data-username="{{ App\Profile::getUsername() }}" title="{{ App\Profile::getUsername() }}"></button>
+                        <button class="notranslate" data-avatar id="self-avatar" data-username="{{ App\Profile::getUsername() }}" title="{{ App\Profile::getUsername() }}"></button>
                     </div>
                     @if (Auth::user()->role === 'admin' || Auth::user()->role === 'developer')
-                        <a href="/control" title="{{ __('Control Panel') }}"><i class="mdi mdi-cog"></i></a>
+                        <a href="/management-panel" title="{{ __('Control Panel') }}"><i class="mdi mdi-cog"></i></a>
                     @endif
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
@@ -35,7 +35,8 @@
         <div style="padding: 14px 10px; background-color: #606f94; color: whitesmoke; text-align: center;">
             Megather Alpha Version - Last Updated at: {{ `git show -s --format=%cr` }}
         </div>
-        <div class="page-body">
+{{--        @include('layouts.ie-alert')--}}
+        <div class="page-body @hasSection('sidebar') with-sidebar @else without-sidebar @endif">
             <div class="body-content">
                 @yield('content')
             </div>
@@ -45,6 +46,12 @@
             </div>
             @endif
         </div>
+
+        <footer class="page-footer">
+            <div class="footer-links">
+                <a href="/terms">利用規約</a>
+            </div>
+        </footer>
 
         <div id="contextmenu-background"></div>
         <div id="contextmenu"></div>

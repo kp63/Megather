@@ -81,6 +81,8 @@ $profile-page-header-padding-min: 14px;
         }
     }
     .profile-page-header-avatar {
+        background-color: rgb(39, 39, 39);
+        color: transparent;
         position: absolute;
         top: $profile-page-header-padding;
         left: $profile-page-header-padding;
