@@ -1387,12 +1387,12 @@ div.input > .form-control::-ms-input-placeholder {
 
 #contextmenu span.link:hover,
 #contextmenu a.link:hover {
-  background-color: rgba(0, 0, 0, 0.06);
+  background-color: rgba(0, 0, 0, 0.04);
 }
 
 #contextmenu span.link:focus,
 #contextmenu a.link:focus {
-  background-color: rgba(0, 0, 0, 0.12);
+  background-color: rgba(0, 0, 0, 0.08);
 }
 
 #contextmenu span.link.google,

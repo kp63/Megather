@@ -14,6 +14,10 @@
     <meta property="og:image" content="{{  asset('img/icon_x128.png') }}">
     <meta property="og:site_name" content="{{ config('app.name', 'Laravel') }}">
     <meta property="og:description" content="{{ config('seo.description') }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Megather">
+    <meta name="twitter:domain" content="megather.netom.jp">
+    <meta name="twitter:image:src" content="{{  asset('img/og.png') }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 @endif
 @hasSection('page_title')
