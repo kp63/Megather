@@ -17,7 +17,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@Megather">
     <meta name="twitter:domain" content="megather.netom.jp">
-    <meta name="twitter:image:src" content="{{  asset('img/og.png') }}">
+    <meta name="twitter:image" content="{{  asset('img/og.png') }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 @endif
 @hasSection('page_title')
