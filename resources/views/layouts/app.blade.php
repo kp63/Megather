@@ -33,7 +33,7 @@
             </div>
         </div>
         <div style="padding: 14px 10px; background-color: #606f94; color: whitesmoke; text-align: center;">
-            Megather Alpha Version - Last Updated at: {{ `git show -s --format=%cr` }}
+            Megather Beta Version - Last Updated at: {{ `git show -s --format=%cr` }}
         </div>
 {{--        @include('layouts.ie-alert')--}}
         <div class="page-body @hasSection('sidebar') with-sidebar @else without-sidebar @endif">
