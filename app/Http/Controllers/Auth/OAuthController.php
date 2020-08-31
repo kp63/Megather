@@ -63,7 +63,7 @@ class OAuthController extends Controller
 
         $user = Socialite::getUserFromOpenId($provider, $socialUser->getId());
 
-        if ($user !== null) {
+        if ($user !== null && $user !== false) {
             $prof = Profile::find($user->id);
             if ($provider === $prof->avatar_provider) {
                 $prof->avatar_url = $socialUser->getAvatar();
@@ -85,6 +85,7 @@ class OAuthController extends Controller
             $newUser = User::create([
                                         'username' => bin2hex(random_bytes(8)),
                                     ]);
+
             if (!$newUser) {
                 exit;
             }
