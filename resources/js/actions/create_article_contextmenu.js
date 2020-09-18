@@ -33,13 +33,16 @@
                         {
                             label: window.__.reportThisPost,
                             data: {
-                                id: this.parentNode.parentNode.dataset.id
+                                id: postId
                             },
-                            click: async function () {
+                            click: async function (ev) {
                                 let params = new URLSearchParams();
-                                params.append('target', this.dataset.id);
+                                console.log(ev.currentTarget.dataset.id);
+                                params.append('target', postId);
                                 const res = await axios.post('/post/report', params);
                                 if (res.data === 'success') {
+                                    articleBox.classList.add('deleted');
+                                    articleBox.firstElementChild.insertAdjacentHTML('beforeend', '<div class="article-deleted-box"><p>この投稿を報告しました。</p></div>');
                                     console.log('success');
                                 } else {
                                     console.log('failed');

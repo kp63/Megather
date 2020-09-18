@@ -18,42 +18,44 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', 'PostController@index');
 
 // Auth
-Auth::routes([
-    'register' => false,
-    'reset' => false,
-    'verify' => false,
-]);
+Auth::routes([ 'register' => false, 'reset' => false, 'verify' => false]);
 Route::get('/logout', 'UserController@logout');
 
 // Post
-Route::get('/post', 'PostController@create')->middleware('auth')->name('new_post');
-Route::post('/post', 'PostController@store')->middleware('auth');
-Route::post('/post/destroy', 'PostController@destroy')->middleware('auth');
-Route::post('/post/report', 'PostController@report');
+Route::prefix('/post')
+    ->middleware('auth')
+    ->group(function() {
+        Route::get( '/', 'PostController@create')->name('new_post');
+        Route::post('/', 'PostController@store');
+        Route::post('/destroy', 'PostController@destroy');
+    });
+
+Route::prefix('/post')
+    ->group(function() {
+        Route::post('/report', 'PostController@report');
+    });
 
 // Search
 Route::get('/search', 'PostController@search')->name('search');
 
-// Account
-Route::get('/account/profile', 'UserController@viewOwnProfile')->middleware('auth')->name('my_profile_page');
-Route::redirect('/user/profile', '/account/profile');
 
+// Account Settings / Profile Page
 Route::get('/u/{username}', 'UserController@index')->name('profile_page');
-Route::get('/account/settings', 'UserController@settings')->middleware('auth')->name('account_settings');
-Route::post('/account/settings', 'UserController@store');
-Route::redirect('/user/settings', '/account/settings');
 
-Route::prefix('management-panel')
+Route::prefix('/account')
     ->group(function() {
-        Route::get('/', 'Manage\ManagementPanelController@index');
-//        Route::get('/callback', 'Auth\OAuthController@callback');
-    })
-;
-// csrf
-// Development
-//Route::get('/components', function () {
-//    return view('components');
-//});
+        Route::get('/profile', 'UserController@viewOwnProfile')->middleware('auth')->name('my_profile_page');
+        Route::get('/settings', 'UserController@settings')->middleware('auth')->name('account_settings');
+        Route::post('/settings', 'UserController@store');
+    });
+
+Route::prefix('/user') // account alias
+    ->group(function () {
+        Route::redirect('/profile', '/account/profile');
+        Route::redirect('/settings', '/account/settings');
+    });
+
+//Route::view('/components', 'components');
 
 // OAuth
 Route::prefix('oauth')
@@ -73,3 +75,11 @@ Route::prefix('oauth_connect')
 
 // Terms
 Route::get('/terms', 'PageController@terms');
+
+// Management Panel
+Route::prefix('management-panel')
+    ->group(function() {
+        Route::get('/', 'Manage\ManagementPanelController@index');
+//        Route::get('/callback', 'Auth\OAuthController@callback');
+    })
+;

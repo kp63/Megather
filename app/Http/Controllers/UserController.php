@@ -34,7 +34,7 @@ class UserController extends Controller
                 'avatar_uri' => $profile->avatar_url !== null ? $profile->avatar_url : asset('img/userdata/avatar/default.png'),
                 'bio' => $profile->bio,
                 'links' => (array) ($profile->links !== null ? $profile->links : []),
-                'links_youtube_name' => YouTubeDataApi::getYouTubeChannelName($profile->links['youtube'] ?? null),
+                'links_youtube_name' => is_string($profile->links['youtube']) ? YouTubeDataApi::getChannelName($profile->links['youtube']) : null,
                 'publish_discord_id' => (bool) $profile->publish_discord_id ?? false,
                 'discord_id' => (((bool) $profile->publish_discord_id === true) ? $profile->discord_id : null),
                 'discord_id_updated_at' => (((bool) $profile->publish_discord_id === true) ? DateTool::abs2rel($profile->discord_id_updated_at) : null),
@@ -90,7 +90,7 @@ class UserController extends Controller
                                        'links-homepage' => 'max:255',
                                        'links-discord-publish' => [],
                                        'links-twitter' => ['max:255', 'regex:/^@?[a-zA-Z0-9_]{5,15}$/', 'nullable'],
-                                       'links-youtube' => ['max:255', 'regex:/^(channel|user)\/([a-zA-Z0-9\-]+)$/', 'nullable'],
+                                       'links-youtube' => ['max:255', 'regex:/^(channel|user)\/([a-zA-Z0-9\-_]+)$/', 'nullable'],
                                        'links-twitch' => 'max:255',
                                    ]);
 
@@ -105,7 +105,7 @@ class UserController extends Controller
         }
 
         if (Profile::store($data)) {
-            return Redirect::back()->with('success-message', 'アカウント設定は正常に更新されました。');
+            return Redirect::back()->with('success-message', 'アカウント設定は正常に更新されました。 <a href="' . url('/account/profile') . '">プロフィールを確認</a>');
         } else {
             return Redirect::back()->with('error-message', 'アカウント設定の更新に失敗しました。');
         }

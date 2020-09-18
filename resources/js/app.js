@@ -15,4 +15,6 @@ window.addEventListener('DOMContentLoaded', () => {
     require('./actions/twitter_link_challenge');
     require('./actions/youtube_link_challenge');
     require('./actions/twitch_link_challenge');
+
+    require('./actions/accountSettingsPage');
 });

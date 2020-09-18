@@ -27,12 +27,12 @@ class Profile extends Model
         $prof = Profile::find(Auth::id());
 
         $links_youtube = null;
-        if (isset($data['links-youtube']) && $data['links-youtube'] !== null && trim($data['links-youtube']) !== '') {
-            $links_youtube = preg_replace('/^(https?:\/\/|\/\/)?(www\.|m\.)?(youtube\.com\/)?(channel|user)\/([a-zA-Z0-9\-]+).*$/', '$4/$5', $data['links-youtube']);
+        if (preg_match('/^(channel|user)\/([a-zA-Z0-9\-_]+)$/', ($data['links-youtube'] ?? ''))) {
+            $links_youtube = $data['links-youtube'];
         }
 
         $links_twitter = null;
-        if (isset($data['links-twitter']) && $data['links-twitter'] !== null && trim($data['links-twitter']) !== '') {
+        if (preg_match('/^@?[a-zA-Z0-9_]{5,15}$/', ($data['links-twitter'] ?? ''))) {
             $links_twitter = ltrim($data['links-twitter'], '@');
         }
 

@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('page_title', __('Create New Post'))
 
 @section('content')

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Rules;
+namespace App\Rules\social;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class UsernameValidation implements Rule
+class YouTubeId implements Rule
 {
     /**
      * Create a new rule instance.
@@ -25,7 +25,7 @@ class UsernameValidation implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/^[a-zA-Z0-9\-_.]{3,20}$/', (string) ($value ?? ''));
+        //
     }
 
     /**
@@ -35,6 +35,6 @@ class UsernameValidation implements Rule
      */
     public function message()
     {
-        return 'ユーザー名には半角英数字と一部の記号(-_.)のみ使用できます。';
+        return '不正なYouTubeID形式です。';
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\QueryTool;
+use App\User;
+use Google_Service_Sheets_ValueRange;
 use Illuminate\Http\Request;
 
 use App\Post;
@@ -192,20 +194,42 @@ class PostController extends Controller
 
     public function report(Request $request)
     {
-        if ($request->post('target') !== null) {
-            if ($target = intval($request->post('target'))) {
+        if ($request->input('target') !== null) {
+            if ($target = intval($request->input('target'))) {
                 $post = Post::find($target);
                 if ($post !== null) {
-                    $id = bin2hex(random_bytes(8));
-                    $filename = 'reports/' . $id . '.json';
-                    $data = [
-                        'reported_by' => Auth::id() ?? 'guest',
-                        'reason' => null,
-                        'reported_post' => $post->toArray(),
-                    ];
-                    $data = json_encode($data, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
-                    if (Storage::disk('local')->put($filename, $data)) {
+                    try {
+
+                        $sheets = \App\GoogleSheets::i();
+
+                        $sheet_id = '1byJLdmvOgDjT1xCTt64mRkS7QIdaxmLkpCQ1eqcUKzI';
+                        $values = new Google_Service_Sheets_ValueRange();
+                        $values->setValues(
+                            [
+                                'values' => [
+                                    'REPORT_POST',
+                                    Auth::id() ?? '-',
+                                    Auth::user()->username ?? '未ログイン',
+                                    '',
+                                    $request->ip() ?? '',
+                                    $post->id ?? '-',
+                                    $post->user_id ?? '-',
+                                    User::find($post->user_id) ?? '削除済みユーザー',
+                                    $post->content ?? '',
+                                ],
+                            ]
+                        );
+                        $params = ['valueInputOption' => 'USER_ENTERED'];
+
+                        $sheets->spreadsheets_values->append(
+                            $sheet_id,
+                            'A1',
+                            $values,
+                            $params
+                        );
                         return response('success')->header('Content-Type', 'text/plain');
+                    } catch (\Exception $e) {
+                        return response('failed')->header('Content-Type', 'text/plain');
                     }
                 }
             }
