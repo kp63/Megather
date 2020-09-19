@@ -154,9 +154,12 @@
                                 <th><label for="links-youtube"><i class="mdi mdi-youtube"></i> YouTube</label></th>
                                 <td>
                                     <label>
-                                        <input id="links-youtube" name="links-youtube" type="text" class="@error('links-youtube') is-invalid @enderror" placeholder="URL" value="{{ old('links-youtube') ?? $data['links.youtube'] ?? '' }}">
+                                        <input id="links-youtube" name="links-youtube" type="text" class="@error('links-youtube') is-invalid @enderror" placeholder="チャンネル IDまたはIDベースのURL" value="{{ old('links-youtube') ?? $data['links.youtube'] ?? '' }}">
                                     </label>
                                 </td>
+                            </tr>
+                            <tr class="spacer">
+                                <td colspan="2"><p class="text-right"><a class="btn mini" href="https://support.google.com/youtube/answer/3250431?hl=ja" target="_blank">チャンネルIDの確認方法</a></p></td>
                             </tr>
                             <tr class="spacer">
                                 @error('links-youtube')

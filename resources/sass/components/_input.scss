@@ -160,6 +160,9 @@ table.profile-links {
                 border-radius: 0;
                 box-shadow: none;
             }
+            &:focus-within {
+                box-shadow: none;
+            }
         }
         &:focus-within {
             box-shadow: 0 0 0 3px rgba(black, .1);
@@ -311,6 +314,10 @@ table.profile-links {
         tr {
             display: block;
             width: 100%;
+            &.spacer {
+                min-height: 6px;
+                height: auto;
+            }
             > th {
                 border-radius: 4px 4px 0 0;
                 border-right-width: 1px;

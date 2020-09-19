@@ -16,6 +16,8 @@ class YouTubeDataApi
      * @return false|string チャンネル名
      */
     public static function getChannelNameFromChannelId(string $channel_id) {
+        if (!preg_match('/^[a-zA-Z0-9\-_]+$/', $channel_id)) return false;
+
         $url = 'https://www.googleapis.com/youtube/v3/channels?id=' . urlencode($channel_id) . '&key=' . env('YOUTUBE_DATA_API_KEY') . '&part=snippet';
         $data = file_get_contents($url);
         $data = json_decode($data, true);
@@ -38,10 +40,9 @@ class YouTubeDataApi
             $channel_name = self::getChannelNameFromChannelId($channel_id);
             if ($channel_name !== false) {
                 Cache::put($cache_prefix . base64_encode($channel_id), $channel_name, 86400); // 1 day cache
-                return $channel_name;
             }
         }
-        return $channel_id;
+        return $channel_name;
     }
 
     /**

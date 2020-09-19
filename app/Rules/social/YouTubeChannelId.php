@@ -4,7 +4,7 @@ namespace App\Rules\social;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class YouTubeId implements Rule
+class YouTubeChannelId implements Rule
 {
     /**
      * Create a new rule instance.
@@ -25,7 +25,7 @@ class YouTubeId implements Rule
      */
     public function passes($attribute, $value)
     {
-        //
+        return preg_match('/^[a-zA-Z0-9\-_]+$/', (string) ($value ?? ''));
     }
 
     /**
@@ -35,6 +35,6 @@ class YouTubeId implements Rule
      */
     public function message()
     {
-        return '不正なYouTubeID形式です。';
+        return 'YouTube チャンネルIDの形式が不正です。';
     }
 }

@@ -38503,12 +38503,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 (function () {
   var input = document.getElementById('links-youtube');
   if (!_.isElement(input)) return;
+  console.log('hi');
 
   input.onchange = function (ev) {
-    ev.currentTarget.value = ev.currentTarget.value.replace(/^(https?:\/\/|\/\/)?(www\.|m\.)?(youtube\.com\/)?(channel|user)\/([a-zA-Z0-9\-_]+).*$/, '$4/$5');
+    var el = ev.currentTarget; // もし値がIDベースURLだった場合IDを抽出し書き換える。
 
-    if (ev.currentTarget.value !== '' && !ev.currentTarget.value.match(/^(channel|user)\/([a-zA-Z0-9\-_]+)$/)) {
-      ev.currentTarget.value = ev.currentTarget.defaultValue;
+    if (!el.value.match(/^(https?:\/\/)?(www\.|m\.)?(youtube\.com\/channel\/)$/)) {
+      el.value = el.value.replace(/^(https?:\/\/)?(www\.|m\.)?(youtube\.com\/channel\/)([a-zA-Z0-9\-_]+).*$/, '$4');
+    } // もし値がIDではなかった場合、初期値に戻す。
+
+
+    if (el.value !== '' && !el.value.match(/^([a-zA-Z0-9\-_]+)$/)) {
+      el.value = el.defaultValue;
     }
   };
 })();

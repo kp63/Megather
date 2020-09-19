@@ -9,7 +9,7 @@ class Profile extends Model
 {
     protected $table = 'profiles';
     protected $guarded = [];
-    protected $casts = ['links' => 'json'];
+    protected $casts = ['links' => 'json', 'publish_discord_id' => 'bool'];
 
     /**
      * @param $data
@@ -27,7 +27,7 @@ class Profile extends Model
         $prof = Profile::find(Auth::id());
 
         $links_youtube = null;
-        if (preg_match('/^(channel|user)\/([a-zA-Z0-9\-_]+)$/', ($data['links-youtube'] ?? ''))) {
+        if (preg_match('/^[a-zA-Z0-9\-_]+$/', ($data['links-youtube'] ?? ''))) {
             $links_youtube = $data['links-youtube'];
         }
 

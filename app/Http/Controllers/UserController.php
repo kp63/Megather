@@ -26,15 +26,51 @@ class UserController extends Controller
         }
 
         $profile = Profile::find($user->id);
-
         if ($profile !== null) {
+            $links = [];
+
+            if (isset($profile->discord_id) && $profile->publish_discord_id === true) {
+                $links[] = [
+                    'className' => 'discord',
+                    'icon' => 'mdi-discord',
+                    'href' => null,
+                    'content' => $profile->discord_id,
+                ];
+            }
+
+            if (isset($profile->links['youtube']) && is_string($profile->links['youtube'])) {
+                $links[] = [
+                    'className' => 'youtube',
+                    'icon' => 'mdi-youtube',
+                    'href' => 'https://www.youtube.com/' . $profile->links['youtube'] . '/featured',
+                    'content' => YouTubeDataApi::getChannelName($profile->links['youtube']) ?? '',
+                ];
+            }
+
+            if (isset($profile->links['twitter'])) {
+                $links[] = [
+                    'className' => 'twitter',
+                    'icon' => 'mdi-twitter',
+                    'href' => 'https://twitter.com/' . $profile->links['twitter'] . '',
+                    'content' => $profile->links['twitter'] ?? '',
+                ];
+            }
+
+            if (isset($profile->links['twitch'])) {
+                //
+            }
+//            $links[] = [
+//                'href' => '&commat;' . $id
+//            ]
+
             return view('user.profile-page', [
                 'username' => $username,
                 'nickname' => $profile->nickname,
                 'avatar_uri' => $profile->avatar_url !== null ? $profile->avatar_url : asset('img/userdata/avatar/default.png'),
                 'bio' => $profile->bio,
-                'links' => (array) ($profile->links !== null ? $profile->links : []),
-                'links_youtube_name' => is_string($profile->links['youtube']) ? YouTubeDataApi::getChannelName($profile->links['youtube']) : null,
+                'links' => $links,
+//                'links' => (array) ($profile->links !== null ? $profile->links : []),
+                'links_youtube_name' => (isset($profile->links['youtube']) && is_string($profile->links['youtube'])) ? YouTubeDataApi::getChannelName($profile->links['youtube']) : null,
                 'publish_discord_id' => (bool) $profile->publish_discord_id ?? false,
                 'discord_id' => (((bool) $profile->publish_discord_id === true) ? $profile->discord_id : null),
                 'discord_id_updated_at' => (((bool) $profile->publish_discord_id === true) ? DateTool::abs2rel($profile->discord_id_updated_at) : null),
@@ -90,7 +126,7 @@ class UserController extends Controller
                                        'links-homepage' => 'max:255',
                                        'links-discord-publish' => [],
                                        'links-twitter' => ['max:255', 'regex:/^@?[a-zA-Z0-9_]{5,15}$/', 'nullable'],
-                                       'links-youtube' => ['max:255', 'regex:/^(channel|user)\/([a-zA-Z0-9\-_]+)$/', 'nullable'],
+                                       'links-youtube' => ['max:255', 'regex:/^[a-zA-Z0-9\-_]+$/', 'nullable'],
                                        'links-twitch' => 'max:255',
                                    ]);
 

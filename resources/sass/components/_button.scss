@@ -25,6 +25,10 @@
     &.full {
         display: block;
     }
+    &.mini {
+        font-size: 14px;
+        padding: 6px 14px;
+    }
     &.btn-primary {
         background-color: $primary-color;
         color: whitesmoke;
