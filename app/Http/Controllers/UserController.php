@@ -22,7 +22,13 @@ class UserController extends Controller
         $user = User::where('username', $username)->first();
 
         if ($user === null) {
-            return 'User not found.';
+            return view('user.profile-page', [
+                'username' => 'Unknown User',
+                'nickname' => null,
+                'avatar_uri' => asset('img/avatar/default_x256.png'),
+                'bio' => '該当のユーザーは見つかりませんでした。',
+                'links' => [],
+            ]);
         }
 
         $profile = Profile::find($user->id);
@@ -51,35 +57,33 @@ class UserController extends Controller
                 $links[] = [
                     'className' => 'twitter',
                     'icon' => 'mdi-twitter',
-                    'href' => 'https://twitter.com/' . $profile->links['twitter'] . '',
-                    'content' => $profile->links['twitter'] ?? '',
+                    'href' => 'https://twitter.com/' . $profile->links['twitter'],
+                    'content' => '&commat;' . $profile->links['twitter'],
                 ];
             }
 
             if (isset($profile->links['twitch'])) {
-                //
+                $links[] = [
+                    'className' => 'twitch',
+                    'icon' => 'mdi-twitch',
+                    'href' => 'https://twitch.com/' . $profile->links['twitch'],
+                    'content' => $profile->links['twitch'],
+                ];
             }
-//            $links[] = [
-//                'href' => '&commat;' . $id
-//            ]
 
             return view('user.profile-page', [
                 'username' => $username,
-                'nickname' => $profile->nickname,
-                'avatar_uri' => $profile->avatar_url !== null ? $profile->avatar_url : asset('img/userdata/avatar/default.png'),
+                'nickname' => $profile->nickname ?? null,
+                'avatar_uri' => $profile->avatar_url !== null ? $profile->avatar_url : asset('img/avatar/default_x64.png'),
                 'bio' => $profile->bio,
                 'links' => $links,
-//                'links' => (array) ($profile->links !== null ? $profile->links : []),
-                'links_youtube_name' => (isset($profile->links['youtube']) && is_string($profile->links['youtube'])) ? YouTubeDataApi::getChannelName($profile->links['youtube']) : null,
-                'publish_discord_id' => (bool) $profile->publish_discord_id ?? false,
-                'discord_id' => (((bool) $profile->publish_discord_id === true) ? $profile->discord_id : null),
                 'discord_id_updated_at' => (((bool) $profile->publish_discord_id === true) ? DateTool::abs2rel($profile->discord_id_updated_at) : null),
             ]);
         } else {
             return view('user.profile-page', [
                 'username' => $username,
                 'nickname' => null,
-                'avatar_uri' => asset('img/userdata/avatar/default.png'),
+                'avatar_uri' => asset('img/avatar/default_x256.png'),
                 'bio' => '',
                 'links' => [],
                 'publish_discord_id' => false,

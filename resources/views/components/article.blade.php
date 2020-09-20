@@ -1,9 +1,15 @@
 <div class="article" data-id="{{ $item['id'] }}">
     <div class="article-container">
         <div class="article-header">
-            <a href="{{ route('profile_page', ['username' => $item['username']]) }}" class="header-userimage" title="{{ sprintf(__('%s\'s Profile'), $item['username']) }}">
-                <img data-avatar src="{{ $item['avatar_uri'] }}" alt="{{ __('Profile Image') }}">
-            </a>
+            @if($item['username'] !== 'Unknown User')
+                <a href="{{ route('profile_page', ['username' => $item['username']]) }}" class="header-userimage" title="{{ sprintf(__('%s\'s Profile'), $item['username']) }}">
+                    <img data-avatar src="{{ $item['avatar_uri'] }}" alt="{{ __('Profile Image') }}">
+                </a>
+            @else
+                <span class="header-userimage">
+                    <img data-avatar src="{{ asset('img/avatar/default_x64.png') }}" alt="{{ __('Profile Image') }}">
+                </span>
+            @endif
             <div class="header-username">
                 <span class="notranslate">{{ $item['username'] }}</span>
             </div>

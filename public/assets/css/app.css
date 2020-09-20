@@ -784,6 +784,11 @@ body.ua-ie .page-body.without-sidebar .body-content {
   display: block;
 }
 
+.btn.mini {
+  font-size: 14px;
+  padding: 6px 14px;
+}
+
 .btn.btn-primary {
   background-color: #3480e4;
   color: whitesmoke;
@@ -1080,6 +1085,10 @@ table.profile-links tr.spacer th,
 table.profile-links tr.spacer td {
   border: none;
   border-radius: 0;
+  box-shadow: none;
+}
+
+table.profile-links tr.spacer:focus-within {
   box-shadow: none;
 }
 
@@ -1833,6 +1842,11 @@ div.input > .form-control::-ms-input-placeholder {
   table.profile-links tr {
     display: block;
     width: 100%;
+  }
+
+  table.profile-links tr.spacer {
+    min-height: 6px;
+    height: auto;
   }
 
   table.profile-links tr > th {
