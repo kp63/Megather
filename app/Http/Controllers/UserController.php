@@ -49,7 +49,7 @@ class UserController extends Controller
                     'className' => 'youtube',
                     'icon' => 'mdi-youtube',
                     'href' => 'https://www.youtube.com/channel/' . $profile->links['youtube'] . '/featured',
-                    'content' => YouTubeDataApi::getChannelName($profile->links['youtube']) ?? '',
+                    'content' => YouTubeDataApi::getChannelName($profile->links['youtube']) ?? $profile->links['youtube'],
                 ];
             }
 
