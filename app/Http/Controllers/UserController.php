@@ -58,7 +58,7 @@ class UserController extends Controller
                     'className' => 'twitter',
                     'icon' => 'mdi-twitter',
                     'href' => 'https://twitter.com/' . $profile->links['twitter'],
-                    'content' => '&commat;' . $profile->links['twitter'],
+                    'content' => '@' . $profile->links['twitter'],
                 ];
             }
 

@@ -17,8 +17,15 @@ class YouTubeDataApi
      */
     public static function getChannelNameFromChannelId(string $channel_id) {
         if (!preg_match('/^[a-zA-Z0-9\-_]+$/', $channel_id)) return false;
+        if (env('YOUTUBE_DATA_API_KEY', '') === '') return false;
 
-        $url = 'https://www.googleapis.com/youtube/v3/channels?id=' . urlencode($channel_id) . '&key=' . env('YOUTUBE_DATA_API_KEY') . '&part=snippet';
+        $query = [
+            'id' => $channel_id,
+            'key' => env('YOUTUBE_DATA_API_KEY'),
+            'part' => 'snippet',
+        ];
+
+        $url = 'https://www.googleapis.com/youtube/v3/channels?' . http_build_query($query);
         $data = file_get_contents($url);
         $data = json_decode($data, true);
         return isset($data['items'][0]['snippet']['title']) ? $data['items'][0]['snippet']['title'] : false;
