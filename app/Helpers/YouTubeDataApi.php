@@ -17,11 +17,11 @@ class YouTubeDataApi
      */
     public static function getChannelNameFromChannelId(string $channel_id) {
         if (!preg_match('/^[a-zA-Z0-9\-_]+$/', $channel_id)) return false;
-        if (env('YOUTUBE_DATA_API_KEY', '') === '') return false;
+        if (config('api.youtube_data_api_key', '') === '') return false;
 
         $query = [
             'id' => $channel_id,
-            'key' => env('YOUTUBE_DATA_API_KEY'),
+            'key' => config('api.youtube_data_api_key'),
             'part' => 'snippet',
         ];
 
