@@ -9,6 +9,9 @@
       <sourceFolder url="file://$MODULE_DIR$/tests/Feature" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/public/assets/css" />
       <excludeFolder url="file://$MODULE_DIR$/public/assets/js" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/app/deleted_post" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/app/json" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/app/reports" />
       <excludeFolder url="file://$MODULE_DIR$/vendor" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dnoegel/php-xdg-base-dir" />

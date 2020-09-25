@@ -75,7 +75,7 @@
         </div>
 
         <footer>
-            <p class="text-14px">当サイトを使用することによって、このサイトの<a href="{{ url('/terms') }}">利用規約</a>に同意したものとみなします。</p>
+            <p class="text-14px">当サイトを使用することによって、あなたは<a href="{{ url('/terms') }}">利用規約</a>に同意したものとみなします。</p>
             <div class="footer-logo"><img src="{{ asset('img/logo.png') }}" srcset="{{ asset('img/logo.svg') }}" alt="Megather"></div>
         </footer>
 
