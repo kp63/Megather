@@ -353,7 +353,7 @@ h4 {
   margin: 0 auto;
   width: 100%;
   max-width: 1400px;
-  min-height: calc( 100vh - 190px );
+  min-height: calc( 100vh - 227px );
 }
 
 .page-body .body-content {
@@ -385,7 +385,6 @@ body.ua-ie .page-body.without-sidebar .body-content {
 footer {
   padding: 30px;
   color: gray;
-  box-shadow: 0 400px 0 400px #333;
   text-align: center;
 }
 
