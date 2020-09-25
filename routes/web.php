@@ -76,6 +76,7 @@ Route::prefix('oauth_connect')
 // Terms
 Route::view('/terms', 'terms');
 Route::redirect('/tos', '/terms');
+Route::redirect('/terms-of-service', '/terms');
 Route::redirect('/agreement', '/terms');
 
 // Management Panel
