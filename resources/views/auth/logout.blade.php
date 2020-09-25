@@ -4,10 +4,8 @@
     <div class="content-box">
         <form action="{{ route('logout') }}" method="POST">
             @csrf
-            <p>
-                Sure?
-                <button type="submit" style="display: inline-block; padding: 4px 8px; background-color: #e0e0e0; border-radius: 2px; cursor: pointer; ">Logout</button>.
-            </p>
+            <p class="text-18px">本当にログアウトしますか？</p>
+            <button type="submit" class="btn btn-danger">ログアウト</button>
         </form>
     </div>
 @endsection

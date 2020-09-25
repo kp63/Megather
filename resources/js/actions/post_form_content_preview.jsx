@@ -40,18 +40,14 @@
             }
         }
         update();
-        for (let i = 0; i < watchForm.length; i++) {
-            if (watchForm[i].nodeName === 'INPUT' || watchForm[i].nodeName === 'TEXTAREA') {
-                console.log(watchForm[i]);
-                watchForm[i].oninput = function() {
-                    update();
-                };
-            } else if (watchForm[i].nodeName === 'SELECT') {
-                console.log(watchForm[i]);
-                watchForm[i].onchange = function() {
-                    update();
-                };
+
+        let elements = ['game', 'type', 'content'];
+        for (let i = 0; i < elements.length; i++) {
+            let target = watchForm[elements[i]];
+            if (target.nodeName === 'INPUT' || target.nodeName === 'TEXTAREA') {
+                target.oninput = () => { update() };
             }
+            target.onchange = () => { update() };
         }
     }
 })()

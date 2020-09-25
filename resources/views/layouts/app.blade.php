@@ -24,21 +24,15 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @endif
     @hasSection('page_title')
-        <title class="notranslate">@yield('page_title') - {{ config('app.name', 'Laravel') }}</title>
+        <title class="notranslate">@yield('page_title') - {{ config('app.name', 'Megather') }}</title>
     @else
-        <title class="notranslate">{{ config('app.name', 'Laravel') }}</title>
+        <title class="notranslate">{{ config('app.name', 'Megather') }}</title>
     @endif
-    <link rel="dns-prefetch" href="//cdn.materialdesignicons.com">
-    {{--    <link rel="prefetch" href="//cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css">--}}
-    {{--    <link rel="stylesheet"   href="https://cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css">--}}
-    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+{{--    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">--}}
     <link rel="prefetch"     href="//cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css">
     <link rel="stylesheet"   href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css">
     <link rel="stylesheet"   href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/app.js') }}" charset="utf-8" defer></script>
-    @hasSection('head_append')
-        @yield('head_append')
-    @endif
 </head>
 <body>
     <div id="app" class="wrapper">
@@ -80,19 +74,23 @@
             @endif
         </div>
 
-        <footer class="page-footer">
-            <div class="footer-links">
-                <a href="/terms">利用規約</a>
-            </div>
+        <footer>
+            <p class="text-14px">当サイトを使用することによって、あなたはこのサイトの<a href="{{ url('/terms') }}">利用規約</a>に同意したものとみなします。</p>
+            <div class="footer-logo"><img src="{{ asset('img/logo.png') }}" srcset="{{ asset('img/logo.svg') }}" alt="Megather"></div>
         </footer>
 
         <div id="contextmenu-background"></div>
         <div id="contextmenu"></div>
     </div>
     <script>
-        var __ = {
-            @include('langPack')
-        }
+        <?php
+            $langRaw = \Illuminate\Support\Facades\Lang::get('javascript');
+            $lang = [];
+            foreach ($langRaw as $key => $value) {
+                $lang[str_replace(' ', '', lcfirst(ucwords($key)))] = $value;
+            }
+        ?>
+        window.__ = @json($lang)
     </script>
 </body>
 </html>

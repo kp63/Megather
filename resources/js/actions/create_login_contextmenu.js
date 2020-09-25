@@ -5,13 +5,13 @@
             ev.preventDefault();
             contextmenu.set([
                 {
-                    label: 'Google ' + window.__.login,
+                    label: sprintf(window.__.loginWith, 'Google'),
                     href: '/oauth/google',
                     className: 'link google',
                     icon: 'mdi mdi-google',
                 },
                 {
-                    label: 'Discord ' + window.__.login,
+                    label: sprintf(window.__.loginWith, 'Discord'),
                     href: '/oauth/discord',
                     className: 'link discord',
                     icon: 'mdi mdi-discord',

@@ -2,12 +2,7 @@
 @section('page_title', 'メンバー募集検索')
 
 @section('content')
-    <div class="article-list">
-        @foreach($items_converted as $i => $item)
-            @include('components.article', ['item' => $item])
-        @endforeach
-    </div>
-    {{ $items->appends($params)->links() }}
+    @include('components.articles');
 @endsection
 
 @section('sidebar')

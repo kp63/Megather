@@ -1,0 +1,58 @@
+p {
+    //
+}
+
+a {
+    &:focus {
+        outline: dotted 1px gray;
+        outline-offset: .5px;
+    }
+}
+
+a,
+.link {
+    color: rgb(0, 119, 255);
+    cursor: pointer;
+}
+
+hr {
+    margin: 10px 0;
+    height: 1px;
+    background-color: #333;
+}
+
+input, textarea, select {
+    background-color: white;
+}
+
+input, textarea {
+    line-height: 1;
+}
+
+select {
+    padding: 4px 12px;
+    border: solid 1px #888;
+    border-radius: 4px;
+}
+
+fieldset,
+img {
+    border: 0;
+}
+
+//img {
+//    vertical-align: bottom;
+//}
+
+ul, ol {
+    padding-left: 30px;
+}
+
+ul {
+    list-style: disc;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}

@@ -1,0 +1,68 @@
+// Text Aligns
+.text-left {
+    text-align: left;
+}
+.text-center {
+    text-align: center;
+}
+.text-right {
+     text-align: right;
+ }
+
+// Text Weights
+.text-normal {
+    font-weight: normal;
+}
+.text-bold {
+    font-weight: bold;
+}
+
+// Text Sizes
+.text-10px {
+    font-size: 10px;
+}
+.text-12px {
+    font-size: 12px;
+}
+.text-14px {
+    font-size: 14px;
+}
+.text-16px {
+    font-size: 16px;
+}
+.text-18px {
+    font-size: 18px;
+}
+
+// Text Colors
+.text-white {
+    color: white;
+}
+.text-whitesmoke {
+    color: whitesmoke;
+}
+.text-lightgray {
+    color: lightgray;
+}
+.text-gray {
+    color: gray;
+}
+.text-dark {
+    color: #333;
+}
+.text-black {
+    color: black;
+}
+
+.text-red {
+    color: $red;
+}
+.text-blue {
+    color: $blue;
+}
+.text-green {
+    color: $green;
+}
+.text-yellow {
+    color: $yellow;
+}

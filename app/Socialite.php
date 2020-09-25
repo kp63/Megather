@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Socialite extends Model
 {
     protected $table = 'socialite';
+    protected $primaryKey = 'user_id';
     protected $guarded = [];
     protected $casts = [];
 

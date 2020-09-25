@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\QueryTool;
+use App\Tag;
 use App\User;
 use Google_Service_Sheets_ValueRange;
 use Illuminate\Http\Request;
 
 use App\Post;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Config;
 use \Closure;
@@ -34,6 +36,7 @@ class PostController extends Controller
         if ($a !== false) { return redirect($a); } unset($a);
 
         $params = [];
+
         $items = Post::latest();
 
         if (
@@ -54,15 +57,22 @@ class PostController extends Controller
             })($request->query('tags'));
 
             if ($tags !== []) {
+                $tag_ids = [];
                 foreach ($tags as $i => $tag) {
-                    $tag_encoded = json_encode($tag);
-                    $tag_encoded = str_replace('\\', '\\\\', $tag_encoded);
-                    if ($i === 0) {
-                        $items = $items->  whereRaw('json_contains(details, \'[' . $tag_encoded . ']\', \'$.included_tags\')');
-                    } else {
-                        $items = $items->orWhereRaw('json_contains(details, \'[' . $tag_encoded . ']\', \'$.included_tags\')');
+                    $tag = Tag::where('name', Tag::tag_normalize($tag))->first();
+                    if ($tag !== null) {
+                        $tag_ids[] = $tag->id;
                     }
                 }
+
+                $tmp = DB::table('post_tag_relations')->whereIn('tag_id', $tag_ids)->get();
+
+                $post_ids = [];
+                foreach ($tmp as $t) {
+                    $post_ids[] = $t->post_id;
+                }
+
+                $items = Post::whereIn('id', $post_ids)->latest();
             }
         }
 
@@ -79,7 +89,7 @@ class PostController extends Controller
                     $params['games'] = implode('.', $games);
             }
             if ($games !== Config::get('tags.games')) {
-                $items->whereIn('details->game', $games);
+                $items->whereIn('game', $games);
             }
         }
         if ($request->query('types') !== null && trim($request->query('types')) !== '') {
@@ -94,21 +104,22 @@ class PostController extends Controller
                 $params['types'] = implode('.', $types);
             }
             if ($types !== Config::get('tags.types')) {
-                $items->whereIn('details->type', $types);
+                $items->whereIn('type', $types);
             }
         }
-        $items = $items->latest();
-        $items = $items->paginate(self::$pagination_articles);
-        $items_converted = Post::convert($items);
 
-        return view('post.search', [
-            'items' => $items,
-            'items_converted' => $items_converted,
-            'params' => $params,
-            'display_list' => $params !== [],
-            'games' => $games ?? [],
-            'types' => $types ?? [],
-        ]);
+        if (isset($items)) {
+            $items = $items->paginate(self::$pagination_articles);
+            $items_converted = Post::convert($items);
+            return view('post.search', [
+                'items' => $items,
+                'items_converted' => $items_converted,
+                'params' => $params,
+                'display_list' => $params !== [],
+                'games' => $games ?? [],
+                'types' => $types ?? [],
+            ]);
+        }
     }
 
     public function create()
@@ -123,8 +134,8 @@ class PostController extends Controller
                 'required',
                 'min:5',
                 'max:1000',
-                function ($attribute, $value, $fail) {
-                    if (mb_substr_count($value, "\n") >= 15) { // x行目までの制限
+                function ($attribute, $value, Closure $fail) {
+                    if (mb_substr_count($value, "\n") >= 15) {
                         $fail('改行が多すぎます。');
                     }
                 }
@@ -132,10 +143,13 @@ class PostController extends Controller
             'game' => [
                 'required',
                 function ($attribute, $value, Closure $fail) {
-                    if (!isset($value) || $value === '_unselected') {
+                    if (!isset($value) || trim($value) === '') {
                         $fail('ゲームが選択されていません。');
                     }
-                    if (!isset(Config::get('tags.games')[$value])) {
+                    if ($value === '_unselected') {
+                        $fail('ゲームが選択されていません。');
+                    }
+                    if (!isset(Config('tags.games')[$value])) {
                         $fail('不正なゲーム名が指定されました。');
                     }
                 }
@@ -143,7 +157,10 @@ class PostController extends Controller
             'type' => [
                 'required',
                 function ($attribute, $value, Closure $fail) {
-                    if (!isset($value) || $value === '_unselected') {
+                    if (!isset($value) || trim($value) === '') {
+                        $fail('タイプが選択されていません。');
+                    }
+                    if ($value === '_unselected') {
                         $fail('タイプが選択されていません。');
                     }
                     if (!isset(Config::get('tags.types')[$value])) {

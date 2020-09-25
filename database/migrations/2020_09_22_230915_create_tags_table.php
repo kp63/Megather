@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClansTable extends Migration
+class CreateTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,9 @@ class CreateClansTable extends Migration
      */
     public function up()
     {
-        Schema::create('clans', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('pretty_name');
-            $table->string('bio');
-//            $table->string('');
-            $table->integer('owner_user_id');
-            $table->integer('leader_user_id');
-            $table->integer('sub_leader_user_id');
-            $table->timestamps();
         });
     }
 
@@ -33,6 +26,6 @@ class CreateClansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clans');
+        Schema::dropIfExists('tags');
     }
 }

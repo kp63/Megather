@@ -12,6 +12,9 @@ contextmenu.init();
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
+    require('select2');
+    window.sprintf = require('sprintf-js').sprintf;
+    window.vsprintf = require('sprintf-js').vsprintf;
 
     require('bootstrap');
 } catch (e) {}

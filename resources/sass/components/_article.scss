@@ -4,76 +4,15 @@ $green-base: rgb(192, 233, 192);
 $danger-base: rgb(236, 186, 186);
 $article-header-avatar-size: 40px;
 
-// Article List
-.article-list {
-    margin-right: 10px;
-    margin-bottom: 10px;
-    width: calc(100% - 10px);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
-    @media screen and (max-width: 599px) {
-        //margin-right: 10px;
-    }
-    &.nosidebar {
-        .article {
-            @media screen and (max-width: 699px) {
-                width: calc(100% - 10px);
-                max-width: calc(100% - 10px);
-            }
-            @media screen and (min-width: 700px) and (max-width: 999px) {
-                width: calc(50% - 10px);
-                max-width: calc(50% - 10px);
-            }
-            @media screen and (min-width: 1000px) and (max-width: 1199px) {
-                width: calc(33.333% - 10px);
-                max-width: calc(33.333% - 10px);
-            }
-            @media screen and (min-width: 1300px) {
-                width: calc(25% - 10px);
-                max-width: calc(25% - 10px);
-            }
-        }
-    }
-}
-
-//body.ua-ie {
-//    .article-list {
-//        .article {
-//            width: 160px !important;
-//            max-width: 160px !important;
-//        }
-//    }
-//}
-
 // Article Box
 .article {
     position: relative;
     display: block;
-    //float: left;
-    margin-top: 10px;
-    margin-left: 10px;
-    min-width: 240px;
     font-size: 16px;
-    width: 100%;
+    text-align: left;
     overflow: hidden;
     border-radius: 4px;
     transition: width 0.14s, opacity .14s;
-    @media screen and (max-width: 999px) {
-        width: calc(100% - 10px);
-        max-width: calc(100% - 10px);
-    }
-    @media screen and (min-width: 1000px) and (max-width: 1199px) {
-        width: calc(50% - 10px);
-        max-width: calc(50% - 10px);
-    }
-    @media screen and (min-width: 1200px) {
-        width: calc(33.3333333333333% - 10px);
-        max-width: calc(33.3333333333333% - 10px);
-    }
-    // @media screen and (min-width: 1200px) {
-    //   width: calc(25% - 10px);
-    // }
     .article-container {
         position: relative;
     }

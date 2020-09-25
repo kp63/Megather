@@ -10,7 +10,8 @@ window.addEventListener('DOMContentLoaded', () => {
     require('./actions/avatar_onerror');
     require('./actions/count_text_length');
     // require('./actions/colorize_content');
-    require('./actions/post_form_content_preview');
+    require('./actions/select_search');
+    // require('./actions/post_form_content_preview');
 
     require('./actions/twitter_link_challenge');
     require('./actions/youtube_link_challenge');

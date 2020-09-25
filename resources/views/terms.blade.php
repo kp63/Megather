@@ -7,7 +7,7 @@
         <h1>利用規約</h1>
         <h3>1. 禁止事項</h3>
         <p>
-            当掲示板 (Megather)では、以下のような行為を禁止します。
+            当掲示板 (Megather)では、以下の行為を禁止します。
         </p>
         <ul style="list-style: decimal;">
             <li>法令または公序良俗に違反する行為</li>
@@ -24,6 +24,8 @@
         <p>
             当掲示板で生じた損害、ユーザーと他のユーザーまたは第三者との間において生じた取引、連絡または紛争等について一切責任を負いません。
         </p>
+
+        <p class="last-updated-at">最終更新日: 2020年09月25日</p>
     </div>
     <style>
         h3 {
@@ -34,6 +36,12 @@
         }
         li {
             margin: 4px 2px;
+        }
+        .last-updated-at {
+            margin-top: 1em;
+            text-align: right;
+            font-size: 14px;
+            color: gray;
         }
     </style>
 @endsection

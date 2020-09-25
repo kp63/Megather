@@ -11,7 +11,10 @@ class Post extends Model
 {
     protected $table = 'posts';
     protected $guarded = ['id'];
-    protected $casts = ['details' => 'json'];
+
+    public function tags() {
+        return $this->belongsToMany('App\Tag', 'post_tag_relations', 'post_id', 'tag_id');
+    }
 
     public static function getPostFromId(string $id)
     {
@@ -25,26 +28,36 @@ class Post extends Model
 
     public static function store(array $data)
     {
-        if (preg_match_all('/(#(([0-9A-Za-zＡ-Ｚａ-ｚ０-９ー～_]|\p{Hiragana}|\p{Katakana}|\p{Han}|\p{Hangul})+))/u', $data['content'], $included_tags)) {
-            $included_tags = $included_tags[2];
-        } else {
-            $included_tags = [];
+        $tags = [];
+        preg_match_all('/#(([0-9A-Za-zＡ-Ｚａ-ｚ０-９ー～_]|\p{Hiragana}|\p{Katakana}|\p{Han}|\p{Hangul})+)/u', $data['content'], $matches);
+        foreach ($matches[1] as $tag) {
+            $record = Tag::firstOrCreate(['name' => Tag::tag_normalize($tag)]);
+            array_push($tags, $record['id']);
         }
-        return Post::create([
-                                'user_id' => Auth::id(),
-                                'details' => [
-                                    'game' => $data['game'],
-                                    'type' => $data['type'],
-                                    'included_tags' => $included_tags,
-                                ],
-                                'content' => $data['content'],
-                            ]);
+
+        $post = new Post();
+        $post->user_id = Auth::id();
+        $post->content = $data['content'];
+        $post->game = $data['game'];
+        $post->type = $data['type'];
+        $result1 = $post->save();
+        if ($tags !== []) {
+            $result2 = $post->tags()->attach($tags);
+        } else {
+            $result2 = true;
+        }
+
+        if ($result1 && $result2) {
+            return true;
+        }
+        return false;
     }
 
     public static function convert($items): array
     {
         $results = [];
         foreach ($items as $item) {
+            $user = User::find($item->user_id);
             $profile = Profile::find($item->user_id);
             $display_style = null;
             if (Auth::id() === $item->user_id) {
@@ -56,11 +69,14 @@ class Post extends Model
 
             $results[] = [
                 'id' => $item->id,
-                'username' => User::getUsernameFromId($item->user_id),
-                'avatar_uri' => User::getAvatarFromId($item->user_id),
+                'username' => $user->username ?? 'Unknown User',
+                'avatar_uri' => $profile->avatar_url ?? asset(Profile::$default_avatar),
                 'content' => $content,
                 'display_style' => $display_style,
-                'details' => $item->details,
+                'details' => [
+                    'game' => $item->game,
+                    'type' => $item->type,
+                ],
                 'postdate' => DateTool::abs2rel($item->created_at),
             ];
         }

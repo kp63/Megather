@@ -1,0 +1,33 @@
+footer {
+    padding: 30px;
+    color: gray;
+    //background-color: #333;
+    box-shadow: 0 400px 0 400px #333;
+    text-align: center;
+
+    .footer-links {
+        text-align: right;
+        font-size: 14px;
+        a {
+            color: #cacaca;
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .footer-logo {
+        display: inline-block;
+        margin-top: 16px;
+        user-select: none;
+        img {
+            display: inline-block;
+            height: 20px;
+            opacity: .5;
+            pointer-events: none;
+            vertical-align: bottom;
+        }
+    }
+}
+

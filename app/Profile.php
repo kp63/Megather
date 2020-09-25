@@ -8,8 +8,14 @@ use Illuminate\Support\Facades\Auth;
 class Profile extends Model
 {
     protected $table = 'profiles';
+    protected $primaryKey = 'user_id';
     protected $guarded = [];
     protected $casts = ['links' => 'json', 'publish_discord_id' => 'bool'];
+    public static $default_avatar = 'img/userdata/avatar/default.png';
+
+    public static function user() {
+        return Profile::find(Auth::id());
+    }
 
     /**
      * @param $data

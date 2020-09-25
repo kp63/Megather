@@ -14,10 +14,14 @@ class CreateSocialiteTable extends Migration
     public function up()
     {
         Schema::create('socialite', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->unsignedBigInteger('user_id')->primary();
             $table->string('google')->nullable()->unique();
             $table->string('discord')->nullable()->unique();
             $table->timestamps();
+
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
         });
     }
 

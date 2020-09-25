@@ -1,4 +1,4 @@
-<div class="article" data-id="{{ $item['id'] }}">
+<div class="article col-12 col-sm-6 col-lg-4 col-xl-3 p-1" data-id="{{ $item['id'] }}">
     <div class="article-container">
         <div class="article-header">
             @if($item['username'] !== 'Unknown User')
