@@ -19,6 +19,7 @@
 
 // Base Design
 html {
+    height: 100%;
     overflow: auto scroll;
     scroll-behavior: smooth;
     @media screen and (max-width: 299px) {
@@ -28,6 +29,7 @@ html {
 }
 
 body {
+    min-height: 100%;
     background-color: $body-bg;
     font-family: $body-font-family;
     font-size: 16px;

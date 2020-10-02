@@ -28,11 +28,11 @@
     @else
         <title class="notranslate">{{ config('app.name', 'Megather') }}</title>
     @endif
-{{--    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">--}}
-    <link rel="prefetch"     href="//cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css">
-    <link rel="stylesheet"   href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css">
-    <link rel="stylesheet"   href="{{ asset('css/app.css') }}">
-    <script src="{{ asset('js/app.js') }}" charset="utf-8" defer></script>
+    <link rel="dns-prefetch" href="//cdn.materialdesignicons.com">
+    <link rel="stylesheet"   href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet"   href="{{ mix('assets/css/app.css') }}">
+    <script src="{{ mix('assets/js/app.js') }}" charset="utf-8" defer></script>
 </head>
 <body>
     <div id="app" class="wrapper">

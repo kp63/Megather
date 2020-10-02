@@ -4,30 +4,24 @@ import Select from "react-select";
 
 (() => {
     let variables = require('../variables');
-    let games = variables.games;
-    let types = variables.types;
     const styles = {
         control: base => ({
             ...base,
-            fontSize: '14px'
+            fontSize: '16px'
         }),
         menu: base => ({
             ...base,
-            fontSize: '14px'
+            fontSize: '16px'
         })
     };
 
     (() => {
-        let defaultValue = {value: '', label: '（募集ゲーム）', isDisabled: true};
-        let options = [defaultValue];
-        for (let key in games) {
-            options.push({value: key, label: games[key]});
-        }
+        let defaultValue = {value: '', label: 'ゲームの選択または検索…', isDisabled: true};
 
         let parent = document.querySelector('select[name="game"]');
         let Selector = () => {
             return (
-                <Select name={"game"} options={options} defaultValue={defaultValue} styles={styles} />
+                <Select name={"game"} isMulti={parent.multiple} options={variables.reactSelectOptions.games} defaultValue={defaultValue} styles={styles} />
             );
         }
 
@@ -39,16 +33,12 @@ import Select from "react-select";
         );
     })();
     (() => {
-        let defaultValue = {value: '', label: '（募集タイプ）', isDisabled: true};
-        let options = [defaultValue];
-        for (let key in types) {
-            options.push({value: key, label: types[key]});
-        }
+        let defaultValue = {value: '', label: 'タイプの選択または検索…', isDisabled: true};
 
         let parent = document.querySelector('select[name="type"]');
         let Selector = () => {
             return (
-                <Select name={"type"} options={options} defaultValue={defaultValue} styles={styles} />
+                <Select name={"type"} options={variables.reactSelectOptions.types} defaultValue={defaultValue} styles={styles} />
             );
         }
 

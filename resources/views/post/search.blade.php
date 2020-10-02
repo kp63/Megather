@@ -11,9 +11,13 @@
             <input type="text" name="tags" value="{{ $_GET['tags'] ?? '' }}" placeholder="タグ検索（スペース区切り）">
         </label>
 
+        <label class="input">
+            <select multiple type="text" name="game" value="{{ $_GET['tags'] ?? '' }}" placeholder="ゲーム"></select>
+        </label>
+
         <ul class="sidemenu-list">
             <li class="expanded">
-                <span class="sidemenu-button sidemenu-expandable-button" @click="toggleSidemenuExpand">
+                <span class="sidemenu-button sidemenu-expandable-button">
                     ゲーム
                     <i class="mdi mdi-chevron-down"></i>
                 </span>
@@ -29,7 +33,7 @@
                 </ul>
             </li>
             <li class="expanded">
-                <span class="sidemenu-button sidemenu-expandable-button" @click="toggleSidemenuExpand">
+                <span class="sidemenu-button sidemenu-expandable-button">
                     タイプ
                     <i class="mdi mdi-chevron-down"></i>
                 </span>

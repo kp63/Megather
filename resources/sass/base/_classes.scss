@@ -66,3 +66,24 @@
 .text-yellow {
     color: $yellow;
 }
+
+.left-line {
+    display: block;
+    position: relative;
+    min-height: 12px;
+    margin-bottom: 20px;
+    padding-top: 10px;
+    padding-left: 36px;
+    padding-bottom: 10px;
+    &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: -4px;
+        left: 24px;
+        bottom: 0;
+        width: 3px;
+        background-color: #b8b8b8;
+        border-radius: 1.5px;
+    }
+}

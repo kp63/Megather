@@ -11,7 +11,7 @@
             <label class="input select">
                 <span>{{ __('Game') }}</span>
                 <select name="game" required @error ('game') class="is-invalid" @enderror>
-                    <option value="_unselected" disabled selected>（募集ゲーム）</option>
+                    <option value="_unselected" disabled selected>ゲームの選択…</option>
                     @foreach (config('tags.games') as $game_id => $game_name)
                         <option class="notranslate" value="{{ $game_id }}" @if(old('game') === $game_id) selected @endif>{{ __($game_name) }}</option>
                     @endforeach
@@ -24,7 +24,7 @@
             <label class="input select">
                 <span>{{ __('Type') }}</span>
                 <select name="type" required @error ('type') class="is-invalid" @enderror data-select2>
-                    <option value="_unselected" disabled selected>（募集タイプ）</option>
+                    <option value="_unselected" disabled selected>タイプの選択…</option>
                     @foreach (config('tags.types') as $type_id => $type_name)
                         <option value="{{ $type_id }}" @if(old('type') === $type_id) selected @endif>{{ __($type_name) }}</option>
                     @endforeach

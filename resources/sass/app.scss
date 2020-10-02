@@ -1,100 +1,33 @@
 // Variable & Mixins
-@import 'variables';
-@import 'base/mixins';
+@import "variables";
+@import "base/mixins";
 
 // Libs
 @import "libs/bootstrap-grid.min.css";
 
 // Bases
-@import 'base/base';
-@import 'base/tags';
-@import 'base/paragraph';
-@import 'base/classes';
+@import "base/base";
+@import "base/tags";
+@import "base/typography";
+@import "base/classes";
 
 // Layouts
-@import 'layouts/header';
-@import 'layouts/body';
-@import 'layouts/sidebar';
-@import 'layouts/footer';
+@import "layouts/header";
+@import "layouts/body";
+@import "layouts/sidebar";
+@import "layouts/footer";
 
 // Components
-@import 'components/article';
-@import 'components/article-sidebar';
-@import 'components/error-box';
-@import 'components/button';
-@import 'components/input';
-@import 'components/alert';
-@import 'components/contextmenu';
-@import 'components/pagination';
+@import "components/content-box";
+@import "components/article";
+@import "components/article-sidebar";
+@import "components/error-box";
+@import "components/button";
+@import "components/input";
+@import "components/alert";
+@import "components/contextmenu";
+@import "components/pagination";
 
 // Pages
-@import 'pages/profilePage';
-@import 'pages/login';
-
-.content-box {
-    margin: 10px auto;
-    padding: 28px;
-    background-color: rgb(241, 241, 241);
-    max-width: 780px;
-    border-radius: 4px;
-    box-sizing: border-box;
-    @media screen and (max-width: $sp-size) {
-        margin: 0;
-        padding: 12px;
-        width: 100%;
-        border-radius: 0;
-    }
-}
-
-.body-content > .content-box {
-    width: calc(100% - 20px);
-    @media screen and (max-width: $sp-size) {
-        margin: 0;
-        min-height: calc(100vh - #{$header-height});
-        width: 100%;
-        border-radius: 0;
-    }
-}
-
-@media screen and (max-width: 649px) {
-    .content {
-        width: 100%;
-        display: table-row;
-    }
-
-    .sidebar {
-        //display: none;
-        display: block;
-        position: fixed;
-        top: calc(100% - 60px);
-        left: 0;
-        right: 0;
-        width: 100%;
-        padding: 0;
-    }
-    .search-container {
-        margin: 0;
-        padding-top: 60px;
-    }
-}
-
-.left-line {
-    display: block;
-    position: relative;
-    min-height: 12px;
-    margin-bottom: 20px;
-    padding-top: 10px;
-    padding-left: 36px;
-    padding-bottom: 10px;
-    &:before {
-        content: '';
-        display: block;
-        position: absolute;
-        top: -4px;
-        left: 24px;
-        bottom: 0;
-        width: 3px;
-        background-color: #b8b8b8;
-        border-radius: 1.5px;
-    }
-}
+@import "pages/profilePage";
+@import "pages/login";

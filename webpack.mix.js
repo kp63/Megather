@@ -20,9 +20,23 @@ mix
         postCss: [
             require('autoprefixer')({
                 browsers: ['last 2 versions'],
-                grid: true // ←tureでIE11対応のベンダープレフィックスが出力される
+                grid: true
             }),
             require("css-mqpacker")
         ]
     })
 ;
+
+mix.browserSync({
+    files: [
+        "resources/views/**/*.blade.php",
+        "public/**/*.*"
+    ],
+    proxy: {
+        target: "http://127.0.0.1:8000",
+    }
+});
+
+if (mix.inProduction()) {
+    mix.version();
+}
