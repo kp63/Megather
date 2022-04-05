@@ -31,14 +31,14 @@ return [
 //    ],
 
     'google' => [
-        'client_id' => env('GOOGLE_KEY'),
-        'client_secret' => env('GOOGLE_SECRET'),
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => '/oauth/google/callback'
     ],
 
     'discord' => [
-        'client_id' => env('DISCORD_KEY'),
-        'client_secret' => env('DISCORD_SECRET'),
+        'client_id' => env('DISCORD_CLIENT_ID'),
+        'client_secret' => env('DISCORD_CLIENT_SECRET'),
         'redirect' => '/oauth/discord/callback'
     ],
 

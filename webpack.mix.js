@@ -14,28 +14,15 @@ const mix = require('laravel-mix');
  */
 
 mix
-    .react('resources/js/app.js', 'public/assets/js')
+    .js('resources/js/app.js', 'public/assets/js')
+    .react()
     .sass('resources/sass/app.scss', 'public/assets/css')
     .options({
         postCss: [
-            require('autoprefixer')({
-                browsers: ['last 2 versions'],
-                grid: true
-            }),
             require("css-mqpacker")
         ]
     })
 ;
-
-mix.browserSync({
-    files: [
-        "resources/views/**/*.blade.php",
-        "public/**/*.*"
-    ],
-    proxy: {
-        target: "http://127.0.0.1:8000",
-    }
-});
 
 if (mix.inProduction()) {
     mix.version();

@@ -33,42 +33,42 @@ class UserController extends Controller
 
         $profile = Profile::find($user->id);
         if ($profile !== null) {
-            $links = [];
+            $links = collect([]);
 
             if (isset($profile->discord_id) && $profile->publish_discord_id === true) {
-                $links[] = [
+                $links->push([
                     'className' => 'discord',
                     'icon' => 'mdi-discord',
                     'href' => null,
                     'content' => $profile->discord_id,
-                ];
+                ]);
             }
 
             if (isset($profile->links['youtube']) && is_string($profile->links['youtube'])) {
-                $links[] = [
+                $links->push([
                     'className' => 'youtube',
                     'icon' => 'mdi-youtube',
                     'href' => 'https://www.youtube.com/channel/' . $profile->links['youtube'] . '/featured',
                     'content' => YouTubeDataApi::getChannelName($profile->links['youtube']) ?? $profile->links['youtube'],
-                ];
+                ]);
             }
 
             if (isset($profile->links['twitter'])) {
-                $links[] = [
+                $links->push([
                     'className' => 'twitter',
                     'icon' => 'mdi-twitter',
                     'href' => 'https://twitter.com/' . $profile->links['twitter'],
                     'content' => '@' . $profile->links['twitter'],
-                ];
+                ]);
             }
 
             if (isset($profile->links['twitch'])) {
-                $links[] = [
+                $links->push([
                     'className' => 'twitch',
                     'icon' => 'mdi-twitch',
                     'href' => 'https://twitch.com/' . $profile->links['twitch'],
                     'content' => $profile->links['twitch'],
-                ];
+                ]);
             }
 
             return view('user.profile-page', [
