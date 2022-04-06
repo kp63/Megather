@@ -3,11 +3,13 @@
         'siege'      => 'Rainbow Six Siege',
         'hyperscape' => 'Hyper Scape',
         'apex'       => 'Apex Legends',
+        'fallguys'   => 'Fall Guys',
         'valorant'   => 'Valorant',
         'fortnite'   => 'Fortnite',
         'bfv'        => 'Battlefield V',
         'pubg'       => 'PUBG',
         'deceit'     => 'Deceit',
+        'genshin'    => '原神',
         'other'      => 'その他',
     ],
     'types' => [

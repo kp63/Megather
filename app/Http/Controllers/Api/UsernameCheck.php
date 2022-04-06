@@ -3,44 +3,28 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Rules\UsernameValidation;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 
 class UsernameCheck extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * 要求されたユーザー名が使用できるかどうか確認します
      *
      * @param Request $request
      * @return Response
      */
     public function index(Request $request)
     {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'q' => [
-                    'required',
-                    new UsernameValidation
-                ]
-            ]
-        );
-
-        if ($validator->fails()) {
+        $q = (string) $request->get('q');
+        $res = 'ok';
+        if (!User::checkNameFormat($q))
             $res = 'invalid';
-        } else {
-            $query = $validator->validate()['q'];
-            if (DB::table('users')->where('username', $query)->first() !== null) {
-                $res = 'used';
-            } else {
-                $res = 'ok';
-            }
-        }
+        elseif (!User::checkNameUnique($q))
+            $res = 'taken';
 
-        return response($res, 200)
+        return response($res)
             ->header('Content-Type', 'text/plain');
     }
 }

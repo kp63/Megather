@@ -1,89 +1,91 @@
+@import "../variables";
+
 // Text Aligns
 .text-left {
-    text-align: left;
+  text-align: left;
 }
 .text-center {
-    text-align: center;
+  text-align: center;
 }
 .text-right {
-     text-align: right;
- }
+  text-align: right;
+}
 
 // Text Weights
 .text-normal {
-    font-weight: normal;
+  font-weight: normal;
 }
 .text-bold {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 // Text Sizes
 .text-10px {
-    font-size: 10px;
+  font-size: 10px;
 }
 .text-12px {
-    font-size: 12px;
+  font-size: 12px;
 }
 .text-14px {
-    font-size: 14px;
+  font-size: 14px;
 }
 .text-16px {
-    font-size: 16px;
+  font-size: 16px;
 }
 .text-18px {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 // Text Colors
 .text-white {
-    color: white;
+  color: white;
 }
 .text-whitesmoke {
-    color: whitesmoke;
+  color: whitesmoke;
 }
 .text-lightgray {
-    color: lightgray;
+  color: lightgray;
 }
 .text-gray {
-    color: gray;
+  color: gray;
 }
 .text-dark {
-    color: #333;
+  color: #333;
 }
 .text-black {
-    color: black;
+  color: black;
 }
 
 .text-red {
-    color: $red;
+  color: $red;
 }
 .text-blue {
-    color: $blue;
+  color: $blue;
 }
 .text-green {
-    color: $green;
+  color: $green;
 }
 .text-yellow {
-    color: $yellow;
+  color: $yellow;
 }
 
 .left-line {
+  display: block;
+  position: relative;
+  min-height: 12px;
+  margin-bottom: 20px;
+  padding-top: 10px;
+  padding-left: 36px;
+  padding-bottom: 10px;
+  &:before {
+    content: "";
     display: block;
-    position: relative;
-    min-height: 12px;
-    margin-bottom: 20px;
-    padding-top: 10px;
-    padding-left: 36px;
-    padding-bottom: 10px;
-    &:before {
-        content: "";
-        display: block;
-        position: absolute;
-        top: -4px;
-        left: 24px;
-        bottom: 0;
-        width: 3px;
-        background-color: #b8b8b8;
-        border-radius: 1.5px;
-    }
+    position: absolute;
+    top: -4px;
+    left: 24px;
+    bottom: 0;
+    width: 3px;
+    background-color: #b8b8b8;
+    border-radius: 1.5px;
+  }
 }

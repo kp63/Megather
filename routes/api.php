@@ -1,5 +1,6 @@
 <?php
 
+use \App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,4 +18,7 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-Route::get( '/username_check', 'Api\UsernameCheck@index');
+Route::get( '/username_check', [Controllers\Api\UsernameCheck::class, 'index']);
+Route::get('/config', function () {
+    return response()->json(config('megather'));
+});

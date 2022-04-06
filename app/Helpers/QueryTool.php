@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\URL;
 
 class QueryTool
 {
-    public static function explodeAllQueries(Request $request) {
+    public static function explodeAllQueries(Request $request)
+    {
         $queries = $request->query();
         $queries_new = [];
         foreach ($queries as $key => $query) {

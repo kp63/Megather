@@ -1,21 +1,27 @@
+@import "../variables";
+
 h1, h2, h3, h4, h5 {
-    font-family: $heading-font-family;
-    margin: 6px 8px;
+  font-family: $heading-font-family;
+  margin: 6px 8px;
 }
 
 h1 {
-    font-weight: bold;
-    font-size: 28px;
+  font-weight: bold;
+  font-size: 28px;
 }
 
 h2 {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 h3 {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 h4 {
-    font-size: 16px;
+  font-size: 16px;
+}
+
+.text-muted {
+  color: $text-muted;
 }

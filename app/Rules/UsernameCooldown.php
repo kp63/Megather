@@ -27,14 +27,7 @@ class UsernameCooldown implements Rule
      */
     public function passes($attribute, $value)
     {
-        $user = Auth::user();
-        if ($user->username === $value) {
-            return true;
-        }
-        if ($user->username_updated_at === null || (time() - strtotime($user->username_updated_at) > 2592000)) {
-            return true;
-        }
-        return false;
+        return Auth::user()->canUpdateName();
     }
 
     /**

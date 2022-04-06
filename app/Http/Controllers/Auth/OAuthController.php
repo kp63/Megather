@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\Providers;
+use App\Helpers\Util;
 use App\Http\Controllers\Controller;
-use App\Profile;
-use App\User;
-use App\Socialite;
-use Illuminate\Http\Request;
+use App\Models\Socialite;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite as SocialiteFacade;
+use Laravel\Socialite\Contracts\User as SocialUser;
 
 class OAuthController extends Controller
 {
@@ -19,72 +20,67 @@ class OAuthController extends Controller
     }
 
     /**
-     * 各SNSのOAuth認証画面にリダイレクト
+     * 各OAuth認証画面にリダイレクトします
      *
-     * @param string $provider プロバイダー名
+     * @param Providers $provider プロバイダー
      * @return mixed
      */
-    public function redirect(string $provider)
+    public function redirect(Providers $provider)
     {
-        if (!config('services.' . $provider)) {
+        if (!$provider->isEnabled()) {
             abort('404');
         }
 
-        switch ($provider) {
-            case 'discord':
-                return SocialiteFacade::driver('discord')
-                    ->setScopes(['identify'])
-                    ->redirect();
-            case 'google':
-                return SocialiteFacade::driver('google')
-                    ->setScopes(['openid', 'https://www.googleapis.com/auth/userinfo.profile'])
-                    ->redirect();
-            default:
-                abort('404');
-                return false;
-        }
+        return match ($provider) {
+            Providers::Discord => SocialiteFacade::driver('discord')
+                ->setScopes(['identify'])
+                ->redirect(),
+            Providers::Google => SocialiteFacade::driver('google')
+                ->setScopes(['openid', 'https://www.googleapis.com/auth/userinfo.profile'])
+                ->redirect()
+        };
     }
 
     /**
-     * 各サイトからのコールバック
+     * 各OAuth認証画面からのコールバック処理を行います
      *
-     * @param string $provider プロバイダー名
+     * @param Providers $provider プロバイダー名
      * @return mixed
-     * @throws \Exception
      */
-    public function callback($provider)
+    public function callback(Providers $provider)
     {
-        if (!config('services.' . $provider)) {
+        if (!$provider->isEnabled()) {
             abort('404');
         }
+
         try {
-            $socialUser = SocialiteFacade::driver($provider)->stateless()->user();
+            $socialUser = SocialiteFacade::driver($provider->value)->stateless()->user();
         } catch (\Exception $e) {
             return redirect()->route('login');
         }
 
-        $user = Socialite::getUserFromOpenId($provider, $socialUser->getId());
+        $user = Socialite::getUserByOpenId($provider, $socialUser->getId());
 
         if ($user) {
-            $prof = Profile::find($user->user_id);
-            if ($provider === $prof->avatar_provider) {
-                $prof->avatar_url = $socialUser->getAvatar();
-                var_dump($socialUser->getAvatar());
+            if ($provider === $user->profile->avatar_provider) {
+                $user->profile->avatar_url = $socialUser->getAvatar();
             }
 
-            if ($provider === 'discord') {
-                if ($prof->discord_id !== $socialUser->getNickname()) {
-                    $prof->discord_id = $socialUser->getNickname();
-                    $prof->discord_id_updated_at = Carbon::now()->toDateTimeString();
+            if ($provider === Providers::Discord) {
+                if ($user->profile->discord_id !== $socialUser->getNickname()) {
+                    $user->profile->discord_id = $socialUser->getNickname();
+                    $user->profile->discord_id_updated_at = Carbon::now()->toDateTimeString();
                 }
             }
 
-            $prof->save();
+            $user->profile->save();
 
-            Auth::loginUsingId($user->id, true);
-            return redirect('/');
+            if (Auth::loginUsingId($user->id, true)) {
+                return redirect('/');
+            }
+            return redirect('/')->with('error', 'ログインに失敗しました。');
         } else {
-            if (self::register($provider, $socialUser)) {
+            if (static::register($provider, $socialUser)) {
                 return redirect('/account/settings')
                     ->with('primary-message', 'ようこそ、Megatherへ！まずはプロフィールを設定しましょう。');
             } else {
@@ -94,42 +90,36 @@ class OAuthController extends Controller
     }
 
     /**
-     * Register
-     * @param string $provider
-     * @param $socialUser
-     * @return boolean
-     * @throws \Exception
+     * 新しくアカウントを作成します。
+     *
+     * @param Providers $provider
+     * @param SocialUser $socialUser
+     * @return false|User
      */
-    public static function register(string $provider, $socialUser) {
-        $newUser = User::create([
-                                    'username' => bin2hex(random_bytes(8)),
-                                ]);
-
-        if (!$newUser) {
+    public static function register(Providers $provider, SocialUser $socialUser): bool|User
+    {
+        if (!$provider->isEnabled()) {
             return false;
         }
 
-        Socialite::create([
-                              'user_id' => $newUser->id,
-                              $provider => $socialUser->getId(),
-                          ]);
+        $newUser = User::create([ 'name' => Util::randomHex(16) ]);
 
-        Profile::create([
-                            'user_id' => $newUser->id,
-                            'avatar_provider' => $provider,
-                            'avatar_url' => $socialUser->getAvatar()
-                        ]);
+        $newUser->socialites()->create([
+            $provider->value => $socialUser->getId()
+        ]);
 
-        if ($provider === 'discord') {
-            $prof = Profile::find($newUser->id);
-            $prof->discord_id = $socialUser->getNickname();
-            $prof->discord_id_updated_at = Carbon::now()->toDateTimeString();
-            $prof->save();
+        $profile = collect([
+            'avatar_provider' => $provider,
+            'avatar_url' => $socialUser->getAvatar()
+        ]);
+
+        if ($provider === Providers::Discord) {
+            $profile->put('discord_id', $socialUser->getNickName());
+            $profile->put('discord_id_updated_at', Carbon::now()->toDateTimeString());
         }
 
-        if (Auth::loginUsingId($newUser->id, true)) {
-            return true;
-        }
-        return false;
+        $newUser->profile()->create($profile->all());
+
+        return Auth::loginUsingId($newUser->id, true);
     }
 }

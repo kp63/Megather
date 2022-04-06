@@ -3,47 +3,107 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\QueryTool;
-use App\Tag;
-use App\User;
+use App\Helpers\Util;
+use App\Models\Post;
+use App\Models\Tag;
+use App\Models\User;
+use Closure;
 use Google_Service_Sheets_ValueRange;
 use Illuminate\Http\Request;
-
-use App\Post;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Config;
-use \Closure;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
-    public static $pagination_articles = 15;
+    public static int $pagination_articles = 15;
+
+    public function __construct()
+    {
+        $this->middleware('auth')->only(['create', 'store', 'destroy']);
+    }
 
     public function index(Request $request)
     {
         $items = Post::latest()->paginate(self::$pagination_articles);
-        $items_converted = Post::convert($items);
 
         return view('post.index', [
             'items' => $items,
-            'items_converted' => $items_converted,
         ]);
+    }
+
+    public function create()
+    {
+        return view('post.create');
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'content' => [
+                'required',
+                'min:5',
+                'max:1000',
+                function ($attribute, $value, Closure $fail) {
+                    if (mb_substr_count($value, "\n") >= 15) {
+                        $fail('改行が多すぎます。');
+                    }
+                }
+            ],
+            'game' => [ 'required', Rule::in(array_keys(Post::getAllGames())) ],
+            'type' => [ 'required', Rule::in(array_keys(Post::getAllTypes())) ],
+        ]);
+
+        $tags = collect([]);
+        preg_match_all('/#(([0-9A-Za-zＡ-Ｚａ-ｚ０-９ー～_]|\p{Hiragana}|\p{Katakana}|\p{Han}|\p{Hangul})+)/u', $data['content'], $matches);
+        foreach ($matches[1] as $tag) {
+            $record = Tag::firstOrCreate(['name' => Tag::tag_normalize($tag)]);
+            $tags->push($record->id);
+        }
+
+        $post = new Post();
+        $post->user_id = Auth::id();
+        $post->content = $data['content'];
+        $post->game = $data['game'];
+        $post->type = $data['type'];
+
+        if ($post->save()) {
+            $post->tags()->syncWithoutDetaching($tags);
+            return redirect('/');
+        }
+
+        return view('post.create');
+    }
+
+    public function destroy(Request $request)
+    {
+        if (!$request->input('target'))
+            return response('failed')->header('Content-Type', 'text/plain');
+
+        $user = $request->user();
+        $post = Post::find($request->input('target'));
+        if ($post && $post->user_id !== $user->id)
+            return response('failed')->header('Content-Type', 'text/plain');
+
+        if ($post->delete())
+            return response('success')->header('Content-Type', 'text/plain');
+
+        return response('failed')->header('Content-Type', 'text/plain');
     }
 
     public function search(Request $request)
     {
         $a = QueryTool::explodeAllQueries($request);
-        if ($a !== false) { return redirect($a); } unset($a);
+        if ($a !== false)
+            return redirect($a);
 
         $params = [];
 
         $items = Post::latest();
 
-        if (
-            $request->query('tags') !== null &&
-            is_string($request->query('tags')) &&
-            trim($request->query('tags')) !== ''
-        ) {
+        if ($request->query('tags')) {
             $tags = (function ($tags) {
                 $output = [];
                 $tags = explode(' ', $tags);
@@ -65,7 +125,7 @@ class PostController extends Controller
                     }
                 }
 
-                $tmp = DB::table('post_tag_relations')->whereIn('tag_id', $tag_ids)->get();
+                $tmp = DB::table('post_tag')->whereIn('tag_id', $tag_ids)->get();
 
                 $post_ids = [];
                 foreach ($tmp as $t) {
@@ -86,7 +146,7 @@ class PostController extends Controller
                 }
             }
             if ($games !== []) {
-                    $params['games'] = implode('.', $games);
+                $params['games'] = implode('.', $games);
             }
             if ($games !== Config::get('tags.games')) {
                 $items->whereIn('game', $games);
@@ -110,103 +170,14 @@ class PostController extends Controller
 
         if (isset($items)) {
             $items = $items->paginate(self::$pagination_articles);
-            $items_converted = Post::convert($items);
             return view('post.search', [
                 'items' => $items,
-                'items_converted' => $items_converted,
                 'params' => $params,
                 'display_list' => $params !== [],
                 'games' => $games ?? [],
                 'types' => $types ?? [],
             ]);
         }
-    }
-
-    public function create()
-    {
-        return view('post.create');
-    }
-
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-            'content' => [
-                'required',
-                'min:5',
-                'max:1000',
-                function ($attribute, $value, Closure $fail) {
-                    if (mb_substr_count($value, "\n") >= 15) {
-                        $fail('改行が多すぎます。');
-                    }
-                }
-            ],
-            'game' => [
-                'required',
-                function ($attribute, $value, Closure $fail) {
-                    if (!isset($value) || trim($value) === '') {
-                        $fail('ゲームが選択されていません。');
-                    }
-                    if ($value === '_unselected') {
-                        $fail('ゲームが選択されていません。');
-                    }
-                    if (!isset(Config('tags.games')[$value])) {
-                        $fail('不正なゲーム名が指定されました。');
-                    }
-                }
-            ],
-            'type' => [
-                'required',
-                function ($attribute, $value, Closure $fail) {
-                    if (!isset($value) || trim($value) === '') {
-                        $fail('タイプが選択されていません。');
-                    }
-                    if ($value === '_unselected') {
-                        $fail('タイプが選択されていません。');
-                    }
-                    if (!isset(Config::get('tags.types')[$value])) {
-                        $fail('不正なタイプ名が指定されました。');
-                    }
-                }
-            ]
-        ]);
-
-        if (Post::store($data)) {
-            return redirect('/');
-        }
-
-        return view('post.create');
-    }
-
-//    public function show($id)
-//    {
-//        //
-//    }
-
-    public function destroy(Request $request)
-    {
-        if ($request->post('target') !== null) {
-            if ($target = intval($request->post('target'))) {
-                $post = Post::find($target);
-                if ($post !== null) {
-                    $user_id = Auth::id();
-                    if ($post->user_id === $user_id) {
-                        if ($post->delete()) {
-                            $id = bin2hex(random_bytes(8));
-                            $filename = 'deleted_post/' . $id . '.json';
-                            $data = [
-                                'reason' => 'Self-delete',
-                                'deleted_post' => $post->toArray(),
-                            ];
-                            $data = json_encode($data, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
-                            if (Storage::disk('local')->put($filename, $data)) {
-                                return response('success')->header('Content-Type', 'text/plain');
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return response('failed')->header('Content-Type', 'text/plain');
     }
 
     public function report(Request $request)
@@ -217,7 +188,7 @@ class PostController extends Controller
                 if ($post !== null) {
                     try {
 
-                        $sheets = \App\GoogleSheets::i();
+                        $sheets = \App\Helpers\GoogleSheets::i();
 
                         $sheet_id = '1byJLdmvOgDjT1xCTt64mRkS7QIdaxmLkpCQ1eqcUKzI';
                         $values = new Google_Service_Sheets_ValueRange();

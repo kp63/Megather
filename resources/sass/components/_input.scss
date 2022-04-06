@@ -1,431 +1,433 @@
+@import "../variables";
+
 label.input {
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 10px 0;
+  box-sizing: border-box;
+  > span {
     display: block;
-    position: relative;
+    margin-left: 8px;
+    margin-right: 8px;
+    padding-bottom: 2px;
+    font-size: 14px;
+  }
+  > input, textarea, select {
+    display: block;
     width: 100%;
-    max-width: 400px;
-    padding: 10px 10px 0;
+    padding: 0 10px;
+    font-size: 14px;
+    border: solid 1px hsl(0,0%,80%);
+    border-radius: 4px;
     box-sizing: border-box;
-    > span {
-        display: block;
-        margin-left: 8px;
-        margin-right: 8px;
-        padding-bottom: 2px;
-        font-size: 14px;
+    transition: background-color .12s, border-color .12s, box-shadow .12s;
+    &:hover {
+      border-color: hsl(0,0%,70%);
     }
-    > input, textarea, select {
-        display: block;
-        width: 100%;
-        padding: 0 10px;
-        font-size: 14px;
-        border: solid 1px hsl(0,0%,80%);
-        border-radius: 4px;
-        box-sizing: border-box;
-        transition: background-color .12s, border-color .12s, box-shadow .12s;
-        &:hover {
-            border-color: hsl(0,0%,70%);
-        }
-        &:focus {
-            //background-color: #ececec;
-            box-shadow: 0 0 0 1px #2684ff;
-            border: solid 1px #2684ff;
-        }
-        &:disabled {
-            //background-color: #ececec;
-            color: #6d6d6d;
-            cursor: not-allowed;
-        }
-        &::-ms-input-placeholder {
-            color: #8d8d8d;
-        }
-        @media screen and (max-width: $sp-size) {
-            width: 100% !important;
-        }
+    &:focus {
+      //background-color: #ececec;
+      box-shadow: 0 0 0 1px #2684ff;
+      border: solid 1px #2684ff;
     }
-    > input {
-        height: 38px;
-        line-height: 38px;
+    &:disabled {
+      //background-color: #ececec;
+      color: #6d6d6d;
+      cursor: not-allowed;
     }
-    > textarea {
-        padding-top: 8px;
-        padding-bottom: 8px;
-        line-height: 1.4;
-        min-height: 100px;
-        max-height: 500px;
-        resize: vertical;
+    &::-ms-input-placeholder {
+      color: #8d8d8d;
     }
-    > select {
-        position: relative;
-        padding: 8px 12px;
-        //appearance: none;
-        //&::-ms-expand {
-        //    display: none;
-        //}
+    @media screen and (max-width: $sp-size) {
+      width: 100% !important;
     }
-    //&.select::after {
-    //    content: '\f0140';
-    //    display: block;
-    //    position: absolute;
-    //    right: 0;
-    //    bottom: 6px;
-    //    width: 37px;
-    //    text-align: center;
-    //    font: normal normal normal 24px/1 "Material Design Icons";
-    //    text-rendering: auto;
-    //    -webkit-font-smoothing: antialiased;
-    //    -moz-osx-font-smoothing: grayscale;
-    //    pointer-events: none;
+  }
+  > input {
+    height: 38px;
+    line-height: 38px;
+  }
+  > textarea {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    line-height: 1.4;
+    min-height: 100px;
+    max-height: 500px;
+    resize: vertical;
+  }
+  select {
+    position: relative;
+    padding: 8px 12px;
+    //appearance: none;
+    //&::-ms-expand {
+    //    display: none;
     //}
-    &.google {
-        > input, textarea, select {
-            background-color: rgba($google-color, .08);
-            color: darken($google-color, 20);
-            border-color: rgba($google-color, .6);
-            &:focus {
-                box-shadow: 0 0 0 3px rgba($google-color, .2);
-            }
-        }
-    }
-    &.discord {
-        > input, textarea, select {
-            background-color: rgba($discord-color, .08);
-            color: darken($discord-color, 20);
-            border-color: rgba($discord-color, .6);
-            &:focus {
-                box-shadow: 0 0 0 3px rgba($discord-color, .2);
-            }
-        }
-    }
-    &.twitter {
-        > input, textarea, select {
-            background-color: rgba($twitter-color, .08);
-            color: darken($twitter-color, 20);
-            border-color: rgba($twitter-color, .6);
-            &:focus {
-                box-shadow: 0 0 0 3px rgba($twitter-color, .2);
-            }
-        }
-    }
+  }
+  //&.select::after {
+  //    content: '\f0140';
+  //    display: block;
+  //    position: absolute;
+  //    right: 0;
+  //    bottom: 6px;
+  //    width: 37px;
+  //    text-align: center;
+  //    font: normal normal normal 24px/1 "Material Design Icons";
+  //    text-rendering: auto;
+  //    -webkit-font-smoothing: antialiased;
+  //    -moz-osx-font-smoothing: grayscale;
+  //    pointer-events: none;
+  //}
+  &.google {
     > input, textarea, select {
-        &.is-invalid {
-            background-color: rgba($danger-color, .03);
-            border-color: lighten($danger-color, 10);
-            &:hover {
-                background-color: rgba($danger-color, .07);
-            }
-            &:focus {
-                background-color: rgba($danger-color, .09);
-                box-shadow: 0 0 0 3px rgba($danger-color, .25);
-            }
-        }
+      background-color: rgba($google-color, .08);
+      color: darken($google-color, 20);
+      border-color: rgba($google-color, .6);
+      &:focus {
+        box-shadow: 0 0 0 3px rgba($google-color, .2);
+      }
     }
+  }
+  &.discord {
+    > input, textarea, select {
+      background-color: rgba($discord-color, .08);
+      color: darken($discord-color, 20);
+      border-color: rgba($discord-color, .6);
+      &:focus {
+        box-shadow: 0 0 0 3px rgba($discord-color, .2);
+      }
+    }
+  }
+  &.twitter {
+    > input, textarea, select {
+      background-color: rgba($twitter-color, .08);
+      color: darken($twitter-color, 20);
+      border-color: rgba($twitter-color, .6);
+      &:focus {
+        box-shadow: 0 0 0 3px rgba($twitter-color, .2);
+      }
+    }
+  }
+  > input, textarea, select {
+    &.is-invalid {
+      background-color: rgba($danger-color, .03);
+      border-color: lighten($danger-color, 10);
+      &:hover {
+        background-color: rgba($danger-color, .07);
+      }
+      &:focus {
+        background-color: rgba($danger-color, .09);
+        box-shadow: 0 0 0 3px rgba($danger-color, .25);
+      }
+    }
+  }
 }
 
 label.text-input {
+  display: block;
+  height: 40px;
+  margin: 10px;
+  width: auto;
+  > input {
     display: block;
-    height: 40px;
-    margin: 10px;
-    width: auto;
-    > input {
-        display: block;
-        width: 100%;
-        line-height: 40px;
-        padding: 0 10px;
-        background-color: rgba(218, 218, 218, 0.1);
-        border-radius: 2px;
-        color: whitesmoke;
-        box-sizing: border-box;
-        &:invalid,
-        &.invalid {
-            background-color: rgba(248, 124, 124, 0.1);
-            box-shadow: 0 0 0 1px rgba(248, 124, 124, 0.2);
-        }
+    width: 100%;
+    line-height: 40px;
+    padding: 0 10px;
+    background-color: rgba(218, 218, 218, 0.1);
+    border-radius: 2px;
+    color: whitesmoke;
+    box-sizing: border-box;
+    &:invalid,
+    &.invalid {
+      background-color: rgba(248, 124, 124, 0.1);
+      box-shadow: 0 0 0 1px rgba(248, 124, 124, 0.2);
     }
+  }
 }
 
 $profile-page-links-input-border-color: #bbb;
 table.profile-links {
-    width: 380px;
-    max-width: 100%;
-    border-collapse: separate;
-    //padding: 0 10px;
-    tr {
-        position: relative;
-        border-radius: 4px;
-        font-size: 14px;
-        transition: box-shadow .12s;
-        &.spacer {
-            height: 6px;
-            border: none;
-            border-radius: 0;
-            box-shadow: none;
-            th, td {
-                border: none;
-                border-radius: 0;
-                box-shadow: none;
-            }
-            &:focus-within {
-                box-shadow: none;
-            }
-        }
-        &:focus-within {
-            box-shadow: 0 0 0 3px rgba(black, .1);
-        }
-        > th {
-            background-color: #e8e8e8;
-            border-radius: 4px 0 0 4px;
-            //text-align: right;
-            border: solid 1px $profile-page-links-input-border-color;
-            border-right-width: 0;
-            height: 40px;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            user-select: none;
-            > label {
-                display: block;
-                line-height: 40px;
-                height: 40px;
-                padding: 0 12px;
-            }
-        }
-        > td {
-            border: solid 1px $profile-page-links-input-border-color;
-            border-left-width: 0;
-            border-radius: 0 4px 4px 0;
-            overflow: hidden;
-            > label {
-                display: block;
-                position: relative;
-                height: 40px;
-                background-color: #efefef;
-                .checkbox-label {
-                    display: block;
-                    position: absolute;
-                    top: 0;
-                    left: 34px;
-                    height: 40px;
-                    line-height: 40px;
-                }
-                > input[type="checkbox"] {
-                    margin: 0 12px;
-
-                }
-                > input {
-                    padding: 0 12px;
-                    height: 40px;
-                    white-space: nowrap;
-                    text-overflow: ellipsis;
-                    box-sizing: border-box;
-                    &[type="text"], &[type="password"], &[type="url"] {
-                        width: 100%;
-                    }
-                    &:disabled {
-                        background-color: #e2e2e2;
-                        color: #6d6d6d;
-                        cursor: not-allowed;
-                    }
-                    &.is-invalid {
-                        background-color: rgba($danger-color, .03);
-                        border-color: lighten($danger-color, 10);
-                        &:hover {
-                            background-color: rgba($danger-color, .07);
-                        }
-                        &:focus {
-                            background-color: rgba($danger-color, .09);
-                        }
-                    }
-                }
-            }
-        }
-        &.google {
-            &:focus-within {
-                box-shadow: 0 0 0 3px rgba($google-color, .2);
-            }
-            > th, > td {
-                border-color: rgba($google-color, .6);
-            }
-            > th {
-                background-color: rgba($google-color, .14);
-                > label {
-                    color: darken($google-color, 10);
-                }
-            }
-        }
-        &.discord {
-            &:focus-within {
-                box-shadow: 0 0 0 3px rgba($discord-color, .2);
-            }
-            > th, > td {
-                border-color: rgba($discord-color, .6);
-            }
-            > th {
-                background-color: rgba($discord-color, .14);
-                > label {
-                    color: darken($discord-color, 10);
-                }
-            }
-        }
-        &.twitter {
-            &:focus-within {
-                box-shadow: 0 0 0 3px rgba($twitter-color, .2);
-            }
-            > th, > td {
-                border-color: rgba($twitter-color, .6);
-            }
-            > th {
-                background-color: rgba($twitter-color, .14);
-                > label {
-                    color: darken($twitter-color, 10);
-                }
-            }
-        }
-        &.youtube {
-            &:focus-within {
-                box-shadow: 0 0 0 3px rgba($youtube-color, .2);
-            }
-            > th, > td {
-                border-color: rgba($youtube-color, .6);
-            }
-            > th {
-                background-color: rgba($youtube-color, .14);
-                > label {
-                    color: darken($youtube-color, 10);
-                }
-            }
-        }
-        &.twitch {
-            &:focus-within {
-                box-shadow: 0 0 0 3px rgba($twitch-color, .2);
-            }
-            > th, > td {
-                border-color: rgba($twitch-color, .6);
-            }
-            > th {
-                background-color: rgba($twitch-color, .14);
-                > label {
-                    color: darken($twitch-color, 10);
-                }
-            }
-        }
+  width: 380px;
+  max-width: 100%;
+  border-collapse: separate;
+  //padding: 0 10px;
+  tr {
+    position: relative;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: box-shadow .12s;
+    &.spacer {
+      height: 6px;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      th, td {
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      &:focus-within {
+        box-shadow: none;
+      }
     }
-    @media screen and (max-width: $sp-size) {
+    &:focus-within {
+      box-shadow: 0 0 0 3px rgba(black, .1);
+    }
+    > th {
+      background-color: #e8e8e8;
+      border-radius: 4px 0 0 4px;
+      //text-align: right;
+      border: solid 1px $profile-page-links-input-border-color;
+      border-right-width: 0;
+      height: 40px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      user-select: none;
+      > label {
         display: block;
-        width: 100%;
-        tbody {
-            display: block;
-            width: 100%;
-        }
-        tr {
-            display: block;
-            width: 100%;
-            &.spacer {
-                min-height: 6px;
-                height: auto;
-            }
-            > th {
-                border-radius: 4px 4px 0 0;
-                border-right-width: 1px;
-                border-bottom: 0;
-            }
-            > td {
-                border-radius: 0 0 4px 4px;
-                border-left-width: 1px;
-                border-top: 0;
-            }
-            //&.discord {
-            //    > th, > td {
-            //        border-left: 1px;
-            //    }
-            //}
-        }
-        th, td {
-            display: block;
-            width: 100%;
-        }
+        line-height: 40px;
+        height: 40px;
+        padding: 0 12px;
+      }
     }
+    > td {
+      border: solid 1px $profile-page-links-input-border-color;
+      border-left-width: 0;
+      border-radius: 0 4px 4px 0;
+      overflow: hidden;
+      > label {
+        display: block;
+        position: relative;
+        height: 40px;
+        background-color: #efefef;
+        .checkbox-label {
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 34px;
+          height: 40px;
+          line-height: 40px;
+        }
+        > input[type="checkbox"] {
+          margin: 0 12px;
+
+        }
+        > input {
+          padding: 0 12px;
+          height: 40px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          box-sizing: border-box;
+          &[type="text"], &[type="password"], &[type="url"] {
+            width: 100%;
+          }
+          &:disabled {
+            background-color: #e2e2e2;
+            color: #6d6d6d;
+            cursor: not-allowed;
+          }
+          &.is-invalid {
+            background-color: rgba($danger-color, .03);
+            border-color: lighten($danger-color, 10);
+            &:hover {
+              background-color: rgba($danger-color, .07);
+            }
+            &:focus {
+              background-color: rgba($danger-color, .09);
+            }
+          }
+        }
+      }
+    }
+    &.google {
+      &:focus-within {
+        box-shadow: 0 0 0 3px rgba($google-color, .2);
+      }
+      > th, > td {
+        border-color: rgba($google-color, .6);
+      }
+      > th {
+        background-color: rgba($google-color, .14);
+        > label {
+          color: darken($google-color, 10);
+        }
+      }
+    }
+    &.discord {
+      &:focus-within {
+        box-shadow: 0 0 0 3px rgba($discord-color, .2);
+      }
+      > th, > td {
+        border-color: rgba($discord-color, .6);
+      }
+      > th {
+        background-color: rgba($discord-color, .14);
+        > label {
+          color: darken($discord-color, 10);
+        }
+      }
+    }
+    &.twitter {
+      &:focus-within {
+        box-shadow: 0 0 0 3px rgba($twitter-color, .2);
+      }
+      > th, > td {
+        border-color: rgba($twitter-color, .6);
+      }
+      > th {
+        background-color: rgba($twitter-color, .14);
+        > label {
+          color: darken($twitter-color, 10);
+        }
+      }
+    }
+    &.youtube {
+      &:focus-within {
+        box-shadow: 0 0 0 3px rgba($youtube-color, .2);
+      }
+      > th, > td {
+        border-color: rgba($youtube-color, .6);
+      }
+      > th {
+        background-color: rgba($youtube-color, .14);
+        > label {
+          color: darken($youtube-color, 10);
+        }
+      }
+    }
+    &.twitch {
+      &:focus-within {
+        box-shadow: 0 0 0 3px rgba($twitch-color, .2);
+      }
+      > th, > td {
+        border-color: rgba($twitch-color, .6);
+      }
+      > th {
+        background-color: rgba($twitch-color, .14);
+        > label {
+          color: darken($twitch-color, 10);
+        }
+      }
+    }
+  }
+  @media screen and (max-width: $sp-size) {
+    display: block;
+    width: 100%;
+    tbody {
+      display: block;
+      width: 100%;
+    }
+    tr {
+      display: block;
+      width: 100%;
+      &.spacer {
+        min-height: 6px;
+        height: auto;
+      }
+      > th {
+        border-radius: 4px 4px 0 0;
+        border-right-width: 1px;
+        border-bottom: 0;
+      }
+      > td {
+        border-radius: 0 0 4px 4px;
+        border-left-width: 1px;
+        border-top: 0;
+      }
+      //&.discord {
+      //    > th, > td {
+      //        border-left: 1px;
+      //    }
+      //}
+    }
+    th, td {
+      display: block;
+      width: 100%;
+    }
+  }
 }
 
 div.input {
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 10px 0;
+  box-sizing: border-box;
+
+  > span {
     display: block;
-    position: relative;
+    margin-left: 8px;
+    margin-right: 8px;
+    padding-bottom: 2px;
+    font-size: 14px;
+  }
+
+  > .form-control {
+    display: block;
     width: 100%;
-    max-width: 400px;
-    padding: 10px 10px 0;
+    font-size: 14px;
+    background-color: #efefef;
+    border: solid 1px #bbb;
+    border-radius: 4px;
+    padding: 8px 12px;
+    line-height: 1.4;
+    min-height: 100px;
+    height: auto;
+    max-height: 500px;
+    overflow: auto;
+    resize: vertical;
     box-sizing: border-box;
+    transition: background-color .12s, border-color .12s, box-shadow .12s;
 
-    > span {
-        display: block;
-        margin-left: 8px;
-        margin-right: 8px;
-        padding-bottom: 2px;
-        font-size: 14px;
+    &:focus {
+      background-color: #ececec;
+      box-shadow: 0 0 0 3px rgba(black, .1);
     }
 
-    > .form-control {
-        display: block;
-        width: 100%;
-        font-size: 14px;
-        background-color: #efefef;
-        border: solid 1px #bbb;
-        border-radius: 4px;
-        padding: 8px 12px;
-        line-height: 1.4;
-        min-height: 100px;
-        height: auto;
-        max-height: 500px;
-        overflow: auto;
-        resize: vertical;
-        box-sizing: border-box;
-        transition: background-color .12s, border-color .12s, box-shadow .12s;
-
-        &:focus {
-            background-color: #ececec;
-            box-shadow: 0 0 0 3px rgba(black, .1);
-        }
-
-        &:disabled {
-            background-color: #ececec;
-            color: #6d6d6d;
-            cursor: not-allowed;
-        }
-
-        &::-ms-input-placeholder {
-            color: #8d8d8d;
-        }
-
-        @media screen and (max-width: $sp-size) {
-            width: 100% !important;
-        }
+    &:disabled {
+      background-color: #ececec;
+      color: #6d6d6d;
+      cursor: not-allowed;
     }
+
+    &::-ms-input-placeholder {
+      color: #8d8d8d;
+    }
+
+    @media screen and (max-width: $sp-size) {
+      width: 100% !important;
+    }
+  }
 }
 
 #kDosXcdq,
 #SoxCmdfF,
 #OdIedXcv {
-    display: none;
-    position: absolute;
-    right: 10px;
-    bottom: 0;
-    width: 38px;
-    height: 38px;
-    line-height: 38px;
-    font-size: 20px;
-    text-align: center;
-    &.shown {
-        display: block;
-    }
+  display: none;
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+  width: 38px;
+  height: 38px;
+  line-height: 38px;
+  font-size: 20px;
+  text-align: center;
+  &.shown {
+    display: block;
+  }
 }
 
 #kDosXcdq {
-    color: $green;
+  color: $green;
 }
 #SoxCmdfF {
-    color: #bfa135;
+  color: #bfa135;
 }
 
 #OdIedXcv {
-    color: #cf3b3b;
+  color: #cf3b3b;
 }
 
 .css-1uccc91-singleValue {
-    //font-size: 16px !important;
+  //font-size: 16px !important;
 }

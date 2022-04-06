@@ -1,26 +1,28 @@
+@import "../variables";
+
 .page-body {
-    display: table;
-    position: relative;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 1400px;
-    min-height: calc( 100vh - #{$header-height + 50px + 117px} );
-    .body-content {
-        display: table-cell;
-        vertical-align: top;
-    }
-    .inner-body {
-        padding: 0 8px;
-    }
+  display: table;
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1400px;
+  min-height: calc( 100vh - #{$header-height + 50px + 117px} );
+  .body-content {
+    display: table-cell;
+    vertical-align: top;
+  }
+  .inner-body {
+    padding: 0 8px;
+  }
 }
 
 body.ua-ie {
-    .page-body {
-        &.without-sidebar {
-            display: block;
-            .body-content {
-                display: block;
-            }
-        }
+  .page-body {
+    &.without-sidebar {
+      display: block;
+      .body-content {
+        display: block;
+      }
     }
+  }
 }

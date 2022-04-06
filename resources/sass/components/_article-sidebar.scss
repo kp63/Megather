@@ -1,103 +1,110 @@
+@import "../variables";
+
 .search-input-box {
-    display: block;
-    position: relative;
-    width: 100%;
-    line-height: 40px;
-    background-color: rgb(231, 231, 231);
-    border: solid 1px rgb(219, 219, 219);
-    border-radius: 4px;
-    input[type="search"] {
-        padding: 0 12px;
-        width: calc(100% - 40px);
-        font-size: 16px;
+  display: block;
+  position: relative;
+  width: 100%;
+  line-height: 40px;
+  background-color: rgb(231, 231, 231);
+  border: solid 1px rgb(219, 219, 219);
+  border-radius: 4px;
+  input[type="search"] {
+    padding: 0 12px;
+    width: calc(100% - 40px);
+    font-size: 16px;
+  }
+  [type="submit"] {
+    position: absolute;
+    right: 0;
+    width: 40px;
+    text-align: center;
+    border-left: solid 1px rgb(219, 219, 219);
+    transition: background-color 0.12s;
+    &:hover {
+      background-color: rgb(223, 223, 223);
     }
-    [type="submit"] {
-        position: absolute;
-        right: 0;
-        width: 40px;
-        text-align: center;
-        border-left: solid 1px rgb(219, 219, 219);
-        transition: background-color 0.12s;
-        &:hover {
-            background-color: rgb(223, 223, 223);
-        }
-    }
+  }
 }
 
 .search-container {
-    margin-top: .5rem;
-    padding: 12px;
-    background-color: rgb(241, 241, 241);
-    border-radius: 4px;
+  margin-top: .5rem;
+  padding: 12px;
+  background-color: rgb(241, 241, 241);
+  border-radius: 4px;
+  @media screen and (max-width: 650px) {
+    margin-top: 0;
+    margin-left: .5rem;
+    margin-right: .5rem;
+  }
 }
 
 $bottom-spacing: 10px;
 .sidemenu-list {
-    display: block;
-    margin-top: 10px;
-    padding-left: 0;
-    list-style: none;
-    li.expanded {
-        > span {
-            background-color: #3273dc !important;
-            color: whitesmoke;
-            > i.mdi {
-                transform: rotate(-180deg);
-            }
-        }
+  display: block;
+  margin-top: 10px;
+  padding-left: 0;
+  list-style: none;
+  li.expanded {
+    > span {
+      background-color: #3273dc !important;
+      color: whitesmoke;
+      > i.mdi {
+        transform: rotate(-180deg);
+      }
     }
-    li {
-        .sidemenu-button {
-            position: relative;
-            display: block;
-            padding-left: 12px;
-            padding-right: 6px;
-            margin-bottom: 4px;
-            line-height: 38px;
-            border-radius: 4px;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            cursor: pointer;
-            box-sizing: border-box;
-            transition: background-color 0.12s, color 0.12s;
-            > i.mdi {
-                position: absolute;
-                right: 8px;
-                font-size: 20px;
-                transition: transform 0.14s;
-            }
-            &:not(.sidemenu-expandable-button) {
-                width: 231px;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                overflow: hidden;
-            }
-            &:hover {
-                background-color: rgba(0, 0, 0, 0.06);
-            }
-        }
-        ul {
-            position: relative;
-            display: block;
-            padding-left: 25px;
-            list-style: none;
-            &:before {
-                content: "";
-                display: block;
-                position: absolute;
-                top: 0;
-                left: 18px;
-                bottom: $bottom-spacing;
-                width: 1px;
-                background-color: rgb(219, 219, 219);
-            }
-            li:last-child {
-                padding-bottom: $bottom-spacing;
-                label {
-                    margin: 0;
-                }
-            }
-        }
+  }
+  li {
+    .sidemenu-button {
+      position: relative;
+      display: block;
+      padding-left: 12px;
+      padding-right: 6px;
+      margin-bottom: 4px;
+      line-height: 38px;
+      border-radius: 4px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      cursor: pointer;
+      box-sizing: border-box;
+      transition: background-color 0.12s, color 0.12s;
+      > i.mdi {
+        position: absolute;
+        right: 8px;
+        font-size: 20px;
+        transition: transform 0.14s;
+      }
+      &:not(.sidemenu-expandable-button) {
+        width: 231px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.06);
+      }
     }
+    ul {
+      position: relative;
+      display: block;
+      padding-left: 25px;
+      list-style: none;
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 18px;
+        bottom: $bottom-spacing;
+        width: 1px;
+        background-color: rgb(219, 219, 219);
+      }
+      li:last-child {
+        padding-bottom: $bottom-spacing;
+        label {
+          margin: 0;
+        }
+      }
+    }
+  }
 }

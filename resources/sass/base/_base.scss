@@ -1,45 +1,41 @@
-@mixin onSp() {
-    @media screen and (min-width: $sp-size) {
-        @content;
-    }
-}
+@import "../variables";
 
 // Reset
 * {
-    margin: 0;
-    padding: 0;
-    background: none;
-    font: inherit;
-    color: inherit;
-    border: none;
-    outline: none;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+  margin: 0;
+  padding: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 // Base Design
 html {
-    height: 100%;
-    overflow: auto scroll;
-    scroll-behavior: smooth;
-    @media screen and (max-width: 299px) {
-        width: 299px;
-        overflow-x: auto;
-    }
+  height: 100%;
+  overflow: auto scroll;
+  scroll-behavior: smooth;
+  @media screen and (max-width: 299px) {
+    width: 299px;
+    overflow-x: auto;
+  }
 }
 
 body {
-    min-height: 100%;
-    background-color: $body-bg;
-    font-family: $body-font-family;
-    font-size: 16px;
-    @media screen and (max-width: $sp-size) {
-        font-size: 14px;
-    }
-    line-height: 1.4;
-    color: $body-color;
+  min-height: 100%;
+  background-color: $body-bg;
+  font-family: $body-font-family;
+  font-size: 16px;
+  @media screen and (max-width: $sp-size) {
+    font-size: 14px;
+  }
+  line-height: 1.4;
+  color: $body-color;
 }
 
 ::placeholder {
-    color: gray;
+  color: gray;
 }

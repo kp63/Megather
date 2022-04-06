@@ -1,122 +1,124 @@
+@import "../variables";
+
 .btn-container {
-    display: block;
-    font-size: 0;
+  display: block;
+  font-size: 0;
 }
 .btn {
-    display: inline-block;
-    margin-top: 6px;
-    margin-left: 6px;
-    padding: 8px 16px;
-    background-color: rgba(0, 0, 0, 0.06);
-    color: #333;
-    font-size: 16px;
-    text-decoration: none;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color .12s, box-shadow .12s;
+  display: inline-block;
+  margin-top: 6px;
+  margin-left: 6px;
+  padding: 8px 16px;
+  background-color: rgba(0, 0, 0, 0.06);
+  color: #333;
+  font-size: 16px;
+  text-decoration: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color .12s, box-shadow .12s;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+  &:focus {
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 0 3px rgba(#d5d5d5, .2);
+    outline: none;
+  }
+  &.full {
+    display: block;
+  }
+  &.mini {
+    font-size: 14px;
+    padding: 6px 14px;
+  }
+  &.btn-primary {
+    background-color: $primary-color;
+    color: whitesmoke;
     &:hover {
-        background-color: rgba(0, 0, 0, 0.12);
+      background-color: darken($primary-color, 4);
     }
     &:focus {
-        background-color: rgba(0, 0, 0, 0.2);
-        box-shadow: 0 0 0 3px rgba(#d5d5d5, .2);
-        outline: none;
+      background-color: darken($primary-color, 12);
+      box-shadow: 0 0 0 3px rgba($primary-color, .2);
+      outline: none;
     }
-    &.full {
-        display: block;
+  }
+  &.btn-danger {
+    background-color: $danger-color;
+    color: whitesmoke;
+    &:hover {
+      background-color: darken($danger-color, 4);
     }
-    &.mini {
-        font-size: 14px;
-        padding: 6px 14px;
+    &:focus {
+      background-color: darken($danger-color, 12);
+      box-shadow: 0 0 0 3px rgba($danger-color, .2);
     }
-    &.btn-primary {
-        background-color: $primary-color;
-        color: whitesmoke;
-        &:hover {
-            background-color: darken($primary-color, 4);
-        }
-        &:focus {
-            background-color: darken($primary-color, 12);
-            box-shadow: 0 0 0 3px rgba($primary-color, .2);
-            outline: none;
-        }
+  }
+  &.btn-warning {
+    background-color: $warning-color;
+    color: #333;
+    &:hover {
+      background-color: darken($warning-color, 4);
     }
-    &.btn-danger {
-        background-color: $danger-color;
-        color: whitesmoke;
-        &:hover {
-            background-color: darken($danger-color, 4);
-        }
-        &:focus {
-            background-color: darken($danger-color, 12);
-            box-shadow: 0 0 0 3px rgba($danger-color, .2);
-        }
+    &:focus {
+      background-color: darken($warning-color, 12);
+      box-shadow: 0 0 0 3px rgba($warning-color, .2);
     }
-    &.btn-warning {
-        background-color: $warning-color;
-        color: #333;
-        &:hover {
-            background-color: darken($warning-color, 4);
-        }
-        &:focus {
-            background-color: darken($warning-color, 12);
-            box-shadow: 0 0 0 3px rgba($warning-color, .2);
-        }
+  }
+  &.btn-black,
+  &.btn-dark {
+    background-color: #3b3b3b;
+    color: whitesmoke;
+    &:hover {
+      background-color: darken(#3b3b3b, 4);
     }
-    &.btn-black,
-    &.btn-dark {
-        background-color: #3b3b3b;
-        color: whitesmoke;
-        &:hover {
-            background-color: darken(#3b3b3b, 4);
-        }
-        &:focus {
-            background-color: darken(#3b3b3b, 12);
-            box-shadow: 0 0 0 3px rgba(#3b3b3b, .2);
-        }
+    &:focus {
+      background-color: darken(#3b3b3b, 12);
+      box-shadow: 0 0 0 3px rgba(#3b3b3b, .2);
     }
-    &.btn-text {
-        background-color: transparent;
-        color: #3480e4;
-        &:hover {
-            background-color: rgba($primary-color, .1)
-        }
-        &:focus {
-            background-color: rgba($primary-color, .2);
-            box-shadow: none;
-        }
+  }
+  &.btn-text {
+    background-color: transparent;
+    color: #3480e4;
+    &:hover {
+      background-color: rgba($primary-color, .1)
     }
-    &.google {
-        background-color: $google-color;
-        color: whitesmoke;
-        &:hover {
-            background-color: darken($google-color, 4);
-        }
-        &:focus {
-            background-color: darken($google-color, 12);
-            box-shadow: 0 0 0 3px rgba($google-color, .2);
-            outline: none;
-        }
+    &:focus {
+      background-color: rgba($primary-color, .2);
+      box-shadow: none;
     }
-    &.discord {
-        background-color: $discord-color;
-        color: whitesmoke;
-        &:hover {
-            background-color: darken($discord-color, 4);
-        }
-        &:focus {
-            background-color: darken($discord-color, 12);
-            box-shadow: 0 0 0 3px rgba($discord-color, .2);
-            outline: none;
-        }
+  }
+  &.google {
+    background-color: $google-color;
+    color: whitesmoke;
+    &:hover {
+      background-color: darken($google-color, 4);
     }
-    &.login-btn {
-        margin: 12px 0;
-        line-height: 33px;
-        .mdi {
-            margin-right: 8px;
-            font-size: 24px;
-            float: left;
-        }
+    &:focus {
+      background-color: darken($google-color, 12);
+      box-shadow: 0 0 0 3px rgba($google-color, .2);
+      outline: none;
     }
+  }
+  &.discord {
+    background-color: $discord-color;
+    color: whitesmoke;
+    &:hover {
+      background-color: darken($discord-color, 4);
+    }
+    &:focus {
+      background-color: darken($discord-color, 12);
+      box-shadow: 0 0 0 3px rgba($discord-color, .2);
+      outline: none;
+    }
+  }
+  &.login-btn {
+    margin: 12px 0;
+    line-height: 33px;
+    .mdi {
+      margin-right: 8px;
+      font-size: 24px;
+      float: left;
+    }
+  }
 }

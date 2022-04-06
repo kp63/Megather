@@ -1,27 +1,27 @@
 .error-message-container {
+  position: relative;
+  padding: 10px;
+  background-color: rgba(239, 107, 107, 0.2);
+  border: solid 1px #ef6b6b;
+  border-radius: 2px;
+  margin-bottom: 8px;
+  min-height: 44px;
+  > i {
+    position: absolute;
+    top: 10px;
+    left: 8px;
+    line-height: 40px;
+    font-size: 36px;
+    color: rgba(239, 107, 107, 0.5);
+  }
+  .error-messages {
     position: relative;
-    padding: 10px;
-    background-color: rgba(239, 107, 107, 0.2);
-    border: solid 1px #ef6b6b;
-    border-radius: 2px;
-    margin-bottom: 8px;
-    min-height: 44px;
-    > i {
-        position: absolute;
-        top: 10px;
-        left: 8px;
-        line-height: 40px;
-        font-size: 36px;
-        color: rgba(239, 107, 107, 0.5);
+    left: 40px;
+    width: calc(100% - 40px);
+    font-size: 14px;
+    .error-message {
+      padding-left: 1em;
+      text-indent: -1em;
     }
-    .error-messages {
-        position: relative;
-        left: 40px;
-        width: calc(100% - 40px);
-        font-size: 14px;
-        .error-message {
-            padding-left: 1em;
-            text-indent: -1em;
-        }
-    }
+  }
 }

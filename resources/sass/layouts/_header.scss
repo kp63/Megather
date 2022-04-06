@@ -1,123 +1,125 @@
+@import "../variables";
+
 .page-header {
+  display: block;
+  position: relative;
+  background-color: rgb(52, 128, 228);
+  height: $header-height;
+  overflow: hidden;
+  user-select: none;
+  .header-logo {
     display: block;
-    position: relative;
-    background-color: rgb(52, 128, 228);
-    height: $header-height;
-    overflow: hidden;
-    user-select: none;
-    .header-logo {
+    position: absolute;
+    top: 10px;
+    height: 40px;
+    line-height: 40px;
+    left: 10px;
+    color: whitesmoke;
+    font-size: 18px;
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 0 12px;
+    border-radius: 3px;
+    transition: background-color .12s;
+    &:hover {
+      background-color: rgba(255, 255, 255, .1);
+      box-shadow: none;
+    }
+    &:focus {
+      box-shadow: inset 0 0 0 2px rgba(184, 184, 184, 0.7);
+      outline: none;
+    }
+    &:active {
+      background-color: rgba(255, 255, 255, .1);
+      box-shadow: none;
+    }
+    > img {
+      display: block;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 24px;
+      pointer-events: none;
+      @media screen and (max-width: $sp-size) {
+        //width: 120px;
+        height: 16px;
+
+      }
+    }
+  }
+  .header-actions {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: $header-height - 20px;
+    white-space: nowrap;
+    font-size: 0;
+    > a, button {
+      display: block;
+      float: left;
+      color: whitesmoke;
+      padding: 0 12px;
+      font-size: 16px;
+      text-decoration: none;
+      background-color: transparent;
+      border-radius: 3px;
+      height: $header-height - 20px;
+      line-height: $header-height - 20px;
+      cursor: pointer;
+      transition: background-color .12s;
+      &:hover {
+        background-color: rgba(255, 255, 255, .1);
+        box-shadow: none;
+      }
+      &:focus {
+        box-shadow: inset 0 0 0 2px rgba(184, 184, 184, 0.7);
+        outline: none;
+      }
+      &:active {
+        background-color: rgba(255, 255, 255, .1);
+        box-shadow: none;
+      }
+      &.sp-hide {
+        @media screen and (max-width: $sp-size) {
+          display: none;
+        }
+      }
+    }
+    .avatar {
+      position: relative;
+      float: left;
+      width: $header-height - 20px;
+      height: $header-height - 20px;
+      > a, button {
         display: block;
         position: absolute;
-        top: 10px;
-        height: 40px;
-        line-height: 40px;
-        left: 10px;
-        color: whitesmoke;
-        font-size: 18px;
-        text-decoration: none;
-        white-space: nowrap;
-        padding: 0 12px;
+        width: $header-height - 20px;
+        height: $header-height - 20px;
+        padding: 0;
+      }
+      > img {
+        display: block;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: $header-height - 24px;
+        height: $header-height - 24px;
         border-radius: 3px;
-        transition: background-color .12s;
-        &:hover {
-            background-color: rgba(255, 255, 255, .1);
-            box-shadow: none;
+        pointer-events: none;
+
+        &:focus {
+          box-shadow: inset 0 0 0 2px rgba(184, 184, 184, 0.7);
+        }
+        &:hover,
+        &:active {
+          background-color: rgba(255, 255, 255, .1);
+          box-shadow: none;
         }
         &:focus {
-            box-shadow: inset 0 0 0 2px rgba(184, 184, 184, 0.7);
-            outline: none;
+          outline: none;
         }
-        &:active {
-            background-color: rgba(255, 255, 255, .1);
-            box-shadow: none;
-        }
-        > img {
-            display: block;
-            position: relative;
-            top: 50%;
-            transform: translateY(-50%);
-            height: 24px;
-            pointer-events: none;
-            @media screen and (max-width: $sp-size) {
-                //width: 120px;
-                height: 16px;
-
-            }
-        }
+      }
     }
-    .header-actions {
-        display: block;
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        height: $header-height - 20px;
-        white-space: nowrap;
-        font-size: 0;
-        > a, button {
-            display: block;
-            float: left;
-            color: whitesmoke;
-            padding: 0 12px;
-            font-size: 16px;
-            text-decoration: none;
-            background-color: transparent;
-            border-radius: 3px;
-            height: $header-height - 20px;
-            line-height: $header-height - 20px;
-            cursor: pointer;
-            transition: background-color .12s;
-            &:hover {
-                background-color: rgba(255, 255, 255, .1);
-                box-shadow: none;
-            }
-            &:focus {
-                box-shadow: inset 0 0 0 2px rgba(184, 184, 184, 0.7);
-                outline: none;
-            }
-            &:active {
-                background-color: rgba(255, 255, 255, .1);
-                box-shadow: none;
-            }
-            &.sp-hide {
-                @media screen and (max-width: $sp-size) {
-                    display: none;
-                }
-            }
-        }
-        .avatar {
-            position: relative;
-            float: left;
-            width: $header-height - 20px;
-            height: $header-height - 20px;
-            > a, button {
-                display: block;
-                position: absolute;
-                width: $header-height - 20px;
-                height: $header-height - 20px;
-                padding: 0;
-            }
-            > img {
-                display: block;
-                position: absolute;
-                top: 2px;
-                left: 2px;
-                width: $header-height - 24px;
-                height: $header-height - 24px;
-                border-radius: 3px;
-                pointer-events: none;
-
-                &:focus {
-                    box-shadow: inset 0 0 0 2px rgba(184, 184, 184, 0.7);
-                }
-                &:hover,
-                &:active {
-                    background-color: rgba(255, 255, 255, .1);
-                    box-shadow: none;
-                }
-                &:focus {
-                    outline: none;
-                }
-            }
-        }
-    }
+  }
 }

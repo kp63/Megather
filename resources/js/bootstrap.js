@@ -9,15 +9,7 @@ contextmenu.init();
  * code may be modified to fit the specific needs of your application.
  */
 
-try {
-    window.Popper = require('popper.js').default;
-    window.$ = window.jQuery = require('jquery');
-    require('select2');
-    window.sprintf = require('sprintf-js').sprintf;
-    window.vsprintf = require('sprintf-js').vsprintf;
-
-    require('bootstrap');
-} catch (e) {}
+require('bootstrap/dist/js/bootstrap.bundle');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

@@ -1,7 +1,0 @@
-deleteThisPost: '{{ __('Delete This Post') }}',
-reportThisPost: '{{ __('Report This Post') }}',
-myProfile: '{{ __('My Profile') }}',
-accountSettings: '{{ __('Account Settings') }}',
-displaySettings: '{{ __('Display Settings') }}',
-login: '{{ __('Login') }}',
-logout: '{{ __('Logout') }}',

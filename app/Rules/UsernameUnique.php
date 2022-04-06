@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -28,10 +28,7 @@ class UsernameUnique implements Rule
      */
     public function passes($attribute, $value)
     {
-        return (User::query()
-                ->whereIn('username', [$value])
-                ->whereNotIn('id', [Auth::id()])
-                ->first() === null);
+        return Auth::user()->name === $value || User::checkNameUnique($value);
     }
 
     /**

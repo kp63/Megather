@@ -1,7 +1,5 @@
 const mix = require('laravel-mix');
 
-// require('laravel-mix-polyfill');
-
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -14,16 +12,16 @@ const mix = require('laravel-mix');
  */
 
 mix
-    .js('resources/js/app.js', 'public/assets/js')
-    .react()
-    .sass('resources/sass/app.scss', 'public/assets/css')
-    .options({
-        postCss: [
-            require("css-mqpacker")
-        ]
-    })
+  .ts('resources/js/app.js', 'public/assets/js')
+  .react()
+  .sass('resources/sass/app.scss', 'public/assets/css')
+  .options({
+    postCss: [
+      require("css-mqpacker")
+    ]
+  })
+  .version()
 ;
 
-if (mix.inProduction()) {
-    mix.version();
-}
+if (!mix.inProduction())
+  mix.sourceMaps();

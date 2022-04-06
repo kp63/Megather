@@ -1,3 +1,5 @@
+@import "../variables";
+
 $border-radius: 4px;
 $default-base: rgb(206, 206, 206);
 $green-base: rgb(192, 233, 192);
@@ -6,241 +8,242 @@ $article-header-avatar-size: 40px;
 
 // Article Box
 .article {
+  position: relative;
+  display: block;
+  font-size: 16px;
+  text-align: left;
+  overflow: hidden;
+  border-radius: 4px;
+  transition: width 0.14s, opacity .14s;
+  .article-container {
     position: relative;
-    display: block;
-    font-size: 16px;
-    text-align: left;
+  }
+  &.deleted {
+    user-select: none;
+    .header-operation-button {
+      display: none;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .article-deleted-box {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 4px;
+      background-color: #e3e3e3;
+      p {
+        position: absolute;
+        top: 50%;
+        padding: 30px;
+        transform: translateY(-50%);
+        width: 100%;
+        text-align: center;
+        font-size: 14px;
+        user-select: text;
+      }
+    }
+  }
+
+  // Header
+  .article-header {
+    position: relative;
+    padding: 10px;
+    height: 60px;
+    background-color: rgb(185, 185, 185);
+    box-sizing: border-box;
     overflow: hidden;
-    border-radius: 4px;
-    transition: width 0.14s, opacity .14s;
-    .article-container {
-        position: relative;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+    // User Avatar
+    .header-userimage {
+      margin-right: 10px;
+      width: $article-header-avatar-size;
+      height: $article-header-avatar-size;
+      float: left;
+      background-color: rgb(39, 39, 39);
+      color: transparent;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(black, .2);
+      line-height: $header-height;
+      overflow: hidden;
+      user-select: none;
+      img {
+        border-radius: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
     }
-    &.deleted {
-        user-select: none;
-        .header-operation-button {
-            display: none;
-            visibility: hidden;
-            pointer-events: none;
+    a.header-userimage {
+      display: block;
+      text-decoration: none;
+      outline: none;
+      transition: box-shadow 0.12s;
+      &:hover {
+        box-shadow: 0 2px 6px rgba(black, .2), 0 0 0 3px rgba(255, 255, 255, 0.3);
+      }
+      &:focus {
+        box-shadow: 0 2px 6px rgba(black, .2), 0 0 0 3px rgba(255, 255, 255, 0.5);
+      }
+    }
+    // Username
+    .header-username {
+      line-height: 40px;
+      padding-left: 1px;
+      width: calc(100% - 90px);
+      height: 40px;
+      text-decoration: none;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      a {
+        color: #333;
+        text-decoration: none;
+      }
+    }
+    // Operation Button
+    .header-operation-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+      background-color: transparent;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background-color 0.12s;
+      > i {
+        display: block;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        pointer-events: none;
+      }
+      &:hover,
+      &:focus {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+      &:focus {
+        box-shadow: 0 0 0 1px #7f7f7f;
+      }
+      &:focus:active {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .article-body {
+    // Tags
+    .body-tags {
+      padding: 3px 6px 6px 3px;
+      background-color: rgb(212, 212, 212);
+      font-size: 0;
+      user-select: none;
+      > a {
+        display: inline-block;
+        padding: 4px 8px;
+        font-size: 14px;
+        line-height: 1.4;
+        margin-top: 4px;
+        margin-left: 4px;
+        color: #333;
+        text-decoration: none;
+        border-radius: 14px;
+        background-color: whitesmoke;
+        box-shadow: 0 1.5px 2px rgba(0, 0, 0, 0.2);
+        outline: none;
+        vertical-align: bottom;
+        transition: box-shadow 0.12s;
+        &:hover,
+        &:focus {
+          box-shadow: 0 1.5px 2px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba($blue, 0.5);
         }
-        .article-deleted-box {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #f3f3f3;
-            p {
-                position: absolute;
-                top: 50%;
-                padding: 0 6px;
-                transform: translateY(-50%);
-                width: 100%;
-                text-align: center;
-                font-size: 14px;
-                user-select: text;
-            }
-        }
+      }
     }
 
-    // Header
-    .article-header {
-        position: relative;
-        padding: 10px;
-        height: 60px;
-        background-color: rgb(185, 185, 185);
-        box-sizing: border-box;
-        overflow: hidden;
-        border-top-left-radius: $border-radius;
-        border-top-right-radius: $border-radius;
-        // User Avatar
-        .header-userimage {
-            margin-right: 10px;
-            width: $article-header-avatar-size;
-            height: $article-header-avatar-size;
-            float: left;
-            background-color: rgb(39, 39, 39);
-            color: transparent;
-            border-radius: 6px;
-            box-shadow: 0 2px 6px rgba(black, .2);
-            line-height: $header-height;
-            overflow: hidden;
-            user-select: none;
-            img {
-                border-radius: 0;
-                width: 100%;
-                height: 100%;
-                pointer-events: none;
-            }
-        }
-        a.header-userimage {
-            display: block;
-            text-decoration: none;
-            outline: none;
-            transition: box-shadow 0.12s;
-            &:hover {
-                box-shadow: 0 2px 6px rgba(black, .2), 0 0 0 3px rgba(255, 255, 255, 0.3);
-            }
-            &:focus {
-                box-shadow: 0 2px 6px rgba(black, .2), 0 0 0 3px rgba(255, 255, 255, 0.5);
-            }
-        }
-        // Username
-        .header-username {
-            line-height: 40px;
-            padding-left: 1px;
-            width: calc(100% - 90px);
-            height: 40px;
-            text-decoration: none;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            a {
-                color: #333;
-                text-decoration: none;
-            }
-        }
-        // Operation Button
-        .header-operation-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 40px;
-            height: 40px;
-            font-size: 20px;
-            background-color: transparent;
-            border-radius: 100px;
-            cursor: pointer;
-            transition: background-color 0.12s;
-            > i {
-                display: block;
-                width: 40px;
-                height: 40px;
-                line-height: 40px;
-                pointer-events: none;
-            }
-            &:hover,
-            &:focus {
-                background-color: rgba(0, 0, 0, 0.1);
-            }
-            &:focus {
-                box-shadow: 0 0 0 1px #7f7f7f;
-            }
-            &:focus:active {
-                box-shadow: none;
-            }
-        }
+    // Content
+    .body-content {
+      display: block;
+      position: relative;
+      background-color: rgb(226, 226, 226);
+      min-height: 100px;
+      padding: 10px;
+      p {
+        width: 100%;
+        max-width: 100%;
+        white-space: normal;
+        word-break: break-all;
+        overflow-wrap: break-word;
+        text-overflow: ellipsis;
+        //overflow: hidden;
+      }
     }
+  }
 
-    .article-body {
-        // Tags
-        .body-tags {
-            padding: 3px 6px 6px 3px;
-            background-color: rgb(212, 212, 212);
-            font-size: 0;
-            user-select: none;
-            > a {
-                display: inline-block;
-                padding: 4px 8px;
-                font-size: 14px;
-                line-height: 1.4;
-                margin-top: 4px;
-                margin-left: 4px;
-                color: #333;
-                text-decoration: none;
-                border-radius: 14px;
-                background-color: whitesmoke;
-                box-shadow: 0 1.5px 2px rgba(0, 0, 0, 0.2);
-                outline: none;
-                vertical-align: bottom;
-                transition: box-shadow 0.12s;
-                &:hover,
-                &:focus {
-                    box-shadow: 0 1.5px 2px rgba(0, 0, 0, 0.2), 0 0 0 2px rgba($blue, 0.5);
-                }
-            }
-        }
-
-        // Content
-        .body-content {
-            display: block;
-            position: relative;
-            background-color: rgb(226, 226, 226);
-            min-height: 100px;
-            padding: 10px;
-            p {
-                width: 100%;
-                max-width: 100%;
-                white-space: normal;
-                word-break: break-all;
-                overflow-wrap: break-word;
-                text-overflow: ellipsis;
-                //overflow: hidden;
-            }
-        }
+  .article-footer {
+    position: relative;
+    background-color: rgb(226, 226, 226);
+    height: 24px;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    .article-postdate {
+      position: absolute;
+      bottom: 0;
+      right: 16px;
+      text-align: right;
+      font-size: 12px;
+      color: #a0a0a0;
+      line-height: 24px;
+      user-select: none;
     }
-
-    .article-footer {
-        position: relative;
-        background-color: rgb(226, 226, 226);
-        height: 24px;
-        border-bottom-left-radius: $border-radius;
-        border-bottom-right-radius: $border-radius;
-        .article-postdate {
-            position: absolute;
-            bottom: 0;
-            right: 16px;
-            text-align: right;
-            font-size: 12px;
-            color: #a0a0a0;
-            line-height: 24px;
-            user-select: none;
-        }
-    }
+  }
 }
 
 // Color variables
 .article {
+  .article-header {
+    background-color: darken($default-base, 2);
+  }
+  .article-tags {
+    background-color: lighten($default-base, 2);
+  }
+  .article-content {
+    background-color: lighten($default-base, 8);
+  }
+  &.type-green {
     .article-header {
-        background-color: darken($default-base, 2);
+      background-color: darken($green-base, 2);
     }
     .article-tags {
-        background-color: lighten($default-base, 2);
+      background-color: lighten($green-base, 2);
     }
     .article-content {
-        background-color: lighten($default-base, 8);
+      background-color: lighten($green-base, 8);
     }
-    &.type-green {
-        .article-header {
-            background-color: darken($green-base, 2);
-        }
-        .article-tags {
-            background-color: lighten($green-base, 2);
-        }
-        .article-content {
-            background-color: lighten($green-base, 8);
-        }
+  }
+  &.type-danger {
+    .article-header {
+      background-color: darken($danger-base, 2);
     }
-    &.type-danger {
-        .article-header {
-            background-color: darken($danger-base, 2);
-        }
-        .article-tags {
-            background-color: lighten($danger-base, 2);
-        }
-        .article-content {
-            background-color: lighten($danger-base, 8);
-        }
+    .article-tags {
+      background-color: lighten($danger-base, 2);
     }
-    &.type-danger {
-        .article-header {
-            background-color: darken($danger-base, 2);
-        }
-        .article-tags {
-            background-color: lighten($danger-base, 2);
-        }
-        .article-content {
-            background-color: lighten($danger-base, 8);
-        }
+    .article-content {
+      background-color: lighten($danger-base, 8);
     }
+  }
+  &.type-danger {
+    .article-header {
+      background-color: darken($danger-base, 2);
+    }
+    .article-tags {
+      background-color: lighten($danger-base, 2);
+    }
+    .article-content {
+      background-color: lighten($danger-base, 8);
+    }
+  }
 }

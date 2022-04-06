@@ -1,0 +1,19 @@
+{
+    "include": [
+        "./resources/js/**/*",
+    ],
+    "compilerOptions": {
+        "lib": ["esnext", "dom"],
+        "target": "es2015",
+        "module": "commonjs",
+        "jsx": "preserve",
+        "strict": true,
+        "baseUrl": ".",
+        "typeRoots": [
+            "./resources/js/@types"
+        ],
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}
